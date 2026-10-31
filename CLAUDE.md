@@ -47,11 +47,28 @@ Entrega: **13/11/2026** · ZIP `VV-Q2-2026-TN-GrupoE-ATALAYA.zip`.
 - Sin Lombok. Usar `record` para DTOs.
 
 - Maven Wrapper (`mvnw`) versionado en el repo: nadie necesita Maven instalado.
+- El Makefile corre todo con un JDK 21 aunque el `java` por defecto sea otro (hay integrantes con Java
+  26 por defecto): `scripts/java21.sh` lo busca y se exportan `JAVA_HOME` y `PATH`. Con `./mvnw`
+  directo, exportar antes `JAVA_HOME="$(scripts/java21.sh)"`.
 
-Comandos:
+Comandos (preferir el Makefile: muestra un árbol ✔/✘ con los `@DisplayName` y un resumen; `make` sin
+argumentos lista todo):
+```
+make todo | unitarias | api | integracion | bdd | ui | ui-chrome   # por tipo de prueba
+make clase T=ServicioEscalamientoTest                             # una clase o patrón
+make pit | cobertura                                              # resumen de PIT / JaCoCo con umbrales
+make app | postman | reportes | limpiar
+make instalar | instalar-chrome                                   # primera vez: dependencias, newman, Chrome
+```
+El resumen lo imprime `src/test/java/.../consola/ResumenConsola` (listener de JUnit Platform, solo con
+`-Dconsola=true`); los resúmenes de PIT y JaCoCo, `scripts/*.sh` (bash + awk). Logs de tests en WARN
+(`logback-test.xml`). Si se agrega un test nuevo en otro paquete, sumarlo al patrón del objetivo que
+corresponda en el Makefile.
+
+Maven directo:
 ```
 ./mvnw verify                                          # todo: unitarias, integración, MockMvc, Cucumber, Selenium (HtmlUnit) + JaCoCo
-./mvnw org.pitest:pitest-maven:mutationCoverage        # PIT sobre el paquete dominio
+./mvnw test-compile org.pitest:pitest-maven:mutationCoverage   # PIT sobre dominio (sin test-compile usa tests viejos)
 ./mvnw spring-boot:run -Dspring-boot.run.profiles=qa   # para Postman y demo manual
 ```
 Reportes: `target/site/jacoco/`, `target/pit-reports/`, `target/cucumber-reports/`. Para la entrega se
@@ -63,7 +80,7 @@ copian a `reportes/` dentro del ZIP (no se versionan).
 pom.xml
 src/main/java/ar/unsam/vv/atalaya/
   dominio/        lógica pura, SIN Spring: ValidadorRango, ValidadorRedundancia, ClasificadorNivel,
-                  ServicioEscalamiento, PoliticaRepeticion, ReglaManiobra, ValidadorUmbrales, enums y records
+                  ServicioEscalamiento, PoliticaRepeticion, ReglaManiobra, ValidadorUmbrales, enums (Rol incluido) y records
   aplicacion/     servicios @Service que orquestan dominio + repositorios
   persistencia/   entidades JPA y repositorios
   web/api/        controladores REST + manejo de errores
@@ -95,6 +112,13 @@ modo degradado (RF-10), integraciones con registro de turno y mantenimiento y au
 modelo de IA real, desempeño, disponibilidad, red segregada.
 
 Las estimaciones del modelo **no se calculan**: se inyectan por un endpoint del perfil qa.
+
+## Base de datos
+
+H2 embebida con `spring.datasource.generate-unique-name: true`: cada contexto de Spring tiene su base. No
+fijar una URL `jdbc:h2:mem:<nombre>`: los tests levantan contextos qa y prod en la misma JVM y, con la
+base compartida, el tick de prod (reloj real) escala las alertas de qa (creadas en T0). Pasó el 31/10 y
+dio un test que a veces fallaba (CP-18).
 
 ## Tiempo
 
@@ -142,6 +166,20 @@ caso de 2,00 % (CP-08) falla. Es un defecto real y esperable: si aparece, se rep
 Recuperación (A3): un canal `NO_CONFIABLE` vuelve a `CONFIABLE` después de **3 lecturas consecutivas**
 que cumplen las reglas 1 a 3. Cualquier lectura que no las cumple reinicia el contador.
 
+Decisiones de implementación (31/10, revisarlas con el equipo; si se aceptan, sumarlas a la sección 5
+del informe):
+- Regla 1 mide la última lectura **recibida** del canal (aceptada o descartada por rango), no solo la
+  aceptada. Si no, un canal que envía 351 °C sería SIN_ACTUALIZACION y no FUERA_DE_RANGO (CP-10).
+  Las DUPLICADA y FUERA_DE_ORDEN no cuentan como actualización. Canal que nunca envió nada → SIN_ACTUALIZACION.
+- Clasificación de una lectura en este orden: DUPLICADA → FUERA_DE_ORDEN → DESCARTADA_RANGO → ACEPTADA.
+  Una lectura vieja no marca el canal aunque esté fuera de rango.
+- Un canal que vuelve a enviar después de más de 10 s queda marcado SIN_ACTUALIZACION y necesita las
+  3 lecturas de A3 para recuperarse. En CP-11, A tiene que seguir enviando durante los 11 s.
+- En la consulta, el motivo que falla ahora tiene prioridad sobre el motivo con que quedó marcado.
+- Valor consolidado con 2 decimales (HALF_UP). Mediana de 2 valores = su promedio.
+- `GET /magnitudes/{magnitud}` acepta el nombre sin distinguir mayúsculas; inexistente → 404. La
+  planilla (CP-06) dice `/magnitudes/temperatura`: corregir a `TEMPERATURA_PRIMARIO`.
+
 Magnitud: utilizable si tiene **2 o más** canales confiables. Valor consolidado = promedio de los
 confiables. Avisos: `CANAL_EXCLUIDO:<canal>` por cada canal no confiable, y `MAGNITUD_NO_DISPONIBLE`
 si hay menos de 2 canales confiables.
@@ -179,8 +217,10 @@ Repetición, para el mismo `tipo`:
 - Mismo nivel dentro de los **180 s** desde la última emisión → no se emite (a 179 s no; a 180 s sí).
 - Nivel mayor que la última alerta de ese tipo → se emite siempre (A4: "empeorar" es subir de nivel).
 - Mismo nivel con probabilidad mayor → no se emite.
+- Nivel **menor** dentro de los 180 s → no se emite (decisión del 31/10: no empeora; sumar a la sección 5).
 
-Escalamiento de alertas no reconocidas (se evalúa con el clock en cada tick y cada vez que se avanza el reloj de QA):
+Escalamiento de alertas no reconocidas (se evalúa con el clock en cada tick y cada vez que se avanza el reloj de QA).
+El tick (`TickEscalamiento`, cada 1 s) corre solo fuera del perfil qa; en qa el escalamiento se evalúa en `POST /qa/reloj`:
 - CRITICO: a los **≥ 45 s** pasa a `ESCALADA` y suma `SUPERVISOR_SO` a los destinatarios. Una sola vez.
 - ALTO: a los **≥ 90 s** pasa a `ESCALADA` y suma `JEFE_TURNO`. Una sola vez.
 
@@ -206,6 +246,14 @@ Reconocimiento:
   alertar normalmente (a 29:59 se agrupa; a 30:00 no).
 - `DELETE` la pasa a `FINALIZADA`.
 
+Decisiones de implementación de RF-09 (31/10, sumar a la sección 5 del informe):
+- Hay como mucho **una** maniobra ACTIVA; declarar otra → 409 `MANIOBRA_ACTIVA`. `DELETE` de una
+  maniobra que no está ACTIVA → 409 `MANIOBRA_NO_ACTIVA`.
+- La alerta INFORMATIVA es una `Alerta` con `clase = INFORMATIVA`, sin tipo ni nivel, visual, sin
+  destinatarios ni reconocimiento, con `maniobraId` y contador `agrupadas`. Una por maniobra, agrupa
+  estimaciones de cualquier tipo. No escala.
+- La expiración se evalúa en el tick, en `POST /qa/reloj` y antes de usar la maniobra activa.
+
 ### RF-12 · Umbrales
 
 - Solo SUPERVISOR_SO puede solicitar un cambio. Rangos válidos, inclusivos: alto entre 30 y 50,
@@ -213,6 +261,11 @@ Reconocimiento:
 - La solicitud queda `PENDIENTE` y no cambia nada hasta que la aprueba un **JEFE_TURNO** (otro rol y otro usuario).
 - Con la aprobación queda `APLICADA` y los umbrales vigentes cambian.
 - Otros roles → 403. Si aprueba el mismo usuario que la solicitó → 409.
+- Hallazgo: con un rol por usuario, "aprueba el mismo usuario" nunca llega al 409 por la API: el
+  supervisor que solicita recibe 403 por rol antes. El 409 se prueba llamando al servicio (CP-33).
+- Hallazgo: la regla "alto menor que crítico" es inalcanzable (alto ≤ 50 < 65 ≤ crítico). Queda en el
+  código porque está en el requerimiento; sus mutantes son equivalentes (docs/pit-analisis.md).
+- `PUT /config/umbrales` válido → 201 con la solicitud PENDIENTE.
 
 ### Seguridad y roles
 
@@ -230,6 +283,12 @@ API con HTTP Basic y panel con form login. Usuarios en memoria (las contraseñas
 | Aprobar umbral | No | No | Sí | No | No |
 
 Sin credenciales → 401. Con un rol no permitido → 403.
+
+Lo que no figura en la matriz se niega (`denyAll`); `GET /version` lo puede usar cualquier autenticado.
+La API escribe 401 y 403 como JSON `{codigo, mensaje, campo}` **sin `sendError`**: con `sendError` el
+servidor reenvía a `/error`, lo atiende la cadena del panel y la API respondía 302 al login. MockMvc no
+hace ese reenvío; el defecto apareció al probar contra el servidor real (regresión en
+`SeguridadServidorRealTest`). Cargarlo en Jira como hallazgo.
 
 Excepción: `/api/v1/qa/**` es `permitAll`. Solo existe con el perfil qa, y así con prod responde 404
 y no 401 (CP-36). CP-34 no aplica a esos endpoints.
@@ -262,6 +321,11 @@ Página `/panel` con Thymeleaf. Sin JavaScript complejo.
   (reconocer en 2 interacciones o menos).
 - Bloque con el estado de canales de cada magnitud y sus avisos.
 - Todos los elementos que se usen en tests llevan `data-test="..."`.
+- Modo pausa (`make ui-demo`, `-Dpausa=true`, solo Chrome con ventana): al terminar cada prueba el
+  navegador queda abierto con una franja verde/roja y el SISTEMA sigue levantado; cerrar la ventana
+  continúa. La espera es un `FluentWait` sobre las ventanas abiertas (sin `Thread.sleep`), tope 10 min.
+- Login propio en `/login` (con `data-test`). Botón **Actualizar** en vez de meta refresh: HtmlUnit
+  sigue los meta refresh y puede quedar en bucle.
 - Recarga simple (meta refresh cada 5 s o botón Actualizar). En los tests se espera por condición
   (WebDriverWait), nunca con sleep.
 
@@ -345,7 +409,8 @@ Esperado: escala o no según el plazo, estado final RECONOCIDA o ESCALADA, y avi
 Cada escenario lleva un comentario con el ID del caso.
 
 Reporte: en `src/test/resources/junit-platform.properties`,
-`cucumber.plugin=pretty, html:target/cucumber-reports/cucumber.html, json:target/cucumber-reports/cucumber.json`.
+`cucumber.plugin=html:target/cucumber-reports/cucumber.html, json:target/cucumber-reports/cucumber.json`
+(sin `pretty`: el resumen de consola ya muestra cada escenario).
 
 ## TDD (con evidencia)
 
@@ -366,7 +431,9 @@ En el `pom.xml`: `targetClasses` = `ar.unsam.vv.atalaya.dominio.*` y `targetTest
 Mutadores: `DEFAULTS` + `INLINE_CONSTS`. Los mutadores por defecto no cambian constantes; sin
 `INLINE_CONSTS` no aparecen los mutantes "45 s pasa a 46 s" ni "30 % pasa a 29 %" del informe (10.2).
 Para que `INLINE_CONSTS` los alcance, los límites van como literales numéricos (`45`, `BigDecimal.valueOf(30)`),
-no como `String` (`new BigDecimal("30")`). Los mutantes
+no como `String` (`new BigDecimal("30")`), y **nunca en `static final`** (PIT no muta inicializadores
+estáticos). Usar campos de instancia (`private final Duration plazo = Duration.ofSeconds(45)`) o el literal
+en el lugar; un `private final int x = 3` tampoco sirve porque javac lo inlinea. Los mutantes
 sobrevivientes se analizan: si falta un caso se agrega; si el mutante es equivalente se documenta en
 `docs/pit-analisis.md`.
 
@@ -377,6 +444,14 @@ marcado con Postman. Cada request lleva un pre-request que llama a `/qa/reset` c
 necesita y tests `pm.test` sobre el código HTTP y el cuerpo. El entorno `qa.postman_environment.json`
 tiene `baseUrl` y usuario y contraseña por rol, y `alertaId` y `solicitudId` se cargan desde respuestas.
 Las capturas de ejecución manual van a `docs/evidencias/postman/`.
+
+Ejecución: `make postman` (scripts/postman.sh) con newman local (`package.json`, versión fija en
+`package-lock.json`, se instala con `make instalar`). Si la app no está en el 8080 la levanta con el
+perfil qa y la apaga al final. Primera corrida (31/10): 97 requests, 156 aserciones, 0 fallos.
+Node/npm se usan solo para newman: nada del SISTEMA ni de las pruebas depende de Node.
+
+Generador: `postman/generar_coleccion.py` (regenerar en vez de editar el JSON a mano). El caso CP-27
+repite la inyección ×10 con `postman.setNextRequest`: correrlo con el Collection Runner o `newman`.
 
 ## Defectos
 

@@ -1,0 +1,11 @@
+{
+  "name": "atalaya-postman",
+  "private": true,
+  "description": "Solo para correr la colección de Postman con newman (make postman). El SISTEMA y las pruebas son Java/Maven.",
+  "devDependencies": {
+    "newman": "6.2.3"
+  },
+  "scripts": {
+    "postman": "newman run postman/ATALAYA.postman_collection.json -e postman/qa.postman_environment.json"
+  }
+}

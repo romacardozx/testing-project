@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Logs de los tests en WARN: que no tapen el resumen. Se apagan los errores que los tests provocan
+     a propósito (mensajes inválidos, conflictos de reconocimiento en CP-25). -->
+<configuration>
+    <appender name="CONSOLA" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <logger name="org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver" level="ERROR"/>
+    <logger name="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver" level="ERROR"/>
+    <logger name="org.hibernate.engine.jdbc.spi.SqlExceptionHelper" level="OFF"/>
+    <logger name="org.hibernate.orm.deprecation" level="OFF"/>
+    <logger name="org.springframework.orm.jpa.JpaBaseConfiguration" level="ERROR"/>
+    <logger name="org.springframework.boot.autoconfigure.thymeleaf" level="ERROR"/>
+    <logger name="org.htmlunit" level="ERROR"/>
+    <root level="WARN">
+        <appender-ref ref="CONSOLA"/>
+    </root>
+</configuration>

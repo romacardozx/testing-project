@@ -3,14 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <title>ATALAYA · Panel</title>
+    <style>
+        body { font-family: sans-serif; margin: 1.5rem; }
+        table { border-collapse: collapse; margin-bottom: 1rem; }
+        th, td { border: 1px solid #999; padding: .3rem .6rem; text-align: left; }
+        .CRITICO { background: #f8d0d0; } .ALTO { background: #fbe5c8; } .ATENCION { background: #fdf6c8; }
+        .NO_CONFIABLE { color: #a00; font-weight: bold; }
+    </style>
 </head>
 <body>
-<h1 data-test="titulo">ATALAYA 3.1.0</h1>
+<header>
+    <h1 data-test="titulo">ATALAYA 3.1.0</h1>
+    <span>Usuario: <strong data-test="usuario" th:text="${usuario}">operador</strong></span>
+    <form th:action="@{/panel}" method="get" style="display:inline">
+        <button type="submit" data-test="actualizar">Actualizar</button>
+    </form>
+    <form th:action="@{/logout}" method="post" style="display:inline">
+        <button type="submit" data-test="salir">Salir</button>
+    </form>
+</header>
+
+<p data-test="mensaje" th:if="${param.reconocida}">Alerta reconocida.</p>
+<p data-test="mensaje-error" th:if="${param.yaReconocida}">La alerta ya había sido reconocida.</p>
+
 <section data-test="alertas">
     <h2>Alertas activas</h2>
+    <p data-test="sin-alertas" th:if="${#lists.isEmpty(alertas)}">No hay alertas activas.</p>
+    <table th:unless="${#lists.isEmpty(alertas)}" data-test="tabla-alertas">
+        <tr><th>Clase</th><th>Tipo</th><th>Nivel</th><th>Estado</th><th>Destinatarios</th><th></th></tr>
+        <tr th:each="a : ${alertas}" th:data-test="${'alerta-' + a.id}" th:class="${a.nivel}">
+            <td data-test="clase" th:text="${a.clase}">RIESGO</td>
+            <td data-test="tipo" th:text="${a.tipo}">PROCESO</td>
+            <td data-test="nivel" th:text="${a.nivel}">ALTO</td>
+            <td data-test="estado" th:text="${a.estado}">EMITIDA</td>
+            <td data-test="destinatarios" th:text="${#strings.listJoin(a.destinatarios, ', ')}">OPERADOR_REACTOR</td>
+            <td>
+                <form th:if="${puedeReconocer and a.requiereReconocimiento}"
+                      th:action="@{/panel/alertas/{id}/reconocer(id=${a.id})}" method="post">
+                    <button type="submit" data-test="reconocer">Reconocer</button>
+                </form>
+            </td>
+        </tr>
+    </table>
 </section>
+
+<section data-test="estimaciones">
+    <h2>Estimación vigente</h2>
+    <p data-test="sin-estimaciones" th:if="${#lists.isEmpty(estimaciones)}">Sin estimaciones.</p>
+    <table th:unless="${#lists.isEmpty(estimaciones)}">
+        <tr><th>Tipo</th><th>Probabilidad (%)</th><th>Nivel</th></tr>
+        <tr th:each="e : ${estimaciones}" th:data-test="${'estimacion-' + e.tipo}">
+            <td th:text="${e.tipo}">PROCESO</td>
+            <td data-test="probabilidad" th:text="${e.probabilidad.stripTrailingZeros().toPlainString()}">50</td>
+            <td data-test="nivel" th:text="${e.nivel}">ALTO</td>
+        </tr>
+    </table>
+</section>
+
 <section data-test="canales">
     <h2>Estado de canales</h2>
+    <div th:each="m : ${magnitudes}" th:data-test="${'magnitud-' + m.magnitud}">
+        <h3 th:text="${m.magnitud}">TEMPERATURA_PRIMARIO</h3>
+        <span th:each="c : ${m.canales}" th:data-test="${'canal-' + c.canal}" th:class="${c.estado}"
+              th:text="${c.canal + ': ' + c.estado + (c.motivo != null ? ' (' + c.motivo + ')' : '')}">A: CONFIABLE</span>
+        <ul>
+            <li th:each="aviso : ${m.avisos}" data-test="aviso" th:text="${aviso}">CANAL_EXCLUIDO:C</li>
+        </ul>
+    </div>
 </section>
 </body>
 </html>

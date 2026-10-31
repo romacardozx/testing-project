@@ -1,5 +1,7 @@
 package ar.unsam.vv.atalaya.config;
 
+import ar.unsam.vv.atalaya.dominio.Rol;
+
 import java.util.List;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

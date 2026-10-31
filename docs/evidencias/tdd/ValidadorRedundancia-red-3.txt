@@ -1,0 +1,123 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------------< ar.unsam.vv:atalaya >-------------------------
+[INFO] Building ATALAYA 3.1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.12:prepare-agent (prepare-agent) @ atalaya ---
+[INFO] argLine set to -javaagent:/home/roman/.m2/repository/org/jacoco/org.jacoco.agent/0.8.12/org.jacoco.agent-0.8.12-runtime.jar=destfile=/home/roman/Escritorio/testing-project/target/jacoco.exec
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ atalaya ---
+[INFO] Copying 3 resources from src/main/resources to target/classes
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ atalaya ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 22 source files with javac [debug parameters release 21] to target/classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ atalaya ---
+[INFO] Copying 3 resources from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ atalaya ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 5 source files with javac [debug parameters release 21] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.2.5:test (default-test) @ atalaya ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running ar.unsam.vv.atalaya.dominio.ValidadorRedundanciaTest
+[INFO] Running ar.unsam.vv.atalaya.dominio.ValidadorRedundanciaTest$Consolidacion
+[ERROR] Tests run: 6, Failures: 0, Errors: 6, Skipped: 0, Time elapsed: 0.027 s <<< FAILURE! -- in ar.unsam.vv.atalaya.dominio.ValidadorRedundanciaTest$Consolidacion
+[ERROR] ar.unsam.vv.atalaya.dominio.ValidadorRedundanciaTest$Consolidacion.menosDeDosConfiables -- Time elapsed: 0.009 s <<< ERROR!
+java.lang.UnsupportedOperationException: Sin implementar
+	at ar.unsam.vv.atalaya.dominio.ValidadorRedundancia.consolidar(ValidadorRedundancia.java:64)
+	at ar.unsam.vv.atalaya.dominio.ValidadorRedundanciaTest$Consolidacion.menosDeDosConfiables(ValidadorRedundanciaTest.java:224)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[ERROR] ar.unsam.vv.atalaya.dominio.ValidadorRedundanciaTest$Consolidacion.dosConfiablesAlcanzan -- Time elapsed: 0.001 s <<< ERROR!
+java.lang.UnsupportedOperationException: Sin implementar
+	at ar.unsam.vv.atalaya.dominio.ValidadorRedundancia.consolidar(ValidadorRedundancia.java:64)
+	at ar.unsam.vv.atalaya.dominio.ValidadorRedundanciaTest$Consolidacion.dosConfiablesAlcanzan(ValidadorRedundanciaTest.java:237)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[ERROR] ar.unsam.vv.atalaya.dominio.ValidadorRedundanciaTest$Consolidacion.excluyeAlCanalQueDiscrepa -- Time elapsed: 0.001 s <<< ERROR!
+java.lang.UnsupportedOperationException: Sin implementar
+	at ar.unsam.vv.atalaya.dominio.ValidadorRedundancia.consolidar(ValidadorRedundancia.java:64)
+	at ar.unsam.vv.atalaya.dominio.ValidadorRedundanciaTest$Consolidacion.excluyeAlCanalQueDiscrepa(ValidadorRedundanciaTest.java:206)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[ERROR] ar.unsam.vv.atalaya.dominio.ValidadorRedundanciaTest$Consolidacion.motivoActualPrimeroQueElMarcado -- Time elapsed: 0.002 s <<< ERROR!
+java.lang.UnsupportedOperationException: Sin implementar
+	at ar.unsam.vv.atalaya.dominio.ValidadorRedundancia.consolidar(ValidadorRedundancia.java:64)
+	at ar.unsam.vv.atalaya.dominio.ValidadorRedundanciaTest$Consolidacion.motivoActualPrimeroQueElMarcado(ValidadorRedundanciaTest.java:267)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[ERROR] ar.unsam.vv.atalaya.dominio.ValidadorRedundanciaTest$Consolidacion.tresConfiables -- Time elapsed: 0.001 s <<< ERROR!
+java.lang.UnsupportedOperationException: Sin implementar
+	at ar.unsam.vv.atalaya.dominio.ValidadorRedundancia.consolidar(ValidadorRedundancia.java:64)
+	at ar.unsam.vv.atalaya.dominio.ValidadorRedundanciaTest$Consolidacion.tresConfiables(ValidadorRedundanciaTest.java:192)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[ERROR] ar.unsam.vv.atalaya.dominio.ValidadorRedundanciaTest$Consolidacion.canalMarcadoSinRecuperar -- Time elapsed: 0.001 s <<< ERROR!
+java.lang.UnsupportedOperationException: Sin implementar
+	at ar.unsam.vv.atalaya.dominio.ValidadorRedundancia.consolidar(ValidadorRedundancia.java:64)
+	at ar.unsam.vv.atalaya.dominio.ValidadorRedundanciaTest$Consolidacion.canalMarcadoSinRecuperar(ValidadorRedundanciaTest.java:250)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[INFO] Running ar.unsam.vv.atalaya.dominio.ValidadorRedundanciaTest$Recuperacion
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.053 s -- in ar.unsam.vv.atalaya.dominio.ValidadorRedundanciaTest$Recuperacion
+[INFO] Running ar.unsam.vv.atalaya.dominio.ValidadorRedundanciaTest$Reglas
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.008 s -- in ar.unsam.vv.atalaya.dominio.ValidadorRedundanciaTest$Reglas
+[INFO] Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.097 s -- in ar.unsam.vv.atalaya.dominio.ValidadorRedundanciaTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Errors: 
+[ERROR]   ValidadorRedundanciaTest$Consolidacion.canalMarcadoSinRecuperar:250 » UnsupportedOperation Sin implementar
+[ERROR]   ValidadorRedundanciaTest$Consolidacion.dosConfiablesAlcanzan:237 » UnsupportedOperation Sin implementar
+[ERROR]   ValidadorRedundanciaTest$Consolidacion.excluyeAlCanalQueDiscrepa:206 » UnsupportedOperation Sin implementar
+[ERROR]   ValidadorRedundanciaTest$Consolidacion.menosDeDosConfiables:224 » UnsupportedOperation Sin implementar
+[ERROR]   ValidadorRedundanciaTest$Consolidacion.motivoActualPrimeroQueElMarcado:267 » UnsupportedOperation Sin implementar
+[ERROR]   ValidadorRedundanciaTest$Consolidacion.tresConfiables:192 » UnsupportedOperation Sin implementar
+[INFO] 
+[ERROR] Tests run: 19, Failures: 0, Errors: 6, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.776 s
+[INFO] Finished at: 2026-10-31T11:58:15-03:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.2.5:test (default-test) on project atalaya: 
+[ERROR] 
+[ERROR] Please refer to /home/roman/Escritorio/testing-project/target/surefire-reports for the individual test results.
+[ERROR] Please refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

@@ -1,0 +1,4223 @@
+{
+  "info": {
+    "_postman_id": "6f07886a-7ba1-58bc-8978-cb188fa72e19",
+    "name": "ATALAYA 3.1.0 · Grupo E",
+    "description": "Casos de la planilla marcados con Postman. Requiere el SISTEMA con el perfil qa (./mvnw spring-boot:run -Dspring-boot.run.profiles=qa) y el entorno qa. Cada caso arranca con /qa/reset (precondición Base). Correr cada carpeta en orden.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "RF-01/02 · Lecturas",
+      "item": [
+        {
+          "name": "CP-01 · Límites de temperatura del primario",
+          "item": [
+            {
+              "name": "19,9 °C → DESCARTADA_RANGO",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Precondición Base: H2 limpia y reloj en T0",
+                      "pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/v1/qa/reset', method: 'POST' },",
+                      "    function (err) { if (err) { throw err; } });"
+                    ]
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".estado = DESCARTADA_RANGO\", function () { pm.expect(pm.response.json().estado).to.eql(\"DESCARTADA_RANGO\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_adquisicion}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_adquisicion}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/lecturas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "lecturas"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"magnitud\": \"TEMPERATURA_PRIMARIO\", \"canal\": \"A\", \"valor\": 19.9, \"secuencia\": 1, \"timestampOrigen\": \"2026-01-01T00:00:00Z\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "20 °C → ACEPTADA",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".estado = ACEPTADA\", function () { pm.expect(pm.response.json().estado).to.eql(\"ACEPTADA\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_adquisicion}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_adquisicion}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/lecturas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "lecturas"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"magnitud\": \"TEMPERATURA_PRIMARIO\", \"canal\": \"A\", \"valor\": 20, \"secuencia\": 2, \"timestampOrigen\": \"2026-01-01T00:00:00Z\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "350 °C → ACEPTADA",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".estado = ACEPTADA\", function () { pm.expect(pm.response.json().estado).to.eql(\"ACEPTADA\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_adquisicion}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_adquisicion}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/lecturas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "lecturas"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"magnitud\": \"TEMPERATURA_PRIMARIO\", \"canal\": \"A\", \"valor\": 350, \"secuencia\": 3, \"timestampOrigen\": \"2026-01-01T00:00:00Z\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "350,1 °C → DESCARTADA_RANGO",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".estado = DESCARTADA_RANGO\", function () { pm.expect(pm.response.json().estado).to.eql(\"DESCARTADA_RANGO\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_adquisicion}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_adquisicion}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/lecturas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "lecturas"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"magnitud\": \"TEMPERATURA_PRIMARIO\", \"canal\": \"A\", \"valor\": 350.1, \"secuencia\": 4, \"timestampOrigen\": \"2026-01-01T00:00:00Z\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "description": "Valores límite. Precondición Base."
+        },
+        {
+          "name": "CP-03 · Mensajes inválidos",
+          "item": [
+            {
+              "name": "Valor nulo → 400",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Precondición Base: H2 limpia y reloj en T0",
+                      "pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/v1/qa/reset', method: 'POST' },",
+                      "    function (err) { if (err) { throw err; } });"
+                    ]
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 400', function () { pm.response.to.have.status(400); });",
+                      "pm.test(\".campo = valor\", function () { pm.expect(pm.response.json().campo).to.eql(\"valor\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_adquisicion}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_adquisicion}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/lecturas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "lecturas"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"magnitud\": \"TEMPERATURA_PRIMARIO\", \"canal\": \"A\", \"valor\": null, \"secuencia\": 1, \"timestampOrigen\": \"2026-01-01T00:00:00Z\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Valor no numérico → 400",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 400', function () { pm.response.to.have.status(400); });",
+                      "pm.test(\".campo = valor\", function () { pm.expect(pm.response.json().campo).to.eql(\"valor\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_adquisicion}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_adquisicion}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/lecturas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "lecturas"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"magnitud\": \"TEMPERATURA_PRIMARIO\", \"canal\": \"A\", \"valor\": \"abc\", \"secuencia\": 1, \"timestampOrigen\": \"2026-01-01T00:00:00Z\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Magnitud inexistente → 400",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 400', function () { pm.response.to.have.status(400); });",
+                      "pm.test(\".campo = magnitud\", function () { pm.expect(pm.response.json().campo).to.eql(\"magnitud\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_adquisicion}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_adquisicion}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/lecturas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "lecturas"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"magnitud\": \"CAUDAL\", \"canal\": \"A\", \"valor\": 300, \"secuencia\": 1, \"timestampOrigen\": \"2026-01-01T00:00:00Z\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Canal D → 400",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 400', function () { pm.response.to.have.status(400); });",
+                      "pm.test(\".campo = canal\", function () { pm.expect(pm.response.json().campo).to.eql(\"canal\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_adquisicion}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_adquisicion}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/lecturas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "lecturas"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"magnitud\": \"TEMPERATURA_PRIMARIO\", \"canal\": \"D\", \"valor\": 300, \"secuencia\": 1, \"timestampOrigen\": \"2026-01-01T00:00:00Z\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "JSON malformado → 400",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 400', function () { pm.response.to.have.status(400); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_adquisicion}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_adquisicion}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/lecturas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "lecturas"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"magnitud\": \"TEMPERATURA_PRIMARIO\", \"canal\": \"A\", ",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "La magnitud no cambió",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".utilizable = False\", function () { pm.expect(pm.response.json().utilizable).to.eql(false); });",
+                      "pm.test(\".valorConsolidado = None\", function () { pm.expect(pm.response.json().valorConsolidado).to.eql(null); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_operador}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_operador}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/magnitudes/TEMPERATURA_PRIMARIO",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "magnitudes",
+                    "TEMPERATURA_PRIMARIO"
+                  ]
+                }
+              }
+            }
+          ],
+          "description": "Partición de equivalencia: una clase inválida por request."
+        }
+      ]
+    },
+    {
+      "name": "RF-03 · Redundancia",
+      "item": [
+        {
+          "name": "CP-07 · Canal que discrepa 2,01 %",
+          "item": [
+            {
+              "name": "A = 300,00",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Precondición Base: H2 limpia y reloj en T0",
+                      "pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/v1/qa/reset', method: 'POST' },",
+                      "    function (err) { if (err) { throw err; } });"
+                    ]
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".estado = ACEPTADA\", function () { pm.expect(pm.response.json().estado).to.eql(\"ACEPTADA\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_adquisicion}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_adquisicion}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/lecturas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "lecturas"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"magnitud\": \"TEMPERATURA_PRIMARIO\", \"canal\": \"A\", \"valor\": 300.00, \"secuencia\": 1, \"timestampOrigen\": \"2026-01-01T00:00:00Z\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "B = 300,00",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".estado = ACEPTADA\", function () { pm.expect(pm.response.json().estado).to.eql(\"ACEPTADA\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_adquisicion}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_adquisicion}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/lecturas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "lecturas"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"magnitud\": \"TEMPERATURA_PRIMARIO\", \"canal\": \"B\", \"valor\": 300.00, \"secuencia\": 1, \"timestampOrigen\": \"2026-01-01T00:00:00Z\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "C = 306,64",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".estado = ACEPTADA\", function () { pm.expect(pm.response.json().estado).to.eql(\"ACEPTADA\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_adquisicion}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_adquisicion}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/lecturas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "lecturas"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"magnitud\": \"TEMPERATURA_PRIMARIO\", \"canal\": \"C\", \"valor\": 306.64, \"secuencia\": 1, \"timestampOrigen\": \"2026-01-01T00:00:00Z\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "C NO_CONFIABLE por DISCREPANCIA; valor con A y B",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".canales[2].estado = NO_CONFIABLE\", function () { pm.expect(pm.response.json().canales[2].estado).to.eql(\"NO_CONFIABLE\"); });",
+                      "pm.test(\".canales[2].motivo = DISCREPANCIA\", function () { pm.expect(pm.response.json().canales[2].motivo).to.eql(\"DISCREPANCIA\"); });",
+                      "pm.test(\".valorConsolidado = 300\", function () { pm.expect(pm.response.json().valorConsolidado).to.eql(300); });",
+                      "pm.test(\".avisos = ['CANAL_EXCLUIDO:C']\", function () { pm.expect(pm.response.json().avisos).to.eql([\"CANAL_EXCLUIDO:C\"]); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_operador}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_operador}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/magnitudes/TEMPERATURA_PRIMARIO",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "magnitudes",
+                    "TEMPERATURA_PRIMARIO"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "CP-11 · Menos de dos canales confiables",
+          "item": [
+            {
+              "name": "A = 300",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Precondición Base: H2 limpia y reloj en T0",
+                      "pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/v1/qa/reset', method: 'POST' },",
+                      "    function (err) { if (err) { throw err; } });"
+                    ]
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".estado = ACEPTADA\", function () { pm.expect(pm.response.json().estado).to.eql(\"ACEPTADA\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_adquisicion}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_adquisicion}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/lecturas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "lecturas"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"magnitud\": \"TEMPERATURA_PRIMARIO\", \"canal\": \"A\", \"valor\": 300, \"secuencia\": 1, \"timestampOrigen\": \"2026-01-01T00:00:00Z\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "B = 300",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".estado = ACEPTADA\", function () { pm.expect(pm.response.json().estado).to.eql(\"ACEPTADA\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_adquisicion}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_adquisicion}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/lecturas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "lecturas"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"magnitud\": \"TEMPERATURA_PRIMARIO\", \"canal\": \"B\", \"valor\": 300, \"secuencia\": 1, \"timestampOrigen\": \"2026-01-01T00:00:00Z\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "C = 300",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".estado = ACEPTADA\", function () { pm.expect(pm.response.json().estado).to.eql(\"ACEPTADA\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_adquisicion}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_adquisicion}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/lecturas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "lecturas"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"magnitud\": \"TEMPERATURA_PRIMARIO\", \"canal\": \"C\", \"valor\": 300, \"secuencia\": 1, \"timestampOrigen\": \"2026-01-01T00:00:00Z\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Avanzar reloj 5 s",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "noauth"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/qa/reloj",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "qa",
+                    "reloj"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"segundos\": 5}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "A = 300 (5 s)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".estado = ACEPTADA\", function () { pm.expect(pm.response.json().estado).to.eql(\"ACEPTADA\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_adquisicion}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_adquisicion}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/lecturas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "lecturas"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"magnitud\": \"TEMPERATURA_PRIMARIO\", \"canal\": \"A\", \"valor\": 300, \"secuencia\": 2, \"timestampOrigen\": \"2026-01-01T00:00:00Z\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Avanzar reloj 5 s",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "noauth"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/qa/reloj",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "qa",
+                    "reloj"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"segundos\": 5}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "A = 300 (10 s)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".estado = ACEPTADA\", function () { pm.expect(pm.response.json().estado).to.eql(\"ACEPTADA\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_adquisicion}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_adquisicion}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/lecturas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "lecturas"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"magnitud\": \"TEMPERATURA_PRIMARIO\", \"canal\": \"A\", \"valor\": 300, \"secuencia\": 3, \"timestampOrigen\": \"2026-01-01T00:00:00Z\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Avanzar reloj 1 s",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "noauth"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/qa/reloj",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "qa",
+                    "reloj"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"segundos\": 1}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "A = 300 (11 s)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".estado = ACEPTADA\", function () { pm.expect(pm.response.json().estado).to.eql(\"ACEPTADA\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_adquisicion}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_adquisicion}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/lecturas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "lecturas"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"magnitud\": \"TEMPERATURA_PRIMARIO\", \"canal\": \"A\", \"valor\": 300, \"secuencia\": 4, \"timestampOrigen\": \"2026-01-01T00:00:00Z\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "No utilizable y aviso explícito",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".utilizable = False\", function () { pm.expect(pm.response.json().utilizable).to.eql(false); });",
+                      "pm.test('avisos', function () { pm.expect(pm.response.json().avisos).to.include.members(['CANAL_EXCLUIDO:B', 'CANAL_EXCLUIDO:C', 'MAGNITUD_NO_DISPONIBLE']); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_operador}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_operador}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/magnitudes/TEMPERATURA_PRIMARIO",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "magnitudes",
+                    "TEMPERATURA_PRIMARIO"
+                  ]
+                }
+              }
+            }
+          ],
+          "description": "B y C dejan de actualizar más de 10 s; A sigue enviando."
+        }
+      ]
+    },
+    {
+      "name": "RF-06 · Niveles",
+      "item": [
+        {
+          "name": "CP-13 · Bordes de nivel",
+          "item": [
+            {
+              "name": "0 % → NORMAL",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Precondición Base: H2 limpia y reloj en T0",
+                      "pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/v1/qa/reset', method: 'POST' },",
+                      "    function (err) { if (err) { throw err; } });"
+                    ]
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".nivel = NORMAL\", function () { pm.expect(pm.response.json().nivel).to.eql(\"NORMAL\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "noauth"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/qa/estimaciones",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "qa",
+                    "estimaciones"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"tipo\": \"PROCESO\", \"probabilidad\": 0}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "14,9 % → NORMAL",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".nivel = NORMAL\", function () { pm.expect(pm.response.json().nivel).to.eql(\"NORMAL\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "noauth"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/qa/estimaciones",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "qa",
+                    "estimaciones"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"tipo\": \"PROCESO\", \"probabilidad\": 14.9}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "15 % → ATENCION",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".nivel = ATENCION\", function () { pm.expect(pm.response.json().nivel).to.eql(\"ATENCION\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "noauth"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/qa/estimaciones",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "qa",
+                    "estimaciones"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"tipo\": \"PROCESO\", \"probabilidad\": 15}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "39,9 % → ATENCION",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".nivel = ATENCION\", function () { pm.expect(pm.response.json().nivel).to.eql(\"ATENCION\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "noauth"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/qa/estimaciones",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "qa",
+                    "estimaciones"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"tipo\": \"PROCESO\", \"probabilidad\": 39.9}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "40 % → ALTO",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".nivel = ALTO\", function () { pm.expect(pm.response.json().nivel).to.eql(\"ALTO\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "noauth"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/qa/estimaciones",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "qa",
+                    "estimaciones"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"tipo\": \"PROCESO\", \"probabilidad\": 40}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "74,9 % → ALTO",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".nivel = ALTO\", function () { pm.expect(pm.response.json().nivel).to.eql(\"ALTO\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "noauth"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/qa/estimaciones",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "qa",
+                    "estimaciones"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"tipo\": \"PROCESO\", \"probabilidad\": 74.9}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "75 % → CRITICO",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".nivel = CRITICO\", function () { pm.expect(pm.response.json().nivel).to.eql(\"CRITICO\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "noauth"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/qa/estimaciones",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "qa",
+                    "estimaciones"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"tipo\": \"PROCESO\", \"probabilidad\": 75}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "100 % → CRITICO",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".nivel = CRITICO\", function () { pm.expect(pm.response.json().nivel).to.eql(\"CRITICO\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "noauth"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/qa/estimaciones",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "qa",
+                    "estimaciones"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"tipo\": \"PROCESO\", \"probabilidad\": 100}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "description": "Umbrales por defecto 40/75."
+        }
+      ]
+    },
+    {
+      "name": "RF-07/08 · Alertas",
+      "item": [
+        {
+          "name": "CP-18 · Destinatarios según nivel",
+          "item": [
+            {
+              "name": "20 % (ATENCION)",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Precondición Base: H2 limpia y reloj en T0",
+                      "pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/v1/qa/reset', method: 'POST' },",
+                      "    function (err) { if (err) { throw err; } });"
+                    ]
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".nivel = ATENCION\", function () { pm.expect(pm.response.json().nivel).to.eql(\"ATENCION\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "noauth"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/qa/estimaciones",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "qa",
+                    "estimaciones"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"tipo\": \"PROCESO\", \"probabilidad\": 20}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "50 % (ALTO)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".nivel = ALTO\", function () { pm.expect(pm.response.json().nivel).to.eql(\"ALTO\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "noauth"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/qa/estimaciones",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "qa",
+                    "estimaciones"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"tipo\": \"PROCESO\", \"probabilidad\": 50}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "80 % (CRITICO)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".nivel = CRITICO\", function () { pm.expect(pm.response.json().nivel).to.eql(\"CRITICO\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "noauth"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/qa/estimaciones",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "qa",
+                    "estimaciones"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"tipo\": \"PROCESO\", \"probabilidad\": 80}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Canales y destinatarios",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"[0].canales = ['VISUAL']\", function () { pm.expect(pm.response.json()[0].canales).to.eql([\"VISUAL\"]); });",
+                      "pm.test(\"[0].destinatarios = []\", function () { pm.expect(pm.response.json()[0].destinatarios).to.eql([]); });",
+                      "pm.test(\"[0].requiereReconocimiento = False\", function () { pm.expect(pm.response.json()[0].requiereReconocimiento).to.eql(false); });",
+                      "pm.test(\"[1].destinatarios = ['OPERADOR_REACTOR']\", function () { pm.expect(pm.response.json()[1].destinatarios).to.eql([\"OPERADOR_REACTOR\"]); });",
+                      "pm.test(\"[1].requiereReconocimiento = True\", function () { pm.expect(pm.response.json()[1].requiereReconocimiento).to.eql(true); });",
+                      "pm.test(\"[2].canales = ['VISUAL', 'SONORA']\", function () { pm.expect(pm.response.json()[2].canales).to.eql([\"VISUAL\", \"SONORA\"]); });",
+                      "pm.test(\"[2].destinatarios = ['OPERADOR_REACTOR', 'JEFE_TURNO']\", function () { pm.expect(pm.response.json()[2].destinatarios).to.eql([\"OPERADOR_REACTOR\", \"JEFE_TURNO\"]); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_operador}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_operador}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/alertas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "alertas"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "CP-23 · Reconocimiento antes del plazo",
+          "item": [
+            {
+              "name": "Alerta CRITICO en T0",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Precondición Base: H2 limpia y reloj en T0",
+                      "pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/v1/qa/reset', method: 'POST' },",
+                      "    function (err) { if (err) { throw err; } });"
+                    ]
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".nivel = CRITICO\", function () { pm.expect(pm.response.json().nivel).to.eql(\"CRITICO\"); });",
+                      "pm.environment.set('alertaId', pm.response.json().alertaId);"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "noauth"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/qa/estimaciones",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "qa",
+                    "estimaciones"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"tipo\": \"PROCESO\", \"probabilidad\": 80}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Avanzar reloj 44 s",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "noauth"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/qa/reloj",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "qa",
+                    "reloj"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"segundos\": 44}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "El operador reconoce a los 44 s",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".estado = RECONOCIDA\", function () { pm.expect(pm.response.json().estado).to.eql(\"RECONOCIDA\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_operador}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_operador}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/alertas/{{alertaId}}/reconocimiento",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "alertas",
+                    "{{alertaId}}",
+                    "reconocimiento"
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Avanzar reloj 16 s",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "noauth"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/qa/reloj",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "qa",
+                    "reloj"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"segundos\": 16}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "A los 60 s sigue RECONOCIDA y sin escalar",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"una alerta reconocida\", function () { pm.expect(pm.response.json().length).to.eql(1); });",
+                      "pm.test(\"[0].destinatarios = ['OPERADOR_REACTOR', 'JEFE_TURNO']\", function () { pm.expect(pm.response.json()[0].destinatarios).to.eql([\"OPERADOR_REACTOR\", \"JEFE_TURNO\"]); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_operador}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_operador}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/alertas?estado=RECONOCIDA",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "alertas"
+                  ],
+                  "query": [
+                    {
+                      "key": "estado",
+                      "value": "RECONOCIDA"
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "description": "El registro del reconocimiento (usuario y hora) se verifica en H2 con JUnit (caja gris)."
+        }
+      ]
+    },
+    {
+      "name": "RF-09 · Maniobras",
+      "item": [
+        {
+          "name": "CP-27 · Variaciones dentro de la banda",
+          "item": [
+            {
+              "name": "Potencia A = 80",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Precondición Base: H2 limpia y reloj en T0",
+                      "pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/v1/qa/reset', method: 'POST' },",
+                      "    function (err) { if (err) { throw err; } });"
+                    ]
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".estado = ACEPTADA\", function () { pm.expect(pm.response.json().estado).to.eql(\"ACEPTADA\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_adquisicion}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_adquisicion}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/lecturas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "lecturas"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"magnitud\": \"POTENCIA_TERMICA\", \"canal\": \"A\", \"valor\": 80, \"secuencia\": 1, \"timestampOrigen\": \"2026-01-01T00:00:00Z\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Potencia B = 80",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".estado = ACEPTADA\", function () { pm.expect(pm.response.json().estado).to.eql(\"ACEPTADA\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_adquisicion}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_adquisicion}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/lecturas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "lecturas"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"magnitud\": \"POTENCIA_TERMICA\", \"canal\": \"B\", \"valor\": 80, \"secuencia\": 1, \"timestampOrigen\": \"2026-01-01T00:00:00Z\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Potencia C = 80",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".estado = ACEPTADA\", function () { pm.expect(pm.response.json().estado).to.eql(\"ACEPTADA\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_adquisicion}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_adquisicion}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/lecturas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "lecturas"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"magnitud\": \"POTENCIA_TERMICA\", \"canal\": \"C\", \"valor\": 80, \"secuencia\": 1, \"timestampOrigen\": \"2026-01-01T00:00:00Z\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "El jefe declara la maniobra (banda 70 a 90)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 201', function () { pm.response.to.have.status(201); });",
+                      "pm.test(\".estado = ACTIVA\", function () { pm.expect(pm.response.json().estado).to.eql(\"ACTIVA\"); });",
+                      "pm.environment.set('inyectadas', 0);"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_jefe}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_jefe}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/maniobras",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "maniobras"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"magnitud\": \"POTENCIA_TERMICA\", \"bandaMin\": 70, \"bandaMax\": 90, \"duracionMaximaMin\": 30}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Inyectar estimación ALTO dentro de la banda (×10)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "const n = Number(pm.environment.get('inyectadas')) + 1;",
+                      "pm.environment.set('inyectadas', n);",
+                      "if (n < 10) { postman.setNextRequest(pm.info.requestName); }"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "noauth"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/qa/estimaciones",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "qa",
+                    "estimaciones"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"tipo\": \"PROCESO\", \"probabilidad\": 50}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Una sola alerta INFORMATIVA con 10 agrupadas",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"una sola alerta\", function () { pm.expect(pm.response.json().length).to.eql(1); });",
+                      "pm.test(\"[0].clase = INFORMATIVA\", function () { pm.expect(pm.response.json()[0].clase).to.eql(\"INFORMATIVA\"); });",
+                      "pm.test(\"[0].agrupadas = 10\", function () { pm.expect(pm.response.json()[0].agrupadas).to.eql(10); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_operador}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_operador}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/alertas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "alertas"
+                  ]
+                }
+              }
+            }
+          ],
+          "description": "La repetición ×10 usa postman.setNextRequest: correr la carpeta con el Collection Runner o newman."
+        }
+      ]
+    },
+    {
+      "name": "CP-31 · Pairwise (fila 2 como muestra)",
+      "item": [
+        {
+          "name": "Potencia A = 80",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Precondición Base: H2 limpia y reloj en T0",
+                  "pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/v1/qa/reset', method: 'POST' },",
+                  "    function (err) { if (err) { throw err; } });"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test(\".estado = ACEPTADA\", function () { pm.expect(pm.response.json().estado).to.eql(\"ACEPTADA\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{usr_adquisicion}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{pwd_adquisicion}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/lecturas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "lecturas"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"magnitud\": \"POTENCIA_TERMICA\", \"canal\": \"A\", \"valor\": 80, \"secuencia\": 1, \"timestampOrigen\": \"2026-01-01T00:00:00Z\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Potencia B = 80",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test(\".estado = ACEPTADA\", function () { pm.expect(pm.response.json().estado).to.eql(\"ACEPTADA\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{usr_adquisicion}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{pwd_adquisicion}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/lecturas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "lecturas"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"magnitud\": \"POTENCIA_TERMICA\", \"canal\": \"B\", \"valor\": 80, \"secuencia\": 1, \"timestampOrigen\": \"2026-01-01T00:00:00Z\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Potencia C = 85 (discrepa)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test(\".estado = ACEPTADA\", function () { pm.expect(pm.response.json().estado).to.eql(\"ACEPTADA\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{usr_adquisicion}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{pwd_adquisicion}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/lecturas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "lecturas"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"magnitud\": \"POTENCIA_TERMICA\", \"canal\": \"C\", \"valor\": 85, \"secuencia\": 1, \"timestampOrigen\": \"2026-01-01T00:00:00Z\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Alerta ALTO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test(\".nivel = ALTO\", function () { pm.expect(pm.response.json().nivel).to.eql(\"ALTO\"); });",
+                  "pm.environment.set('alertaId', pm.response.json().alertaId);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/qa/estimaciones",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "qa",
+                "estimaciones"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"tipo\": \"PROCESO\", \"probabilidad\": 50}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Aviso de canal",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test(\".avisos = ['CANAL_EXCLUIDO:C']\", function () { pm.expect(pm.response.json().avisos).to.eql([\"CANAL_EXCLUIDO:C\"]); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{usr_operador}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{pwd_operador}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/magnitudes/POTENCIA_TERMICA",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "magnitudes",
+                "POTENCIA_TERMICA"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Avanzar reloj 89 s",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/qa/reloj",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "qa",
+                "reloj"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"segundos\": 89}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "89 s: EMITIDA",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"[0].estado = EMITIDA\", function () { pm.expect(pm.response.json()[0].estado).to.eql(\"EMITIDA\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{usr_operador}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{pwd_operador}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/alertas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "alertas"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Avanzar reloj 1 s",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/qa/reloj",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "qa",
+                "reloj"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"segundos\": 1}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "90 s: ESCALADA al jefe de turno",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"[0].estado = ESCALADA\", function () { pm.expect(pm.response.json()[0].estado).to.eql(\"ESCALADA\"); });",
+                  "pm.test(\"[0].destinatarios = ['OPERADOR_REACTOR', 'JEFE_TURNO']\", function () { pm.expect(pm.response.json()[0].destinatarios).to.eql([\"OPERADOR_REACTOR\", \"JEFE_TURNO\"]); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{usr_operador}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{pwd_operador}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/alertas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "alertas"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Avanzar reloj 5 s",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/qa/reloj",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "qa",
+                "reloj"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\"segundos\": 5}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "95 s: el jefe reconoce",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test(\".estado = RECONOCIDA\", function () { pm.expect(pm.response.json().estado).to.eql(\"RECONOCIDA\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{usr_jefe}}",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "{{pwd_jefe}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/alertas/{{alertaId}}/reconocimiento",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "alertas",
+                "{{alertaId}}",
+                "reconocimiento"
+              ]
+            }
+          }
+        }
+      ],
+      "description": "Fila 2: maniobra NINGUNA, 1 canal no confiable, reconoce el jefe después del plazo, nivel ALTO. Las 10 filas corren en JUnit (PairwiseIntegracionTest)."
+    },
+    {
+      "name": "RF-12 · Umbrales",
+      "item": [
+        {
+          "name": "CP-32 · Límites de umbrales",
+          "item": [
+            {
+              "name": "Alto 29,9 / crítico 75 → 422",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "// Precondición Base: H2 limpia y reloj en T0",
+                      "pm.sendRequest({ url: pm.environment.get('baseUrl') + '/api/v1/qa/reset', method: 'POST' },",
+                      "    function (err) { if (err) { throw err; } });"
+                    ]
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 422', function () { pm.response.to.have.status(422); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_supervisor}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_supervisor}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/config/umbrales",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "config",
+                    "umbrales"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"alto\": 29.9, \"critico\": 75}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Alto 30 / crítico 75 → 201",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 201', function () { pm.response.to.have.status(201); });",
+                      "pm.test(\".estado = PENDIENTE\", function () { pm.expect(pm.response.json().estado).to.eql(\"PENDIENTE\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_supervisor}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_supervisor}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/config/umbrales",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "config",
+                    "umbrales"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"alto\": 30, \"critico\": 75}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Alto 50 / crítico 75 → 201",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 201', function () { pm.response.to.have.status(201); });",
+                      "pm.test(\".estado = PENDIENTE\", function () { pm.expect(pm.response.json().estado).to.eql(\"PENDIENTE\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_supervisor}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_supervisor}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/config/umbrales",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "config",
+                    "umbrales"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"alto\": 50, \"critico\": 75}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Alto 50,1 / crítico 75 → 422",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 422', function () { pm.response.to.have.status(422); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_supervisor}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_supervisor}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/config/umbrales",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "config",
+                    "umbrales"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"alto\": 50.1, \"critico\": 75}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Alto 40 / crítico 64,9 → 422",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 422', function () { pm.response.to.have.status(422); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_supervisor}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_supervisor}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/config/umbrales",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "config",
+                    "umbrales"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"alto\": 40, \"critico\": 64.9}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Alto 40 / crítico 65 → 201",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 201', function () { pm.response.to.have.status(201); });",
+                      "pm.test(\".estado = PENDIENTE\", function () { pm.expect(pm.response.json().estado).to.eql(\"PENDIENTE\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_supervisor}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_supervisor}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/config/umbrales",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "config",
+                    "umbrales"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"alto\": 40, \"critico\": 65}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Alto 40 / crítico 100 → 201",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 201', function () { pm.response.to.have.status(201); });",
+                      "pm.test(\".estado = PENDIENTE\", function () { pm.expect(pm.response.json().estado).to.eql(\"PENDIENTE\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_supervisor}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_supervisor}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/config/umbrales",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "config",
+                    "umbrales"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"alto\": 40, \"critico\": 100}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Alto 40 / crítico 100,1 → 422",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 422', function () { pm.response.to.have.status(422); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_supervisor}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_supervisor}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/config/umbrales",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "config",
+                    "umbrales"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"alto\": 40, \"critico\": 100.1}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Los vigentes no cambiaron (solicitudes PENDIENTE)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 200', function () { pm.response.to.have.status(200); });",
+                      "pm.test(\".alto = 40\", function () { pm.expect(pm.response.json().alto).to.eql(40); });",
+                      "pm.test(\".critico = 75\", function () { pm.expect(pm.response.json().critico).to.eql(75); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "key": "username",
+                      "value": "{{usr_operador}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{pwd_operador}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/config/umbrales",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "config",
+                    "umbrales"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "RNF · Seguridad",
+      "item": [
+        {
+          "name": "CP-34 · Acceso sin autenticar",
+          "item": [
+            {
+              "name": "POST /api/v1/lecturas → 401",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 401', function () { pm.response.to.have.status(401); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "noauth"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/lecturas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "lecturas"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "GET /api/v1/magnitudes/TEMPERATURA_PRIMARIO → 401",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 401', function () { pm.response.to.have.status(401); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "auth": {
+                  "type": "noauth"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/magnitudes/TEMPERATURA_PRIMARIO",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "magnitudes",
+                    "TEMPERATURA_PRIMARIO"
+                  ]
+                }
+              }
+            },
+            {
+              "name": "GET /api/v1/estimaciones/actual → 401",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 401', function () { pm.response.to.have.status(401); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "auth": {
+                  "type": "noauth"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/estimaciones/actual",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "estimaciones",
+                    "actual"
+                  ]
+                }
+              }
+            },
+            {
+              "name": "GET /api/v1/alertas → 401",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 401', function () { pm.response.to.have.status(401); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "auth": {
+                  "type": "noauth"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/alertas",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "alertas"
+                  ]
+                }
+              }
+            },
+            {
+              "name": "POST /api/v1/alertas/1/reconocimiento → 401",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 401', function () { pm.response.to.have.status(401); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "noauth"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/alertas/1/reconocimiento",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "alertas",
+                    "1",
+                    "reconocimiento"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "POST /api/v1/maniobras → 401",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 401', function () { pm.response.to.have.status(401); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "noauth"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/maniobras",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "maniobras"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "DELETE /api/v1/maniobras/1 → 401",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 401', function () { pm.response.to.have.status(401); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "auth": {
+                  "type": "noauth"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/maniobras/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "maniobras",
+                    "1"
+                  ]
+                }
+              }
+            },
+            {
+              "name": "GET /api/v1/config/umbrales → 401",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 401', function () { pm.response.to.have.status(401); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "auth": {
+                  "type": "noauth"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/config/umbrales",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "config",
+                    "umbrales"
+                  ]
+                }
+              }
+            },
+            {
+              "name": "PUT /api/v1/config/umbrales → 401",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 401', function () { pm.response.to.have.status(401); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "noauth"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/config/umbrales",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "config",
+                    "umbrales"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "POST /api/v1/config/umbrales/1/aprobacion → 401",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 401', function () { pm.response.to.have.status(401); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "auth": {
+                  "type": "noauth"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/config/umbrales/1/aprobacion",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "config",
+                    "umbrales",
+                    "1",
+                    "aprobacion"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "GET /api/v1/version → 401",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test('HTTP 401', function () { pm.response.to.have.status(401); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "auth": {
+                  "type": "noauth"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/v1/version",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "version"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

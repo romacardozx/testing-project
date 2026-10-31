@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ATALAYA · Ingreso</title>
+</head>
+<body>
+<h1>ATALAYA 3.1.0</h1>
+<p data-test="error-login" th:if="${param.error}">Usuario o contraseña incorrectos</p>
+<form th:action="@{/login}" method="post" data-test="form-login">
+    <label>Usuario <input type="text" name="username" data-test="usuario" autofocus></label>
+    <label>Contraseña <input type="password" name="password" data-test="clave"></label>
+    <button type="submit" data-test="ingresar">Ingresar</button>
+</form>
+</body>
+</html>

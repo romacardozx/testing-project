@@ -28,6 +28,9 @@
         <htmlunit3-driver.version>4.19.1</htmlunit3-driver.version>
         <!-- Driver de Selenium: htmlunit (por defecto, sin navegador) o chrome (demo) -->
         <browser>htmlunit</browser>
+        <consola>false</consola>
+        <headless>false</headless>
+        <pausa>false</pausa>
     </properties>
 
     <dependencies>
@@ -66,6 +69,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- API de listeners de JUnit Platform, para el resumen visual en consola -->
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -124,8 +133,14 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
+                    <!-- @{argLine} conserva el agente de JaCoCo; el resto evita advertencias de la JVM -->
+                    <argLine>@{argLine} -XX:+EnableDynamicAgentLoading -Xshare:off</argLine>
                     <systemPropertyVariables>
                         <browser>${browser}</browser>
+                        <headless>${headless}</headless>
+                        <pausa>${pausa}</pausa>
+                        <!-- true desde el Makefile: resumen visual en consola (ResumenConsola) -->
+                        <atalaya.consola>${consola}</atalaya.consola>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
@@ -141,6 +156,12 @@
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
+                        <configuration>
+                            <!-- Solo el SISTEMA: instrumentar HtmlUnit da "Method too large" -->
+                            <includes>
+                                <include>ar/unsam/vv/atalaya/**</include>
+                            </includes>
+                        </configuration>
                     </execution>
                     <execution>
                         <id>report</id>

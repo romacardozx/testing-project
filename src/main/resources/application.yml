@@ -3,10 +3,10 @@ spring:
     name: atalaya
   profiles:
     default: qa
+  # H2 embebida con nombre único por contexto: dos contextos de Spring en la misma JVM (tests con
+  # perfil qa y prod) no comparten la base. Si la comparten, el tick de prod escala alertas de qa.
   datasource:
-    url: jdbc:h2:mem:atalaya;DB_CLOSE_DELAY=-1
-    username: sa
-    password:
+    generate-unique-name: true
   jpa:
     hibernate:
       ddl-auto: create-drop
