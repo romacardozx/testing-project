@@ -1,0 +1,8 @@
+# Perfil qa: reloj mutable, endpoints /api/v1/qa/** y usuarios de prueba (datos sintéticos).
+atalaya:
+  usuarios:
+    - { nombre: adquisicion, clave: "{noop}adquisicion123", rol: ADQUISICION }
+    - { nombre: operador,    clave: "{noop}operador123",    rol: OPERADOR_REACTOR }
+    - { nombre: jefe,        clave: "{noop}jefe123",        rol: JEFE_TURNO }
+    - { nombre: supervisor,  clave: "{noop}supervisor123",  rol: SUPERVISOR_SO }
+    - { nombre: auditor,     clave: "{noop}auditor123",     rol: AUDITOR }

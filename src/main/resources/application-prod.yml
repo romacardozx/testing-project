@@ -1,0 +1,4 @@
+# Perfil prod (staging): sin endpoints de QA y con reloj del sistema.
+# Las claves vienen de variables de entorno; sin ellas no hay usuarios.
+atalaya:
+  usuarios: []

@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: atalaya
+  profiles:
+    default: qa
+  datasource:
+    url: jdbc:h2:mem:atalaya;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
+
+atalaya:
+  version:
+    software: 3.1.0
+    modelo: simulado-1.0
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
