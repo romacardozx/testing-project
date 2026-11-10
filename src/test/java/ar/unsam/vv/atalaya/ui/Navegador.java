@@ -1,6 +1,11 @@
 package ar.unsam.vv.atalaya.ui;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.Duration;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
@@ -17,6 +22,9 @@ import org.openqa.selenium.support.ui.Wait;
  * <p>Modo pausa (-Dpausa=true, solo Chrome con ventana): al terminar cada prueba el navegador queda
  * abierto en el estado final, con una franja verde o roja, y el SISTEMA sigue levantado para seguir
  * navegando. Cerrar la ventana continúa con la siguiente prueba (o pasan 10 minutos).
+ *
+ * <p>Capturas (-Dcapturas=carpeta, solo Chrome): al terminar cada prueba guarda un PNG de la página
+ * con la misma franja verde o roja. Es la evidencia de ejecución de UI-01 a UI-03.
  */
 final class Navegador {
 
@@ -29,11 +37,29 @@ final class Navegador {
         if (esChrome()) {
             var opciones = new ChromeOptions();
             if (sinVentana()) {
-                opciones.addArguments("--headless=new");
+                opciones.addArguments("--headless=new", "--window-size=1280,1000");
             }
             return new ChromeDriver(opciones);
         }
         return new HtmlUnitDriver(false);
+    }
+
+    /** Con -Dcapturas, guarda la página como PNG con la franja del resultado. */
+    static void capturarSiCorresponde(WebDriver driver, String prueba, String metodo, boolean aprobada) {
+        String carpeta = System.getProperty("capturas", "");
+        if (carpeta.isBlank() || !(driver instanceof TakesScreenshot camara)) {
+            return;
+        }
+        marcar(driver, (aprobada ? "✔ " : "✘ ") + prueba, aprobada ? "#2e7d32" : "#c62828");
+        String id = prueba.contains(" ") ? prueba.substring(0, prueba.indexOf(' ')) : prueba;
+        Path destino = Path.of(carpeta, id + "_" + metodo + ".png");
+        try {
+            Files.createDirectories(destino.getParent());
+            Files.write(destino, camara.getScreenshotAs(OutputType.BYTES));
+            System.out.println("  📷 " + destino);
+        } catch (IOException | WebDriverException e) {
+            System.out.println("  ✘ no se pudo guardar la captura " + destino + ": " + e.getMessage());
+        }
     }
 
     /** Si corresponde, deja el navegador abierto hasta que el usuario cierre la ventana. */

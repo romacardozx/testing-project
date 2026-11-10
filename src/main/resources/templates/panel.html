@@ -64,8 +64,10 @@
     <h2>Estado de canales</h2>
     <div th:each="m : ${magnitudes}" th:data-test="${'magnitud-' + m.magnitud}">
         <h3 th:text="${m.magnitud}">TEMPERATURA_PRIMARIO</h3>
-        <span th:each="c : ${m.canales}" th:data-test="${'canal-' + c.canal}" th:class="${c.estado}"
-              th:text="${c.canal + ': ' + c.estado + (c.motivo != null ? ' (' + c.motivo + ')' : '')}">A: CONFIABLE</span>
+        <ul data-test="estados-canal">
+            <li th:each="c : ${m.canales}" th:data-test="${'canal-' + c.canal}" th:class="${c.estado}"
+                th:text="${c.canal + ': ' + c.estado + (c.motivo != null ? ' (' + c.motivo + ')' : '')}">A: CONFIABLE</li>
+        </ul>
         <ul>
             <li th:each="aviso : ${m.avisos}" data-test="aviso" th:text="${aviso}">CANAL_EXCLUIDO:C</li>
         </ul>

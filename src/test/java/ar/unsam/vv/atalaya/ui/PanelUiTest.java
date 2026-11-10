@@ -68,10 +68,17 @@ class PanelUiTest {
     private WebDriver driver;
     private long secuencia = 1000;
 
-    /** Modo pausa: corre antes de @AfterEach, cuando ya se sabe si la prueba pasó (ver Navegador). */
+    /**
+     * Captura y modo pausa: corren antes de @AfterEach, cuando ya se sabe si la prueba pasó (ver
+     * Navegador).
+     */
     @RegisterExtension
-    final AfterTestExecutionCallback pausa = contexto -> Navegador.pausarSiCorresponde(driver,
-            contexto.getDisplayName(), contexto.getExecutionException().isEmpty());
+    final AfterTestExecutionCallback alTerminar = contexto -> {
+        boolean aprobada = contexto.getExecutionException().isEmpty();
+        Navegador.capturarSiCorresponde(driver, contexto.getDisplayName(),
+                contexto.getRequiredTestMethod().getName(), aprobada);
+        Navegador.pausarSiCorresponde(driver, contexto.getDisplayName(), aprobada);
+    };
 
     @BeforeEach
     void preparar() {
@@ -144,6 +151,19 @@ class PanelUiTest {
 
         assertThat(panel.avisos("TEMPERATURA_PRIMARIO")).contains("CANAL_EXCLUIDO:C");
         assertThat(panel.canal("TEMPERATURA_PRIMARIO", "C")).contains("NO_CONFIABLE").contains("DISCREPANCIA");
+    }
+
+    @Test
+    @DisplayName("UI-03 · cada canal se muestra en su propio renglón [defecto ATA-18, corregido]")
+    void canalesEnRenglonesSeparados() {
+        lectura(Canal.A, "300.00");
+        lectura(Canal.B, "300.00");
+        lectura(Canal.C, "306.64");
+
+        PaginaPanel panel = ingresarComo("operador");
+
+        assertThat(panel.lineasDeCanales("TEMPERATURA_PRIMARIO"))
+                .containsExactly("A: CONFIABLE", "B: CONFIABLE", "C: NO_CONFIABLE (DISCREPANCIA)");
     }
 
     @Test

@@ -16,7 +16,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
 
 /**
- * CP-34 y CP-35 contra Tomcat real (no MockMvc). Regresión del defecto encontrado con Postman: sin
+ * CP-34 y CP-35 contra Tomcat real (no MockMvc). Regresión del defecto ATA-16, encontrado con Postman: sin
  * credenciales la API respondía 302 al login, porque el 401 se reenviaba a /error y lo atendía la
  * cadena de seguridad del panel. MockMvc no hace ese reenvío y por eso PermisosApiTest no lo veía.
  * El cliente no sigue redirecciones, para que un 302 quede a la vista.
@@ -40,7 +40,7 @@ class SeguridadServidorRealTest {
         return cliente.send(pedido.build(), HttpResponse.BodyHandlers.ofString());
     }
 
-    @ParameterizedTest(name = "CP-34 · servidor real: {0} {1} sin credenciales → 401 JSON")
+    @ParameterizedTest(name = "CP-34 · servidor real: {0} {1} sin credenciales → 401 JSON [defecto ATA-16, corregido]")
     @CsvSource({
             "POST, /api/v1/lecturas",
             "GET,  /api/v1/magnitudes/TEMPERATURA_PRIMARIO",
@@ -63,7 +63,7 @@ class SeguridadServidorRealTest {
     }
 
     @Test
-    @DisplayName("CP-35 · servidor real: rol sin permiso → 403 JSON (no 302)")
+    @DisplayName("CP-35 · servidor real: rol sin permiso → 403 JSON (no 302) [defecto ATA-16, corregido]")
     void rolSinPermisoDa403() throws Exception {
         var respuesta = enviar("POST", "/api/v1/lecturas", "operador:operador123");
 

@@ -12,7 +12,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * RF-01/02 · API de lecturas con MockMvc (caja negra). Valores límite de temperatura de punta a
- * punta (CP-01) y partición de equivalencia de mensajes inválidos (CP-03).
+ * punta (CP-01), partición de equivalencia de mensajes inválidos (CP-03) y magnitud inexistente (CP-37).
  */
 class LecturasApiTest extends PruebaApiQa {
 
@@ -62,7 +62,7 @@ class LecturasApiTest extends PruebaApiQa {
     }
 
     @Test
-    @DisplayName("RF-03 · GET de una magnitud inexistente devuelve 404")
+    @DisplayName("CP-37 · GET de una magnitud inexistente devuelve 404")
     void magnitudInexistente() throws Exception {
         consultarMagnitud("caudal").andExpect(status().isNotFound());
     }

@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.ResultActions;
 /**
  * RF-12 · Cambio de umbrales con doble aprobación, de punta a punta. Límites por la API (CP-32) y
  * tabla de decisión de la aprobación (CP-33): sin aprobar, aprueba el mismo usuario, aprueba el jefe.
+ * Aprobar dos veces la misma solicitud (CP-40).
  */
 class UmbralesIntegracionTest extends PruebaApiQa {
 
@@ -112,7 +113,7 @@ class UmbralesIntegracionTest extends PruebaApiQa {
     }
 
     @Test
-    @DisplayName("RF-12 · aprobar dos veces la misma solicitud → 409")
+    @DisplayName("CP-40 · aprobar dos veces la misma solicitud → 409")
     void aprobarDosVeces() throws Exception {
         long id = idSolicitud("35", "75");
         aprobar(id, "jefe");

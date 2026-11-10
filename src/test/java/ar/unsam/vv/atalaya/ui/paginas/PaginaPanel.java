@@ -73,6 +73,12 @@ public class PaginaPanel {
         return texto(By.cssSelector("[data-test=magnitud-" + magnitud + "] [data-test=canal-" + canal + "]"));
     }
 
+    /** Texto visible de los estados de canal de una magnitud, una línea por renglón de la página. */
+    public List<String> lineasDeCanales(String magnitud) {
+        String texto = texto(By.cssSelector("[data-test=magnitud-" + magnitud + "] [data-test=estados-canal]"));
+        return texto.lines().map(String::strip).filter(l -> !l.isEmpty()).toList();
+    }
+
     private static By alerta(long id) {
         return By.cssSelector("[data-test=alerta-" + id + "]");
     }

@@ -1,0 +1,430 @@
+ATALAYA 3.1.0 · make todo · 09/11/2026 22:55 · openjdk version "21.0.12.1" 2026-08-18
+
+
+┌──────────────────────────────────────────────────────────────┐
+│  ATALAYA 3.1.0 · ejecución de pruebas                         │
+└──────────────────────────────────────────────────────────────┘
+
+▶ ValidadorRangoTest
+  ▸ limitesDeTemperatura(BigDecimal, boolean)
+    ✔ CP-01 · temperatura 19.9 °C → dentro de rango: false  33 ms
+    ✔ CP-01 · temperatura 20 °C → dentro de rango: true  0 ms
+    ✔ CP-01 · temperatura 350 °C → dentro de rango: true  0 ms
+    ✔ CP-01 · temperatura 350.1 °C → dentro de rango: false  0 ms
+  ▸ limitesDeLasOtrasMagnitudes(Magnitud, BigDecimal, boolean)
+    ✔ CP-02 · PRESION_PRIMARIO = -0.1 → dentro de rango: false  1 ms
+    ✔ CP-02 · PRESION_PRIMARIO = 0 → dentro de rango: true  0 ms
+    ✔ CP-02 · PRESION_PRIMARIO = 180 → dentro de rango: true  0 ms
+    ✔ CP-02 · PRESION_PRIMARIO = 180.1 → dentro de rango: false  0 ms
+    ✔ CP-02 · NIVEL_PRESURIZADOR = -0.1 → dentro de rango: false  0 ms
+    ✔ CP-02 · NIVEL_PRESURIZADOR = 0 → dentro de rango: true  0 ms
+    ✔ CP-02 · NIVEL_PRESURIZADOR = 100 → dentro de rango: true  0 ms
+    ✔ CP-02 · NIVEL_PRESURIZADOR = 100.1 → dentro de rango: false  0 ms
+    ✔ CP-02 · POTENCIA_TERMICA = -0.1 → dentro de rango: false  0 ms
+    ✔ CP-02 · POTENCIA_TERMICA = 0 → dentro de rango: true  0 ms
+    ✔ CP-02 · POTENCIA_TERMICA = 120 → dentro de rango: true  0 ms
+    ✔ CP-02 · POTENCIA_TERMICA = 120.1 → dentro de rango: false  0 ms
+    ✔ CP-02 · TASA_DOSIS = -0.1 → dentro de rango: false  0 ms
+    ✔ CP-02 · TASA_DOSIS = 0 → dentro de rango: true  0 ms
+    ✔ CP-02 · TASA_DOSIS = 10000 → dentro de rango: true  0 ms
+    ✔ CP-02 · TASA_DOSIS = 10000.1 → dentro de rango: false  0 ms
+
+▶ MagnitudTest
+  ✔ CP-37 · una magnitud inexistente no se encuentra  1 ms
+  ✔ CP-07 · el rango físico de la temperatura es 330 °C (base del 2 %, A2)  2 ms
+  ✔ CP-37 · la magnitud se busca sin distinguir mayúsculas  0 ms
+
+▶ ServicioEscalamientoTest
+  ▸ Reconocimiento
+    ✔ CP-24 · reconocer una alerta RECONOCIDA se rechaza  1 ms
+    ✔ CP-23 · una alerta reconocida antes del plazo no escala después  0 ms
+    ▸ reconocerLaDejaReconocida(EstadoAlerta)
+      ✔ CP-23 · reconocer una alerta EMITIDA la deja RECONOCIDA  1 ms
+      ✔ CP-23 · reconocer una alerta ESCALADA la deja RECONOCIDA  0 ms
+  ▸ Alto
+    ✔ CP-26 · ATENCION no escala nunca  0 ms
+    ✔ CP-26 · un alto a los 45 s no escala (el plazo de 45 s es solo del crítico)  0 ms
+    ✔ CP-22 · el alto escala al jefe de turno  0 ms
+    ▸ bordeDeLos90Segundos(long, boolean)
+      ✔ CP-22 · alto sin reconocer a los 89 s → escala: false  1 ms
+      ✔ CP-22 · alto sin reconocer a los 90 s → escala: true  0 ms
+    ✔ CP-22 · a los 91 s una alerta alta ya ESCALADA no vuelve a escalar  0 ms
+  ▸ Critico
+    ✔ CP-21 · el crítico escala al supervisor de seguridad operacional  0 ms
+    ✔ CP-21 · a los 46 s una alerta ya ESCALADA no vuelve a escalar  0 ms
+    ▸ bordeDeLos45Segundos(long, boolean)
+      ✔ CP-21 · crítico sin reconocer a los 44 s → escala: false  0 ms
+      ✔ CP-21 · crítico sin reconocer a los 45 s → escala: true  0 ms
+
+▶ ReglaManiobraTest
+  ▸ bordesDeLaBanda(String, boolean)
+    ✔ CP-28 · banda 70 a 90, potencia 70 % → se agrupa: true  0 ms
+    ✔ CP-28 · banda 70 a 90, potencia 69.9 % → se agrupa: false  0 ms
+    ✔ CP-28 · banda 70 a 90, potencia 90 % → se agrupa: true  0 ms
+    ✔ CP-28 · banda 70 a 90, potencia 90.1 % → se agrupa: false  0 ms
+  ✔ CP-29 · si la magnitud de la maniobra no es utilizable, alerta normal  0 ms
+  ▸ expiracion(long, boolean)
+    ✔ CP-30 · maniobra de 30 min a los 1799 s → expiró: false  0 ms
+    ✔ CP-30 · maniobra de 30 min a los 1800 s → expiró: true  0 ms
+  ✔ CP-27 · una estimación de ATENCION dentro de la banda se agrupa  0 ms
+  ✔ CP-27 · una estimación NORMAL no se agrupa (no genera alerta)  0 ms
+
+▶ ClasificadorNivelTest
+  ✔ CP-14 · probabilidad nula se rechaza  0 ms
+  ▸ umbralesAjustados(BigDecimal, NivelRiesgo)
+    ✔ CP-16 · 29.9 % con umbrales 30/65 → ATENCION  0 ms
+    ✔ CP-16 · 30 % con umbrales 30/65 → ALTO  0 ms
+    ✔ CP-16 · 64.9 % con umbrales 30/65 → ALTO  0 ms
+    ✔ CP-16 · 65 % con umbrales 30/65 → CRITICO  0 ms
+  ▸ probabilidadFueraDeRango(BigDecimal)
+    ✔ CP-14 · -0.1 % se rechaza  0 ms
+    ✔ CP-14 · 100.1 % se rechaza  0 ms
+  ▸ bordesDeNivel(BigDecimal, NivelRiesgo)
+    ✔ CP-13 · 0 % con umbrales 40/75 → NORMAL  0 ms
+    ✔ CP-13 · 14.9 % con umbrales 40/75 → NORMAL  0 ms
+    ✔ CP-13 · 15 % con umbrales 40/75 → ATENCION  0 ms
+    ✔ CP-13 · 39.9 % con umbrales 40/75 → ATENCION  0 ms
+    ✔ CP-13 · 40 % con umbrales 40/75 → ALTO  0 ms
+    ✔ CP-13 · 74.9 % con umbrales 40/75 → ALTO  0 ms
+    ✔ CP-13 · 75 % con umbrales 40/75 → CRITICO  0 ms
+    ✔ CP-13 · 100 % con umbrales 40/75 → CRITICO  0 ms
+  ▸ Factores
+    ✔ CP-15 · con 14,9 % (NORMAL) no se devuelven factores  2 ms
+    ✔ CP-15 · con menos de 3 factores se devuelven todos, ordenados  1 ms
+    ✔ CP-15 · con 15 % se devuelven los 3 factores de mayor peso, ordenados  0 ms
+  ▸ CaminosBasicos
+    ▸ caminosQueClasifican(String, BigDecimal, NivelRiesgo)
+      ✔ CP-17 · camino C2 (D2 verdadera): p = 80 → CRITICO  1 ms
+      ✔ CP-17 · camino C3 (D3 verdadera): p = 50 → ALTO  0 ms
+      ✔ CP-17 · camino C4 (D4 verdadera): p = 20 → ATENCION  0 ms
+      ✔ CP-17 · camino C5 (todas falsas): p = 5 → NORMAL  0 ms
+    ▸ caminoQueRechaza(BigDecimal)
+      ✔ CP-17 · camino C1 (D1 verdadera): p = -1 → excepción  0 ms
+      ✔ CP-17 · camino C1 (D1 verdadera): p = 100.1 → excepción  0 ms
+
+▶ AlertasTest
+  ▸ Repeticion
+    ✔ CP-20 · si sube de nivel dentro de los 3 min se emite igual  0 ms
+    ✔ CP-19 · si baja de nivel dentro de los 3 min no se emite  0 ms
+    ✔ CP-19 · la primera alerta de un tipo se emite  0 ms
+    ✔ CP-18 · NORMAL nunca genera alerta, aunque no haya una previa  0 ms
+    ✔ CP-19 · mismo nivel a los 179 s no se repite; a los 180 s sí  0 ms
+  ▸ Definicion
+    ✔ CP-18 · NORMAL no genera alerta  1 ms
+    ✔ CP-18 · ALTO: visual al operador, requiere reconocimiento  5 ms
+    ✔ CP-18 · ATENCION: solo visual, sin destinatarios ni reconocimiento  0 ms
+    ✔ CP-18 · CRITICO: visual y sonora al operador y al jefe de turno  0 ms
+
+▶ ValidadorUmbralesTest
+  ▸ limitesDelAlto(BigDecimal, boolean)
+    ✔ CP-32 · alto 29.9 % (crítico 75) → válido: false  1 ms
+    ✔ CP-32 · alto 30 % (crítico 75) → válido: true  0 ms
+    ✔ CP-32 · alto 50 % (crítico 75) → válido: true  0 ms
+    ✔ CP-32 · alto 50.1 % (crítico 75) → válido: false  0 ms
+  ▸ limitesDelCritico(BigDecimal, boolean)
+    ✔ CP-32 · crítico 64.9 % (alto 40) → válido: false  0 ms
+    ✔ CP-32 · crítico 65 % (alto 40) → válido: true  0 ms
+    ✔ CP-32 · crítico 100 % (alto 40) → válido: true  0 ms
+    ✔ CP-32 · crítico 100.1 % (alto 40) → válido: false  0 ms
+
+▶ ValidadorRedundanciaTest
+  ▸ Consolidacion
+    ✔ CP-11 · con un solo canal confiable la magnitud no es utilizable y se avisa  1 ms
+    ✔ CP-07 · el valor consolidado se redondea a 2 decimales  0 ms
+    ✔ CP-11 · con exactamente dos confiables la magnitud es utilizable  0 ms
+    ✔ CP-07 · el valor consolidado usa solo A y B y avisa que C quedó excluido  0 ms
+    ✔ CP-09 · el motivo actual tiene prioridad sobre el motivo con que quedó marcado  0 ms
+    ✔ CP-06 · tres confiables: utilizable, promedio de los tres y sin avisos  0 ms
+    ✔ CP-12 · un canal marcado que todavía no se recuperó sigue NO_CONFIABLE con su motivo  0 ms
+  ▸ Recuperacion
+    ✔ CP-12 · una lectura mala en medio reinicia el contador y actualiza el motivo  0 ms
+    ✔ CP-12 · un canal confiable con lectura buena sigue confiable  0 ms
+    ✔ CP-12 · con 2 lecturas buenas sigue NO_CONFIABLE; con la 3.ª vuelve a CONFIABLE  0 ms
+    ✔ CP-12 · una lectura que no cumple marca el canal con su motivo  0 ms
+  ▸ Reglas
+    ✔ CP-10 · sin actualizar tiene prioridad sobre fuera de rango (orden de la tabla)  0 ms
+    ✔ CP-09 · 10,0 s sin actualizar es confiable; 10,1 s es SIN_ACTUALIZACION (R2)  0 ms
+    ✔ CP-08 · el 2 % se toma del rango físico de cada magnitud (presión: 3,6 bar)  0 ms
+    ✔ CP-06 · tres canales coherentes son confiables (R1)  0 ms
+    ✔ CP-08 · C a 306,60 °C (exactamente 2,00 %) sigue confiable  0 ms
+    ✔ CP-10 · C con última lectura de 351 °C es FUERA_DE_RANGO (R3)  0 ms
+    ✔ CP-10 · fuera de rango tiene prioridad sobre la discrepancia del valor anterior  0 ms
+    ✔ CP-07 · C a 306,64 °C discrepa más del 2 % de la mediana (R4)  0 ms
+    ✔ CP-11 · con solo dos canales con valor la mediana es su promedio (A1)  0 ms
+    ✔ CP-06 · con tres valores distintos la mediana es el del medio (A1)  0 ms
+    ✔ CP-09 · un canal que nunca envió lecturas es SIN_ACTUALIZACION  0 ms
+
+▶ SeguridadServidorRealTest
+  ▸ sinCredencialesDa401(String, String)
+    ✔ CP-34 · servidor real: POST /api/v1/lecturas sin credenciales → 401 JSON [defecto ATA-16, corregido]  289 ms
+    ✔ CP-34 · servidor real: GET /api/v1/magnitudes/TEMPERATURA_PRIMARIO sin credenciales → 401 JSON [defecto ATA-16, corregido]  5 ms
+    ✔ CP-34 · servidor real: GET /api/v1/alertas sin credenciales → 401 JSON [defecto ATA-16, corregido]  4 ms
+    ✔ CP-34 · servidor real: PUT /api/v1/config/umbrales sin credenciales → 401 JSON [defecto ATA-16, corregido]  3 ms
+    ✔ CP-34 · servidor real: GET /api/v1/version sin credenciales → 401 JSON [defecto ATA-16, corregido]  3 ms
+  ✔ CP-34 · servidor real: clave incorrecta → 401  49 ms
+  ✔ CP-35 · servidor real: rol sin permiso → 403 JSON (no 302) [defecto ATA-16, corregido]  46 ms
+
+▶ LecturasApiTest
+  ✔ CP-37 · GET de una magnitud inexistente devuelve 404  128 ms
+  ✔ CP-03 · el error indica el campo inválido  69 ms
+  ▸ limitesDeTemperatura(String, String)
+    ✔ CP-01 · POST temperatura 19.9 °C → DESCARTADA_RANGO  135 ms
+    ✔ CP-01 · POST temperatura 20 °C → ACEPTADA  50 ms
+    ✔ CP-01 · POST temperatura 350 °C → ACEPTADA  50 ms
+    ✔ CP-01 · POST temperatura 350.1 °C → DESCARTADA_RANGO  49 ms
+  ▸ mensajesInvalidos(String)
+    ✔ CP-03 · mensaje inválido ({"magnitud": "TEMPERATURA_PRIMARIO", "canal": "A", "valor": null, "secuencia": 1, "timestampOrigen": "2026-01-01T00:00:00Z"}) → 400 y la magnitud no cambia  92 ms
+    ✔ CP-03 · mensaje inválido ({"magnitud": "TEMPERATURA_PRIMARIO", "canal": "A", "valor": "abc", "secuencia": 1, "timestampOrigen": "2026-01-01T00:00:00Z"}) → 400 y la magnitud no cambia  85 ms
+    ✔ CP-03 · mensaje inválido ({"magnitud": "CAUDAL", "canal": "A", "valor": 300, "secuencia": 1, "timestampOrigen": "2026-01-01T00:00:00Z"}) → 400 y la magnitud no cambia  87 ms
+    ✔ CP-03 · mensaje inválido ({"magnitud": "TEMPERATURA_PRIMARIO", "canal": "D", "valor": 300, "secuencia": 1, "timestampOrigen": "2026-01-01T00:00:00Z"}) → 400 y la magnitud no cambia  86 ms
+    ✔ CP-03 · mensaje inválido ({"magnitud": "TEMPERATURA_PRIMARIO", "canal": "A", "valor": 300,) → 400 y la magnitud no cambia  85 ms
+
+▶ PermisosApiTest
+  ▸ sinCredenciales(String, String)
+    ✔ CP-34 · POST /api/v1/lecturas sin credenciales → 401  3 ms
+    ✔ CP-34 · GET /api/v1/magnitudes/TEMPERATURA_PRIMARIO sin credenciales → 401  2 ms
+    ✔ CP-34 · GET /api/v1/estimaciones/actual sin credenciales → 401  2 ms
+    ✔ CP-34 · GET /api/v1/alertas sin credenciales → 401  1 ms
+    ✔ CP-34 · POST /api/v1/alertas/1/reconocimiento sin credenciales → 401  2 ms
+    ✔ CP-34 · POST /api/v1/maniobras sin credenciales → 401  2 ms
+    ✔ CP-34 · DELETE /api/v1/maniobras/1 sin credenciales → 401  2 ms
+    ✔ CP-34 · GET /api/v1/config/umbrales sin credenciales → 401  2 ms
+    ✔ CP-34 · PUT /api/v1/config/umbrales sin credenciales → 401  2 ms
+    ✔ CP-34 · POST /api/v1/config/umbrales/1/aprobacion sin credenciales → 401  1 ms
+    ✔ CP-34 · GET /api/v1/version sin credenciales → 401  1 ms
+  ▸ matrizDePermisos(String, String, boolean)
+    ✔ CP-35 · Aprobar cambio de umbral como adquisicion → permitido: false  93 ms
+    ✔ CP-35 · Aprobar cambio de umbral como operador → permitido: false  84 ms
+    ✔ CP-35 · Aprobar cambio de umbral como jefe → permitido: true  89 ms
+    ✔ CP-35 · Aprobar cambio de umbral como supervisor → permitido: false  83 ms
+    ✔ CP-35 · Aprobar cambio de umbral como auditor → permitido: false  83 ms
+    ✔ CP-35 · Consultar alertas como adquisicion → permitido: false  41 ms
+    ✔ CP-35 · Consultar alertas como operador → permitido: true  46 ms
+    ✔ CP-35 · Consultar alertas como jefe → permitido: true  42 ms
+    ✔ CP-35 · Consultar alertas como supervisor → permitido: true  42 ms
+    ✔ CP-35 · Consultar alertas como auditor → permitido: true  43 ms
+    ✔ CP-35 · Consultar estimaciones como adquisicion → permitido: false  42 ms
+    ✔ CP-35 · Consultar estimaciones como operador → permitido: true  46 ms
+    ✔ CP-35 · Consultar estimaciones como jefe → permitido: true  44 ms
+    ✔ CP-35 · Consultar estimaciones como supervisor → permitido: true  45 ms
+    ✔ CP-35 · Consultar estimaciones como auditor → permitido: true  45 ms
+    ✔ CP-35 · Consultar magnitudes como adquisicion → permitido: false  42 ms
+    ✔ CP-35 · Consultar magnitudes como operador → permitido: true  47 ms
+    ✔ CP-35 · Consultar magnitudes como jefe → permitido: true  44 ms
+    ✔ CP-35 · Consultar magnitudes como supervisor → permitido: true  45 ms
+    ✔ CP-35 · Consultar magnitudes como auditor → permitido: true  45 ms
+    ✔ CP-35 · Declarar maniobra como adquisicion → permitido: false  41 ms
+    ✔ CP-35 · Declarar maniobra como operador → permitido: false  42 ms
+    ✔ CP-35 · Declarar maniobra como jefe → permitido: true  52 ms
+    ✔ CP-35 · Declarar maniobra como supervisor → permitido: false  41 ms
+    ✔ CP-35 · Declarar maniobra como auditor → permitido: false  41 ms
+    ✔ CP-35 · Enviar lecturas como adquisicion → permitido: true  45 ms
+    ✔ CP-35 · Enviar lecturas como operador → permitido: false  41 ms
+    ✔ CP-35 · Enviar lecturas como jefe → permitido: false  40 ms
+    ✔ CP-35 · Enviar lecturas como supervisor → permitido: false  41 ms
+    ✔ CP-35 · Enviar lecturas como auditor → permitido: false  41 ms
+    ✔ CP-35 · Finalizar maniobra como adquisicion → permitido: false  84 ms
+    ✔ CP-35 · Finalizar maniobra como operador → permitido: false  84 ms
+    ✔ CP-35 · Finalizar maniobra como jefe → permitido: true  87 ms
+    ✔ CP-35 · Finalizar maniobra como supervisor → permitido: false  87 ms
+    ✔ CP-35 · Finalizar maniobra como auditor → permitido: false  84 ms
+    ✔ CP-35 · Reconocer alertas como adquisicion → permitido: false  63 ms
+    ✔ CP-35 · Reconocer alertas como operador → permitido: true  58 ms
+    ✔ CP-35 · Reconocer alertas como jefe → permitido: true  51 ms
+    ✔ CP-35 · Reconocer alertas como supervisor → permitido: true  50 ms
+    ✔ CP-35 · Reconocer alertas como auditor → permitido: false  47 ms
+    ✔ CP-35 · Solicitar cambio de umbral como adquisicion → permitido: false  44 ms
+    ✔ CP-35 · Solicitar cambio de umbral como operador → permitido: false  43 ms
+    ✔ CP-35 · Solicitar cambio de umbral como jefe → permitido: false  43 ms
+    ✔ CP-35 · Solicitar cambio de umbral como supervisor → permitido: true  45 ms
+    ✔ CP-35 · Solicitar cambio de umbral como auditor → permitido: false  43 ms
+
+▶ ConflictoConcurrenteApiTest
+  ✔ CP-25 · choque de versión (@Version) al reconocer → 409 CONFLICTO  128 ms
+  ✔ CP-25 · choque con la columna única de reconocimiento → 409 CONFLICTO  55 ms
+
+▶ AlertasApiTest
+  ✔ CP-35 · el auditor no puede reconocer alertas (403)  61 ms
+  ✔ CP-24 · reconocer una alerta RECONOCIDA devuelve 409 y el estado no cambia  154 ms
+  ✔ CP-38 · reconocer una alerta inexistente devuelve 404  47 ms
+
+▶ EstimacionesApiTest
+  ✔ CP-34 · GET /estimaciones/actual sin credenciales → 401  3 ms
+  ✔ CP-15 · con 15 % y 5 factores se informan los 3 de mayor peso, ordenados  67 ms
+  ▸ probabilidadInvalida(String)
+    ✔ CP-14 · probabilidad -0.1 → 400 y el nivel vigente no cambia  59 ms
+    ✔ CP-14 · probabilidad 100.1 → 400 y el nivel vigente no cambia  56 ms
+    ✔ CP-14 · probabilidad null → 400 y el nivel vigente no cambia  54 ms
+  ▸ bordesDeNivel(String, String)
+    ✔ CP-13 · inyectar 0 % → nivel NORMAL  53 ms
+    ✔ CP-13 · inyectar 14.9 % → nivel NORMAL  55 ms
+    ✔ CP-13 · inyectar 15 % → nivel ATENCION  51 ms
+    ✔ CP-13 · inyectar 39.9 % → nivel ATENCION  51 ms
+    ✔ CP-13 · inyectar 40 % → nivel ALTO  49 ms
+    ✔ CP-13 · inyectar 74.9 % → nivel ALTO  50 ms
+    ✔ CP-13 · inyectar 75 % → nivel CRITICO  51 ms
+    ✔ CP-13 · inyectar 100 % → nivel CRITICO  51 ms
+
+▶ PanelUiTest
+  ✔ UI-03 · el panel muestra el aviso CANAL_EXCLUIDO del canal que discrepa  496 ms
+  ✔ UI-01 · el auditor ve la alerta pero no tiene botón Reconocer  90 ms
+  ✔ UI-01 · el operador ve la alerta ALTO y la reconoce en 2 interacciones o menos  107 ms
+  ✔ UI-02 · la probabilidad y el nivel del panel coinciden con GET /estimaciones/actual  133 ms
+  ✔ UI-03 · cada canal se muestra en su propio renglón [defecto ATA-18, corregido]  74 ms
+
+▶ ServicioUmbralesTest
+  ✔ CP-32 · si el validador rechaza los umbrales, la solicitud no se guarda  144 ms
+  ✔ CP-40 · aprobar una solicitud ya APLICADA → ConflictoException y no cambia quién aprobó  2 ms
+  ✔ CP-40 · aprobar una solicitud inexistente → RecursoInexistenteException  1 ms
+  ✔ CP-33 · otro usuario aprueba → APLICADA con quien aprobó  0 ms
+  ✔ CP-33 · si aprueba el mismo usuario que solicitó → ConflictoException y la solicitud sigue PENDIENTE  0 ms
+  ✔ CP-32 · una solicitud válida se valida y se guarda PENDIENTE con quien la pidió  0 ms
+
+▶ RelojMutableTest
+  ✔ INF-01 · avanza décimas de segundo y vuelve a T0  0 ms
+  ✔ INF-01 · el reloj arranca en T0  0 ms
+  ✔ INF-01 · el reloj no retrocede  0 ms
+
+▶ QaEndpointsProdTest
+  ▸ endpointsQaNoExistenEnProd(String)
+    ✔ CP-36 · /api/v1/qa/reloj con perfil prod devuelve 404  4 ms
+    ✔ CP-36 · /api/v1/qa/estimaciones con perfil prod devuelve 404  1 ms
+    ✔ CP-36 · /api/v1/qa/reset con perfil prod devuelve 404  1 ms
+
+▶ ReconocimientoConcurrenteTest
+  ▸ CP-25 · dos reconocimientos simultáneos: uno solo efectivo
+    ✔ CP-25 · dos reconocimientos simultáneos, corrida 1/20  59 ms
+    ✔ CP-25 · dos reconocimientos simultáneos, corrida 2/20  47 ms
+    ✔ CP-25 · dos reconocimientos simultáneos, corrida 3/20  51 ms
+    ✔ CP-25 · dos reconocimientos simultáneos, corrida 4/20  51 ms
+    ✔ CP-25 · dos reconocimientos simultáneos, corrida 5/20  50 ms
+    ✔ CP-25 · dos reconocimientos simultáneos, corrida 6/20  50 ms
+    ✔ CP-25 · dos reconocimientos simultáneos, corrida 7/20  51 ms
+    ✔ CP-25 · dos reconocimientos simultáneos, corrida 8/20  53 ms
+    ✔ CP-25 · dos reconocimientos simultáneos, corrida 9/20  50 ms
+    ✔ CP-25 · dos reconocimientos simultáneos, corrida 10/20  48 ms
+    ✔ CP-25 · dos reconocimientos simultáneos, corrida 11/20  47 ms
+    ✔ CP-25 · dos reconocimientos simultáneos, corrida 12/20  47 ms
+    ✔ CP-25 · dos reconocimientos simultáneos, corrida 13/20  47 ms
+    ✔ CP-25 · dos reconocimientos simultáneos, corrida 14/20  50 ms
+    ✔ CP-25 · dos reconocimientos simultáneos, corrida 15/20  46 ms
+    ✔ CP-25 · dos reconocimientos simultáneos, corrida 16/20  47 ms
+    ✔ CP-25 · dos reconocimientos simultáneos, corrida 17/20  49 ms
+    ✔ CP-25 · dos reconocimientos simultáneos, corrida 18/20  48 ms
+    ✔ CP-25 · dos reconocimientos simultáneos, corrida 19/20  48 ms
+    ✔ CP-25 · dos reconocimientos simultáneos, corrida 20/20  46 ms
+
+▶ LecturasIntegracionTest
+  ✔ CP-09 · un canal que vuelve después de 10 s sin actualizar necesita 3 lecturas para recuperarse  313 ms
+  ✔ CP-11 · con B y C sin actualizar más de 10 s la magnitud no es utilizable  667 ms
+  ✔ CP-12 · C se recupera con la tercera lectura válida seguida  347 ms
+  ✔ CP-10 · una lectura de 351 °C en C la marca FUERA_DE_RANGO sin cambiar el valor  174 ms
+  ✔ CP-04 · la lectura duplicada vuelve como DUPLICADA y queda un solo registro en H2  89 ms
+  ✔ CP-07 · C a 306,64 °C queda NO_CONFIABLE por DISCREPANCIA y el valor usa A y B  170 ms
+  ✔ CP-05 · la lectura fuera de orden no pisa el valor vigente  212 ms
+
+▶ ManiobrasIntegracionTest
+  ▸ bordesDeLaBanda(String, String)
+    ✔ CP-28 · banda 70 a 90, potencia 70 % → clase de alerta INFORMATIVA  219 ms
+    ✔ CP-28 · banda 70 a 90, potencia 69.9 % → clase de alerta RIESGO  218 ms
+    ✔ CP-28 · banda 70 a 90, potencia 90 % → clase de alerta INFORMATIVA  216 ms
+    ✔ CP-28 · banda 70 a 90, potencia 90.1 % → clase de alerta RIESGO  215 ms
+  ✔ CP-39 · banda con mínimo mayor que el máximo → 400  41 ms
+  ✔ CP-30 · a 29:59 la estimación se agrupa; a 30:00 la maniobra expira y se alerta normal  437 ms
+  ✔ CP-27 · 10 estimaciones dentro de la banda 70 a 90 generan una sola alerta INFORMATIVA  241 ms
+  ✔ CP-39 · DELETE pasa la maniobra a FINALIZADA y se vuelve a alertar normal  262 ms
+  ✔ CP-39 · no se puede declarar una segunda maniobra mientras hay una activa (409)  86 ms
+  ✔ CP-39 · la duración máxima por defecto es 30 minutos  43 ms
+  ✔ CP-29 · con la maniobra activa, el canal C que discrepa 2,5 % se avisa aparte  256 ms
+  ✔ CP-29 · si la potencia no es utilizable, la estimación genera una alerta normal  130 ms
+
+▶ BaseQaIntegracionTest
+  ✔ CP-18 · la base H2 es propia de cada contexto, no la compartida jdbc:h2:mem:atalaya [defecto ATA-17, corregido]  0 ms
+  ✔ INF-02 · /qa/reloj con segundos negativos devuelve 400  11 ms
+  ✔ CP-41 · GET /version con operador devuelve 3.1.0  41 ms
+  ✔ INF-02 · /qa/reloj avanza 10,1 s y /qa/reset vuelve a T0  4 ms
+  ✔ CP-34 · GET /version sin credenciales devuelve 401  1 ms
+
+▶ PairwiseIntegracionTest
+  ▸ combinacionesPairwise(int, String, String, String, String, String)
+    ✔ CP-31 · fila 1: maniobra NINGUNA, canales 3_CONFIABLES, reconoce OPERADOR_REACTOR ANTES, nivel ALTO  353 ms
+    ✔ CP-31 · fila 2: maniobra NINGUNA, canales 1_NO_CONFIABLE, reconoce JEFE_TURNO DESPUES, nivel ALTO  420 ms
+    ✔ CP-31 · fila 3: maniobra NINGUNA, canales MENOS_DE_2, reconoce SUPERVISOR_SO NUNCA, nivel ALTO  864 ms
+    ✔ CP-31 · fila 4: maniobra EXPIRADA, canales 3_CONFIABLES, reconoce JEFE_TURNO NUNCA, nivel ALTO  426 ms
+    ✔ CP-31 · fila 5: maniobra EXPIRADA, canales 1_NO_CONFIABLE, reconoce SUPERVISOR_SO ANTES, nivel ALTO  381 ms
+    ✔ CP-31 · fila 6: maniobra EXPIRADA, canales MENOS_DE_2, reconoce OPERADOR_REACTOR DESPUES, nivel CRITICO  953 ms
+    ✔ CP-31 · fila 7: maniobra ACTIVA, canales 3_CONFIABLES, reconoce SUPERVISOR_SO DESPUES, nivel ALTO  466 ms
+    ✔ CP-31 · fila 8: maniobra ACTIVA, canales 1_NO_CONFIABLE, reconoce OPERADOR_REACTOR NUNCA, nivel CRITICO  423 ms
+    ✔ CP-31 · fila 9: maniobra ACTIVA, canales MENOS_DE_2, reconoce JEFE_TURNO ANTES, nivel CRITICO  859 ms
+    ✔ CP-31 · fila 10: maniobra NINGUNA, canales 3_CONFIABLES, reconoce SUPERVISOR_SO ANTES, nivel CRITICO  331 ms
+
+▶ AlertasIntegracionTest
+  ✔ CP-23 · reconocer a los 44 s evita el escalamiento y guarda usuario, rol y hora  88 ms
+  ✔ CP-31 · una alerta ESCALADA se puede reconocer  47 ms
+  ✔ CP-21 · crítico sin reconocer: 44 s no escala, 45 s suma al supervisor de SO, 46 s no duplica  129 ms
+  ✔ CP-19 · la ventana es por tipo: otro tipo con el mismo nivel sí genera alerta  46 ms
+  ✔ CP-20 · ALTO en T0 y 80 % en T0+60 s: se emite la alerta CRITICO  47 ms
+  ✔ CP-22 · alto sin reconocer: 89 s no escala, 90 s suma al jefe de turno, 91 s no duplica  129 ms
+  ✔ CP-19 · misma estimación a T0+179 s no se repite; a T0+180 s sí (2 alertas)  49 ms
+  ✔ CP-18 · una estimación NORMAL no genera alerta  45 ms
+  ✔ CP-18 · 20 %, 50 % y 80 %: canales y destinatarios según el nivel  49 ms
+
+▶ UmbralesIntegracionTest
+  ▸ limitesDeUmbrales(String, String, int)
+    ✔ CP-32 · PUT alto 29.9 / crítico 75 → HTTP 422  95 ms
+    ✔ CP-32 · PUT alto 30 / crítico 75 → HTTP 201  83 ms
+    ✔ CP-32 · PUT alto 50 / crítico 75 → HTTP 201  84 ms
+    ✔ CP-32 · PUT alto 50.1 / crítico 75 → HTTP 422  84 ms
+    ✔ CP-32 · PUT alto 40 / crítico 64.9 → HTTP 422  84 ms
+    ✔ CP-32 · PUT alto 40 / crítico 65 → HTTP 201  87 ms
+    ✔ CP-32 · PUT alto 40 / crítico 100 → HTTP 201  89 ms
+    ✔ CP-32 · PUT alto 40 / crítico 100.1 → HTTP 422  85 ms
+  ✔ CP-33 · aunque pasara el control de rol, el servicio rechaza al mismo usuario (409)  44 ms
+  ✔ CP-16 · con umbrales 30/65 aprobados, 30 % es ALTO y 65 % es CRITICO de punta a punta  94 ms
+  ✔ CP-32 · la solicitud válida queda PENDIENTE  44 ms
+  ✔ CP-40 · aprobar dos veces la misma solicitud → 409  130 ms
+  ✔ CP-33 · sin aprobar, el umbral alto sigue en 40 %  85 ms
+  ✔ CP-33 · el supervisor que solicitó no puede aprobar: la API responde 403 por rol  126 ms
+  ✔ CP-33 · con la aprobación del jefe de turno el umbral alto pasa a 35 %  126 ms
+
+▶ CucumberTest
+  ▸ Escalamiento de alertas críticas
+    ▸ A los <segundos> s sin reconocer la alerta queda <estado>
+      ▸ Ejemplos
+        ✔ A los 44 s sin reconocer la alerta queda EMITIDA  120 ms
+        ✔ A los 45 s sin reconocer la alerta queda ESCALADA  97 ms
+        ✔ A los 46 s sin reconocer la alerta queda ESCALADA  95 ms
+    ✔ Reconocer antes del plazo evita el escalamiento  140 ms
+  ▸ Agrupación de alertas durante una maniobra
+    ✔ Las variaciones esperables generan una sola alerta informativa  287 ms
+    ✔ Fuera de la banda se alerta normalmente  267 ms
+  ▸ Redundancia de los canales de temperatura del primario
+    ✔ Un canal que discrepa más del 2 % se deja de usar y se avisa  264 ms
+    ✔ Una discrepancia de exactamente el 2 % no excluye al canal  218 ms
+  ▸ Cambio de umbrales con doble aprobación
+    ✔ Sin aprobación el umbral no cambia  87 ms
+    ✔ El supervisor que solicitó no puede aprobar  130 ms
+    ✔ Con la aprobación del jefe de turno el umbral cambia  130 ms
+
+╔══════════════════════════════════════════════════════════════╗
+║  RESULTADO: TODO EN VERDE                                    ║
+╠══════════════════════════════════════════════════════════════╣
+║  Total 307   ✔ 307   ✘ 0     ↷ 0      25,2 s                 ║
+╚══════════════════════════════════════════════════════════════╝
+
+
+┌─ JaCoCo · cobertura por paquete ─────────────────────────────┐
+└──────────────────────────────────────────────────────────────┘
+Paquete             Líneas     Ramas
+(app)                33,3%       —
+aplicacion           99,0%     97,4%
+config               97,8%     75,0%
+dominio              99,6%     99,0%  ← umbral 80 / 70
+persistencia         98,6%       —
+web.api              98,6%     72,2%
+web.panel            91,7%    100,0%
+web.qa              100,0%    100,0%
+TOTAL                98,5%     95,0%
+
+Reporte HTML: target/site/jacoco/index.html
+

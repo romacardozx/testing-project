@@ -1,0 +1,6 @@
+  ✔ UI-03 · el panel muestra el aviso CANAL_EXCLUIDO del canal que discrepa  954 ms
+  ✔ UI-01 · el auditor ve la alerta pero no tiene botón Reconocer  112 ms
+  ✔ UI-01 · el operador ve la alerta ALTO y la reconoce en 2 interacciones o menos  126 ms
+  ✔ UI-02 · la probabilidad y el nivel del panel coinciden con GET /estimaciones/actual  177 ms
+  ✔ UI-03 · cada canal se muestra en su propio renglón [defecto ATA-18, corregido]  87 ms
+║  Total 5     ✔ 5     ✘ 0     ↷ 0      3,9 s                  ║

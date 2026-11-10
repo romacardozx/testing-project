@@ -1,0 +1,31 @@
+ATALAYA 3.1.0 · make pit · 09/11/2026 22:55 · openjdk version "21.0.12.1" 2026-08-18
+
+Compilando y corriendo PIT (salida completa en target/pit.log)...
+
+┌─ PIT · mutation testing (dominio) ───────────────────────────┐
+│  Mutantes 162   muertos 159   vivos 3    sin cobertura 0   │
+│  Mutation score:  98,1 %  (umbral del informe: 75 %)       │
+└──────────────────────────────────────────────────────────────┘
+
+Clase                             Muertos    Score
+ClasificadorNivel.java             20/20    100,0%
+DefinicionAlerta.java               4/4     100,0%
+Magnitud.java                       7/7     100,0%
+NivelRiesgo.java                    5/5     100,0%
+PoliticaRepeticion.java            13/13    100,0%
+RecuperacionCanal.java              2/2     100,0%
+ReglaManiobra.java                 15/15    100,0%
+SenalCanal.java                     1/2      50,0%
+ServicioEscalamiento.java          11/11    100,0%
+UmbralesInvalidosException.java     1/1     100,0%
+ValidadorRango.java                 7/7     100,0%
+ValidadorRedundancia.java          60/60    100,0%
+ValidadorUmbrales.java             13/15     86,7%
+
+No muertos (analizar en docs/pit-analisis.md):
+  SURVIVED     ValidadorUmbrales.java:26  changed conditional boundary
+  SURVIVED     ValidadorUmbrales.java:26  removed conditional - replaced comparison check with false
+  SURVIVED     SenalCanal.java:17  Substituted 0 with 1
+
+Reporte HTML: target/pit-reports/index.html
+

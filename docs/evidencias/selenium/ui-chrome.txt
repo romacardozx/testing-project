@@ -1,0 +1,35 @@
+ATALAYA 3.1.0 · make ui-chrome HEADLESS=true · 09/11/2026 22:56 · openjdk version "21.0.12.1" 2026-08-18
+
+
+┌──────────────────────────────────────────────────────────────┐
+│  ATALAYA 3.1.0 · ejecución de pruebas                         │
+└──────────────────────────────────────────────────────────────┘
+
+▶ PanelUiTest
+22:56:13.446 WARN  o.o.s.devtools.CdpVersionFinder - Unable to find CDP implementation matching 157
+22:56:13.447 WARN  o.o.selenium.chromium.ChromiumDriver - Unable to find version of CDP to use for 157.0.8103.50. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.19.1` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+  📷 docs/evidencias/selenium/UI-03_panelMuestraAvisoDeCanal.png
+  ✔ UI-03 · el panel muestra el aviso CANAL_EXCLUIDO del canal que discrepa  1600 ms
+22:56:14.682 WARN  o.o.s.devtools.CdpVersionFinder - Unable to find CDP implementation matching 157
+22:56:14.682 WARN  o.o.selenium.chromium.ChromiumDriver - Unable to find version of CDP to use for 157.0.8103.50. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.19.1` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+  📷 docs/evidencias/selenium/UI-01_auditorNoReconoce.png
+  ✔ UI-01 · el auditor ve la alerta pero no tiene botón Reconocer  860 ms
+22:56:15.549 WARN  o.o.s.devtools.CdpVersionFinder - Unable to find CDP implementation matching 157
+22:56:15.549 WARN  o.o.selenium.chromium.ChromiumDriver - Unable to find version of CDP to use for 157.0.8103.50. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.19.1` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+  📷 docs/evidencias/selenium/UI-01_reconocerDesdeElPanel.png
+  ✔ UI-01 · el operador ve la alerta ALTO y la reconoce en 2 interacciones o menos  982 ms
+22:56:16.532 WARN  o.o.s.devtools.CdpVersionFinder - Unable to find CDP implementation matching 157
+22:56:16.532 WARN  o.o.selenium.chromium.ChromiumDriver - Unable to find version of CDP to use for 157.0.8103.50. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.19.1` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+  📷 docs/evidencias/selenium/UI-02_panelCoincideConLaApi.png
+  ✔ UI-02 · la probabilidad y el nivel del panel coinciden con GET /estimaciones/actual  513 ms
+22:56:17.043 WARN  o.o.s.devtools.CdpVersionFinder - Unable to find CDP implementation matching 157
+22:56:17.043 WARN  o.o.selenium.chromium.ChromiumDriver - Unable to find version of CDP to use for 157.0.8103.50. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.19.1` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+  📷 docs/evidencias/selenium/UI-03_canalesEnRenglonesSeparados.png
+  ✔ UI-03 · cada canal se muestra en su propio renglón [defecto ATA-18, corregido]  832 ms
+
+╔══════════════════════════════════════════════════════════════╗
+║  RESULTADO: TODO EN VERDE                                    ║
+╠══════════════════════════════════════════════════════════════╣
+║  Total 5     ✔ 5     ✘ 0     ↷ 0      7,3 s                  ║
+╚══════════════════════════════════════════════════════════════╝
+

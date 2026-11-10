@@ -9,18 +9,18 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Verifica el reloj de pruebas del que dependen todos los casos con tiempo (CP-09, CP-19 a CP-23,
- * CP-30). Si este reloj falla, esos casos dan resultados no repetibles.
+ * CP-30). Si este reloj falla, esos casos dan resultados no repetibles. Caso de infraestructura INF-01.
  */
 class RelojMutableTest {
 
     @Test
-    @DisplayName("Infra · el reloj arranca en T0")
+    @DisplayName("INF-01 · el reloj arranca en T0")
     void arrancaEnT0() {
         assertThat(new RelojMutable().instant()).isEqualTo(RelojMutable.T0);
     }
 
     @Test
-    @DisplayName("Infra · avanza décimas de segundo y vuelve a T0")
+    @DisplayName("INF-01 · avanza décimas de segundo y vuelve a T0")
     void avanzaYReinicia() {
         var reloj = new RelojMutable();
 
@@ -32,7 +32,7 @@ class RelojMutableTest {
     }
 
     @Test
-    @DisplayName("Infra · el reloj no retrocede")
+    @DisplayName("INF-01 · el reloj no retrocede")
     void noRetrocede() {
         var reloj = new RelojMutable();
 

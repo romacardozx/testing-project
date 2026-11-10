@@ -15,8 +15,7 @@ el SISTEMA chico, claro y fácil de probar.
 Mensaje del profesor (Di Ludovico, 30/10/2026): implementación básica con endpoints, comportamientos y
 escenarios concretos; aplicar casos de prueba, defectos documentados, caja negra, automatización,
 **pruebas de interfaz**, Pairwise, TDD, BDD y Mutation Testing con **Selenium, Postman, Cucumber y PIT**.
-Por eso el panel web y las pruebas de Selenium **están dentro del alcance** (el informe v6 todavía dice
-lo contrario: ver "Pendientes del informe").
+Por eso el panel web y las pruebas de Selenium **están dentro del alcance** (el informe v7 ya lo dice).
 
 Entrega: **13/11/2026** · ZIP `VV-Q2-2026-TN-GrupoE-ATALAYA.zip`.
 
@@ -24,14 +23,16 @@ Entrega: **13/11/2026** · ZIP `VV-Q2-2026-TN-GrupoE-ATALAYA.zip`.
 
 1. **Java 21 + Spring Boot 3 + Maven.** Nada de otros lenguajes ni frameworks para el SISTEMA o las pruebas.
 2. `mvn verify` tiene que compilar y pasar **en un clon limpio**. Un test fallido solo se admite si
-   evidencia un defecto del SISTEMA reportado en Jira (ver "Tests que fallan a propósito").
+   evidencia un defecto del SISTEMA registrado en `docs/defectos.md` (ver "Tests que fallan a propósito").
 3. Herramientas de la cátedra: **JUnit 5, Spring Boot Test, MockMvc, Cucumber, PIT, JaCoCo, Postman, Selenium**.
    No sumar otras herramientas de testing sin consultarlo (por ejemplo, no Playwright, RestAssured, k6, WireMock).
 4. **Sin datos reales**: todos los datos son sintéticos y llevan semilla o están fijos en el test.
 5. **Todo test lleva comentario** (Javadoc en la clase con su propósito y `@DisplayName` con el ID del caso).
-6. **Uso de IA**: los lineamientos (condición 11.f) exigen declararlo. Cada vez que generes código o
-   pruebas, agregá una línea en `docs/uso-ia.md` (fecha, qué se pidió, qué se generó). El equipo
-   completa después qué revisó y qué cambió. No borrar ese archivo.
+6. **Uso de IA**: la condición 11.f no habilitaba IA; el profesor (Di Ludovico, 26/10/2026) aclaró que
+   se puede usar como herramienta de apoyo, siempre que el equipo pueda explicar y justificar el
+   código, su funcionamiento y las decisiones. `docs/uso-ia.md` es un registro interno que lleva el
+   equipo por trazabilidad (no lo pidió la cátedra y no va en el ZIP): una línea por tarea, en tono de
+   apoyo o revisión. El equipo completa qué revisó y qué cambió. No borrar ese archivo.
 
 ## Stack y dependencias
 
@@ -58,6 +59,8 @@ make todo | unitarias | api | integracion | bdd | ui | ui-chrome   # por tipo de
 make clase T=ServicioEscalamientoTest                             # una clase o patrón
 make pit | cobertura                                              # resumen de PIT / JaCoCo con umbrales
 make app | postman | reportes | limpiar
+make evidencias | informe                                          # salida y capturas en docs/evidencias/ · PDF del informe v7
+make entrega                                                      # suite + PIT + reportes y arma el ZIP (SIN_PRUEBAS=1 reusa target/)
 make instalar | instalar-chrome                                   # primera vez: dependencias, newman, Chrome
 ```
 El resumen lo imprime `src/test/java/.../consola/ResumenConsola` (listener de JUnit Platform, solo con
@@ -90,8 +93,9 @@ src/main/java/ar/unsam/vv/atalaya/
 src/main/resources/ application.yml, application-qa.yml, application-prod.yml, templates/panel.html
 src/test/java/ar/unsam/vv/atalaya/
   dominio/        unitarias puras (las que corre PIT)
+  aplicacion/     servicios aislados con Mockito (repositorio y validador como mocks)
   integracion/    @SpringBootTest + H2 (caja gris)
-  api/            @WebMvcTest / MockMvc
+  api/            MockMvc sobre el contexto completo (@SpringBootTest); @MockBean donde hace falta un error que no se puede provocar de forma determinista
   bdd/            runner y steps de Cucumber
   ui/             Selenium (Page Objects en ui/paginas/)
 src/test/resources/features/   *.feature en español
@@ -288,7 +292,7 @@ Lo que no figura en la matriz se niega (`denyAll`); `GET /version` lo puede usar
 La API escribe 401 y 403 como JSON `{codigo, mensaje, campo}` **sin `sendError`**: con `sendError` el
 servidor reenvía a `/error`, lo atiende la cadena del panel y la API respondía 302 al login. MockMvc no
 hace ese reenvío; el defecto apareció al probar contra el servidor real (regresión en
-`SeguridadServidorRealTest`). Cargarlo en Jira como hallazgo.
+`SeguridadServidorRealTest`). Es ATA-16 en `docs/defectos.md`.
 
 Excepción: `/api/v1/qa/**` es `permitAll`. Solo existe con el perfil qa, y así con prod responde 404
 y no 401 (CP-36). CP-34 no aplica a esos endpoints.
@@ -373,6 +377,23 @@ perfil qa, H2 limpia, reloj en T0, sin maniobra, umbrales 40/75, usuario con el 
 | CP-35 | Matriz de permisos completa | api (@ParameterizedTest) |
 | CP-36 | Endpoints qa → 404 con perfil prod | integracion (@ActiveProfiles("prod")) |
 
+Casos agregados el 09/11 (no están en el catálogo original: sumarlos a la planilla y a la trazabilidad):
+
+| ID | Qué verifica | Dónde |
+|---|---|---|
+| CP-37 | Magnitud por nombre sin distinguir mayúsculas; inexistente → 404 | dominio + api |
+| CP-38 | Reconocer una alerta inexistente → 404 | api |
+| CP-39 | Ciclo de la maniobra: DELETE → FINALIZADA, segunda activa → 409, banda inválida → 400, duración por defecto 30 min | integracion |
+| CP-40 | Aprobar una solicitud ya APLICADA → 409; solicitud inexistente → 404 | integracion + aplicacion (Mockito) |
+| CP-41 | GET /version devuelve 3.1.0 | integracion |
+| INF-01 | Reloj de pruebas: arranca en T0, avanza, no retrocede | config |
+| INF-02 | Endpoints de QA: /qa/reloj avanza y valida, /qa/reset vuelve a T0 | integracion |
+
+INF-xx son pruebas de la infraestructura de pruebas, no del SISTEMA. Mocks (Mockito, incluido en
+`spring-boot-starter-test`): `aplicacion/ServicioUmbralesTest` (CP-32, CP-33, CP-40 con el servicio aislado)
+y `api/ConflictoConcurrenteApiTest` (CP-25 determinista: el servicio lanza el choque de versión y la API
+responde 409). Todo test lleva en el `@DisplayName` un ID CP-xx, UI-xx o INF-xx.
+
 Selenium, en `ui/` (no son CP del catálogo original; se suman como UI-xx):
 - UI-01: login como operador, ver la alerta ALTO y reconocerla en ≤ 2 clics.
 - UI-02: el valor y el nivel del panel coinciden con GET /estimaciones/actual.
@@ -453,14 +474,27 @@ Node/npm se usan solo para newman: nada del SISTEMA ni de las pruebas depende de
 Generador: `postman/generar_coleccion.py` (regenerar en vez de editar el JSON a mano). El caso CP-27
 repite la inyección ×10 con `postman.setNextRequest`: correrlo con el Collection Runner o `newman`.
 
+## Entrega
+
+`make entrega` (scripts/entrega.sh): `mvn clean verify` + PIT; si algo falla no arma nada. Copia los
+reportes a `reportes/` y arma `VV-Q2-2026-TN-GrupoE-ATALAYA.zip` con los archivos del repo (versionados
+y nuevos no ignorados) **sin** `CLAUDE.md`, `.claude/`, `docs/uso-ia.md`, `postman/generar_coleccion.py`,
+`docs/fuentes/`, el informe v6, `.idea/`, `.gitignore` ni `.gitkeep`, y quita del README del ZIP las líneas que los nombran. Al final
+revisa que el ZIP no los tenga. El repo no cambia. El uso de IA se declara en la sección 13 del informe:
+completarla con `docs/uso-ia.md` antes de entregar. Probado el 09/11: el ZIP descomprimido pasa
+`mvn verify` (305 tests).
+
 ## Defectos
 
-- Los defectos se reportan en Jira (fuera del repo). En el código, citar la clave en el `@DisplayName`
-  del test que lo evidencia.
-- **Tests que fallan a propósito**: si al entregar un defecto sigue abierto, el test que lo evidencia
-  queda con `@DisplayName("CP-xx · ... [defecto ATA-n]")`. Solo con un defecto real y reportado.
-- Si el equipo decide sembrar defectos para la demostración, se marcan como sembrados en Jira y en el
-  informe. No presentarlos como hallazgos espontáneos.
+- No hay Jira. Los defectos se registran en `docs/defectos.md` (detalle) y en la hoja Defectos de la
+  planilla (resumen), con clave ATA-n. Hoy: ATA-1 a ATA-18 (3 del SISTEMA, cerrados; 12 de
+  especificación; 3 del diseño de pruebas). Un defecto nuevo va en los dos lugares, en la columna N de
+  los casos que afecta y, si es del SISTEMA, con su prueba de regresión.
+- En el código, citar la clave en el `@DisplayName` del test que lo evidencia: `[defecto ATA-n]` si
+  sigue abierto (test que falla a propósito, solo con un defecto real y registrado) y
+  `[defecto ATA-n, corregido]` si es la regresión de uno cerrado.
+- Si el equipo decide sembrar defectos para la demostración, se marcan como sembrados en el registro y
+  en el informe. No presentarlos como hallazgos espontáneos.
 
 ## Convenciones de código
 
@@ -471,14 +505,19 @@ repite la inyección ×10 con `postman.setNextRequest`: correrlo con el Collecti
 - Nada de `@Disabled` sin una razón escrita.
 - Antes de dar algo por terminado: `mvn verify` en verde.
 
-## Pendientes del informe (TP_ATALAYA_QA_v6.pdf)
+## Informe, planilla y evidencias
 
-El informe es del equipo; Claude no lo edita. Correcciones a hacer en la próxima versión:
-- Sección 2, tabla ISO 25010 (Usabilidad) y sección 12: el panel web y Selenium ya no están fuera del
-  alcance (pedido del profesor). Sumar UI-01 a UI-03 a casos, trazabilidad y planilla.
-- 7.3: el código de `ClasificadorNivel` usa `BigDecimal` y `ProbabilidadInvalidaException`, no `double`.
-- 10.2: aclarar que los mutantes de constantes salen de `INLINE_CONSTS`.
-- 6: el entorno de desarrollo no tiene por qué ser VS Code (hay integrantes con IntelliJ).
+- Informe vigente: `docs/TP_ATALAYA_QA_v7.pdf`, generado con `make informe` desde
+  `docs/fuentes/TP_ATALAYA_QA_v7.html` (Chrome sin ventana, estilo del v6). Editar el HTML, no el PDF.
+  El v6 queda en el repo pero no va en el ZIP. Lo redactó Claude a pedido del equipo (09/11); el equipo
+  revisó la sección 13 (cita la aclaración del profesor del 26/10) y los roles de la sección 6
+  (Cardozo líder de QA y CP-01 a CP-11, Geronzi CP-12 a CP-22, Ventrici CP-23 a CP-33, Beda CP-34 a UI-03).
+- Planilla: los 44 casos (CP-01 a CP-41, UI-01 a UI-03) ejecutados el 09/11, repartidos en 4 bloques de 11
+  (Cardozo CP-01 a CP-11, Geronzi CP-12 a CP-22, Ventrici CP-23 a CP-33, Beda CP-34 a UI-03), con
+  evidencia y defecto. Resumen y Trazabilidad tienen fórmulas (CONTAR.SI) sobre Casos y Defectos.
+- Evidencias: `make evidencias` (scripts/evidencias.sh) regenera `docs/evidencias/ejecucion/`,
+  `postman/` y `selenium/` (capturas con `-Dcapturas=<carpeta>`, solo Chrome). Si cambian los tests o
+  los números, regenerar y actualizar la sección 12 del informe y la planilla.
 
 ## Qué no hacer
 

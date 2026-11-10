@@ -24,7 +24,7 @@ endif
 
 .DEFAULT_GOAL := ayuda
 .PHONY: ayuda instalar instalar-chrome todo unitarias api integracion bdd ui ui-chrome ui-demo clase pit cobertura verify \
-        app postman reportes limpiar
+        app postman reportes evidencias informe entrega limpiar
 
 ayuda: ## Muestra esta ayuda
 	@printf "\n$(N)ATALAYA 3.1.0 · pruebas$(X)\n\n"
@@ -42,7 +42,7 @@ todo: ## Toda la suite (mvn verify): unitarias, API, integración, BDD, Selenium
 	@scripts/cobertura-resumen.sh
 
 unitarias: ## Unitarias de dominio (caja negra y blanca, TDD; las que usa PIT)
-	@$(TEST) -Dtest='**/dominio/**/*Test,**/config/*Test'
+	@$(TEST) -Dtest='**/dominio/**/*Test,**/config/*Test,**/aplicacion/*Test'
 
 api: ## API con MockMvc y contra el servidor real (CP-01, 03, 13-15, 24, 34, 35)
 	@$(TEST) -Dtest='**/api/*Test'
@@ -93,6 +93,15 @@ reportes: ## Copia los reportes de JaCoCo, PIT y Cucumber a reportes/ (para el Z
 		src=target/$${d%%:*}; dst=reportes/$${d##*:}; \
 		if [ -d $$src ]; then cp -r $$src $$dst && printf "  ✔ $$dst\n"; \
 		else printf "  ↷ falta $$src (correr make todo / make pit)\n"; fi; done
+
+evidencias: ## Corre todo (suite, PIT, Postman, Selenium en Chrome) y guarda la salida en docs/evidencias/
+	@scripts/evidencias.sh
+
+informe: ## Genera docs/TP_ATALAYA_QA_v7.pdf desde docs/fuentes/TP_ATALAYA_QA_v7.html (Chrome)
+	@scripts/informe.sh
+
+entrega: ## Corre todo, arma VV-Q2-2026-TN-GrupoE-ATALAYA.zip sin CLAUDE.md, .claude/ ni docs/uso-ia.md
+	@scripts/entrega.sh $(if $(SIN_PRUEBAS),--sin-pruebas)
 
 limpiar: ## Borra target/ y reportes/
 	@./mvnw -B -q clean && rm -rf reportes

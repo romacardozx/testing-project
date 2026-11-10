@@ -1,0 +1,774 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>ATALAYA 3.1.0: Estrategia de testing e informe de QA</title>
+<meta name="author" content="Grupo E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  @page {
+    size: A4;
+    margin: 20mm 18mm 20mm 18mm;
+    @top-right { content: "Grupo E · ATALAYA 3.1.0 · v7"; font: 8pt Carlito, "Liberation Sans", sans-serif; color: #8a8a8a; }
+    @bottom-center { content: counter(page); font: 10pt Carlito, "Liberation Sans", sans-serif; }
+  }
+  @page :first { @top-right { content: none; } @bottom-center { content: none; } }
+  :root { --azul: #1f3864; --celeste: #d9e2f3; --borde: #a6a6a6; --marca: #fff59d; }
+  html { background: #fff; }
+  body { font: 11pt/1.45 Carlito, Calibri, "Liberation Sans", sans-serif; color: #000; margin: 0; }
+  h1, h2, h3 { color: var(--azul); font-weight: 700; break-after: avoid; }
+  h2 { font-size: 13.5pt; margin: 18pt 0 6pt; }
+  h3 { font-size: 11.5pt; margin: 12pt 0 4pt; }
+  p { margin: 0 0 7pt; text-align: justify; }
+  ul { margin: 0 0 7pt; padding-left: 18pt; }
+  li { margin-bottom: 2pt; }
+  table { width: 100%; border-collapse: collapse; margin: 6pt 0 12pt; font-size: 8.5pt; line-height: 1.3; break-inside: auto; }
+  tr { break-inside: avoid; }
+  th, td { border: 0.6pt solid var(--borde); padding: 3pt 5pt; vertical-align: top; text-align: left; }
+  th { background: var(--celeste); font-weight: 700; }
+  thead { display: table-header-group; }
+  code, pre { font-family: "DejaVu Sans Mono", monospace; font-size: 8pt; }
+  pre { background: #f2f2f2; border: 0.6pt solid #d0d0d0; padding: 6pt 8pt; margin: 4pt 0 10pt; white-space: pre; line-height: 1.35; break-inside: avoid; }
+  mark { background: var(--marca); }
+  .portada { height: 250mm; display: flex; flex-direction: column; justify-content: center; text-align: center; break-after: page; }
+  .portada .inst { font-weight: 700; font-size: 12pt; }
+  .portada .sub { font-size: 10.5pt; }
+  .portada .tp { color: #666; margin-top: 34pt; font-size: 12pt; }
+  .portada .titulo { color: var(--azul); font-size: 28pt; font-weight: 700; margin: 4pt 0; }
+  .portada .bajada { color: var(--azul); font-size: 14pt; }
+  .portada .grupo { margin-top: 40pt; font-weight: 700; }
+  .portada .nombres { line-height: 1.6; font-size: 10.5pt; }
+  .portada .docentes { margin-top: 30pt; font-size: 10.5pt; }
+  .indice { break-after: page; }
+  .indice ol { list-style: none; padding: 0; font-size: 11pt; line-height: 1.9; }
+  .cambios td:first-child { width: 22%; }
+  .nota { font-size: 9pt; color: #444; }
+  .ancho1 { width: 18%; }
+  .salto { break-before: page; }
+  table.casos td:first-child { white-space: nowrap; }
+</style>
+</head>
+<body>
+
+<section class="portada">
+  <div class="inst">Universidad Nacional de San Martín</div>
+  <div class="sub">Escuela de Ciencia y Tecnología (ECyT)</div>
+  <div class="sub">Licenciatura en Desarrollo de Software · Verificación y Validación de Software</div>
+  <div class="tp">Trabajo Práctico Integrador</div>
+  <div class="titulo">ATALAYA 3.1.0</div>
+  <div class="bajada">Estrategia de testing e informe de QA</div>
+  <div class="grupo">Grupo E · Turno noche</div>
+  <div class="nombres">Roman Cardozo<br>Valentino Geronzi<br>Gonzalo Ventrici<br>Nicolas Beda</div>
+  <div class="docentes">Docentes: Ing. Maximiliano Di Ludovico · Ing. Alejandro Millán<br>Fecha de entrega: 13/11/2026 · Versión 7 del informe</div>
+</section>
+
+<section class="indice">
+  <h2>Contenido</h2>
+  <ol>
+    <li>1. Introducción</li>
+    <li>2. Sistema bajo prueba y alcance</li>
+    <li>3. Fundamentos aplicados</li>
+    <li>4. Análisis de riesgos</li>
+    <li>5. Revisión de requerimientos</li>
+    <li>6. Plan de pruebas</li>
+    <li>7. Diseño de pruebas</li>
+    <li>8. Casos de prueba</li>
+    <li>9. Criterios de aceptación y BDD</li>
+    <li>10. Automatización, TDD, API e interfaz</li>
+    <li>11. Defectos, Definition of Done y métricas</li>
+    <li>12. Informe final</li>
+    <li>13. Uso de inteligencia artificial</li>
+    <li>14. Entrega</li>
+  </ol>
+  <h3>Cambios respecto de la versión 6</h3>
+  <table class="cambios">
+    <thead><tr><th>Sección</th><th>Cambio</th></tr></thead>
+    <tbody>
+      <tr><td>2, 3, 7, 10, 12</td><td>El panel web y las pruebas con Selenium pasan a estar dentro del alcance, como pidió el profesor el 30/10.</td></tr>
+      <tr><td>5, 11</td><td>Sin Jira: los defectos se llevan en <code>docs/defectos.md</code> y en la hoja Defectos de la planilla. Se suman las decisiones de implementación (ATA-8 a ATA-12).</td></tr>
+      <tr><td>6</td><td>Entorno, herramientas, cronograma y forma de trabajo ajustados a lo que hicimos.</td></tr>
+      <tr><td>7.3</td><td>El código de <code>ClasificadorNivel</code> es el real (<code>BigDecimal</code>).</td></tr>
+      <tr><td>8</td><td>Casos nuevos CP-37 a CP-41 y UI-01 a UI-03 (44 en total).</td></tr>
+      <tr><td>10, 12</td><td>Resultados de la ejecución, cobertura, mutación y defectos.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<h2>1. Introducción</h2>
+<p>ATALAYA es un sistema de asistencia a la operación de una central nuclear: recibe señales de planta,
+estima la probabilidad de distintas desviaciones y genera alertas para la sala de control. No tiene
+ningún camino de escritura hacia los sistemas de control ni de protección, así que el riesgo que nos
+importa es que el operador tome una mala decisión por una alerta falsa, una alerta que no llega o que
+llega tarde, o por exceso de alertas.</p>
+<p>El enunciado no trae código y los lineamientos piden entregar el SISTEMA en Java 21 con Spring Boot.
+Por eso implementamos una versión reducida de ATALAYA que cubre la lógica de mayor riesgo y, sobre
+ella, planificamos, diseñamos y ejecutamos las pruebas. Como confirmó el profesor, la complejidad del
+código no es el objetivo: lo mantuvimos chico para que las pruebas sean lo importante.</p>
+
+<h2>2. Sistema bajo prueba y alcance</h2>
+<p>El SISTEMA es una API REST con Spring Boot, persistencia en H2 y autenticación por roles con Spring
+Security, más un panel web mínimo para la sala de control. Las estimaciones del modelo de IA no se
+calculan: en el perfil qa se inyectan por un endpoint, igual que el avance del reloj, que es un
+<code>java.time.Clock</code> inyectado en las clases que manejan tiempos. Así podemos probar 45 s o 3 min sin esperar.</p>
+<table>
+  <thead><tr><th>Incluido en el alcance</th><th>Fuera del alcance y motivo</th></tr></thead>
+  <tbody>
+    <tr><td>RF-01/02: validación de rangos, duplicados y orden de llegada</td><td>RF-04/05 modo operativo y calibración: menor riesgo para la lógica de alertas</td></tr>
+    <tr><td>RF-03: redundancia de tres canales</td><td>RF-10 modo degradado y RF-11 integraciones y auditoría: dependen de sistemas externos</td></tr>
+    <tr><td>RF-06: niveles de riesgo y factores</td><td>Modelo de IA real y su evaluación estadística: no disponible</td></tr>
+    <tr><td>RF-07/08: alertas, repetición y escalamiento</td><td>Desempeño, disponibilidad 99,95 % y carga: requieren infraestructura real</td></tr>
+    <tr><td>RF-09: agrupación en maniobras (nuevo en 3.1.0)</td><td>Red segregada, licenciamiento y seguridad nuclear</td></tr>
+    <tr><td>RF-12: umbrales con doble aprobación</td><td></td></tr>
+    <tr><td>Seguridad: autenticación y permisos por rol</td><td></td></tr>
+    <tr><td>Panel web: alertas, reconocimiento y estado de canales (pruebas con Selenium)</td><td></td></tr>
+  </tbody>
+</table>
+<table>
+  <thead><tr><th style="width:42%">Endpoint</th><th>Uso</th></tr></thead>
+  <tbody>
+    <tr><td>POST /api/v1/lecturas</td><td>Ingreso de una lectura (magnitud, canal, valor, secuencia)</td></tr>
+    <tr><td>GET /api/v1/magnitudes/{magnitud}</td><td>Valor consolidado, si es utilizable, estado de cada canal y avisos</td></tr>
+    <tr><td>GET /api/v1/estimaciones/actual</td><td>Probabilidad, nivel y factores por tipo de estimación</td></tr>
+    <tr><td>GET /api/v1/alertas · POST /api/v1/alertas/{id}/reconocimiento</td><td>Consultar y reconocer alertas</td></tr>
+    <tr><td>POST /api/v1/maniobras · DELETE /api/v1/maniobras/{id}</td><td>Declarar y finalizar maniobras</td></tr>
+    <tr><td>GET y PUT /api/v1/config/umbrales · POST …/{id}/aprobacion</td><td>Ver los umbrales vigentes, solicitar y aprobar cambios</td></tr>
+    <tr><td>GET /api/v1/version</td><td>Versión de software (3.1.0) y del modelo</td></tr>
+    <tr><td>POST /api/v1/qa/estimaciones · /qa/reloj · /qa/reset</td><td>Solo perfil qa: inyectar estimaciones, avanzar el reloj y volver a la precondición base</td></tr>
+    <tr><td>/login · /panel</td><td>Panel web con login por formulario</td></tr>
+  </tbody>
+</table>
+
+<h2>3. Fundamentos aplicados</h2>
+<p>Verificamos con revisión de requerimientos, revisión de código y pruebas contra cada RF. Validamos
+con criterios de aceptación escritos para que operación y seguridad puedan leerlos (sección 9). En el
+informe usamos error para la equivocación de una persona, defecto para lo que queda mal en un
+artefacto y falla para lo que se observa al ejecutar. Por ejemplo: interpretar “más del 2 %” como “2 % o
+más” es un error; escribir &gt;= en vez de &gt; en el validador es el defecto; que un canal al 2,00 % quede
+como no confiable es la falla (CP-08).</p>
+<p>Así aplicamos los principios del testing en este trabajo:</p>
+<table>
+  <thead><tr><th>Principio</th><th>Cómo lo aplicamos</th></tr></thead>
+  <tbody>
+    <tr><td>Las pruebas muestran la presencia de defectos, no su ausencia</td><td>En el informe final decimos qué no pudimos verificar</td></tr>
+    <tr><td>No se puede probar todo</td><td>Valores límite, partición de equivalencia y pairwise</td></tr>
+    <tr><td>Probar temprano</td><td>Revisamos los requerimientos antes de codificar (sección 5)</td></tr>
+    <tr><td>Los defectos se agrupan</td><td>Más casos en redundancia y escalamiento, donde están los bordes</td></tr>
+    <tr><td>Paradoja del pesticida</td><td>Revisamos los mutantes que sobreviven y agregamos casos</td></tr>
+    <tr><td>Las pruebas dependen del contexto</td><td>La severidad se mide por el efecto sobre la decisión del operador</td></tr>
+  </tbody>
+</table>
+<p>Las características de calidad de ISO/IEC 25010 que priorizamos para este SISTEMA son las siguientes:</p>
+<table>
+  <thead><tr><th>Característica</th><th>Subcaracterísticas</th><th>Prioridad</th><th>Cómo la evaluamos</th></tr></thead>
+  <tbody>
+    <tr><td>Adecuación funcional</td><td>Corrección, completitud</td><td>Alta</td><td>Casos de caja negra y blanca sobre los RF del alcance</td></tr>
+    <tr><td>Fiabilidad</td><td>Tolerancia a fallos, madurez</td><td>Alta</td><td>Canales sin actualizar, duplicados, lecturas fuera de orden</td></tr>
+    <tr><td>Seguridad</td><td>Autenticidad, confidencialidad, responsabilidad</td><td>Alta</td><td>Permisos por rol, registro de quién reconoce, endpoints de QA apagados en producción</td></tr>
+    <tr><td>Mantenibilidad</td><td>Capacidad de ser probado, modificabilidad</td><td>Media</td><td>Reloj inyectable, cobertura y mutación</td></tr>
+    <tr><td>Usabilidad</td><td>Operabilidad</td><td>Media</td><td>Selenium sobre el panel: reconocer una alerta en 2 interacciones o menos y ver el estado de los canales (UI-01 a UI-03)</td></tr>
+    <tr><td>Eficiencia de desempeño</td><td>Comportamiento temporal</td><td>Baja en este alcance</td><td>Requiere infraestructura real; queda fuera</td></tr>
+  </tbody>
+</table>
+<p>No usamos una herramienta de análisis estático. La revisión de código la hicimos con esta checklist
+antes de integrar cada cambio:</p>
+<table>
+  <thead><tr><th>Punto de revisión</th><th>Por qué</th></tr></thead>
+  <tbody>
+    <tr><td>Los bordes usan el operador que pide el requerimiento (&gt; o &gt;=)</td><td>Es el defecto más probable en RF-03, RF-06 y RF-08</td></tr>
+    <tr><td>Las clases con tiempos reciben el Clock y no llaman a now() directo</td><td>Si no, las pruebas de tiempo no son repetibles</td></tr>
+    <tr><td>Las comparaciones de las reglas usan BigDecimal</td><td>Con double, 306,60 − 300,00 da 6,6000000000000227 y el caso del 2,00 % falla</td></tr>
+    <tr><td>Se validan nulos y valores fuera de rango en la entrada</td><td>RF-01/02</td></tr>
+    <tr><td>Cada prueba tiene comentario con su propósito y el ID del caso</td><td>Lo piden los lineamientos y ayuda a la trazabilidad</td></tr>
+    <tr><td>Los endpoints de QA están anotados con el perfil qa</td><td>Evita que lleguen a producción (CP-36)</td></tr>
+  </tbody>
+</table>
+
+<h2>4. Análisis de riesgos</h2>
+<p>Priorizamos por severidad (efecto sobre la decisión del operador) y probabilidad.</p>
+<table>
+  <thead><tr><th>ID</th><th>Riesgo</th><th>Sev.</th><th>Prob.</th><th>Cómo lo cubrimos</th></tr></thead>
+  <tbody>
+    <tr><td>R1</td><td>Alerta crítica que no llega o llega tarde</td><td>Alta</td><td>Media</td><td>Bordes de nivel y de escalamiento (CP-13, CP-21)</td></tr>
+    <tr><td>R2</td><td>Exceso de alertas repetidas: el operador deja de prestarles atención</td><td>Alta</td><td>Alta</td><td>Repetición de 3 min y agrupación en maniobras (CP-19, CP-27)</td></tr>
+    <tr><td>R3</td><td>La agrupación de maniobras oculta un desvío real</td><td>Alta</td><td>Media</td><td>Bordes de la banda, maniobra con falla de instrumento, expiración, pairwise</td></tr>
+    <tr><td>R4</td><td>Se usa un canal no confiable para estimar</td><td>Alta</td><td>Media</td><td>Tabla de decisión de RF-03</td></tr>
+    <tr><td>R5</td><td>Lecturas duplicadas, desordenadas o fuera de rango</td><td>Alta</td><td>Alta</td><td>CP-01 a CP-05</td></tr>
+    <tr><td>R6</td><td>Escalamiento a destiempo o duplicado</td><td>Alta</td><td>Media</td><td>Reloj simulado y caja blanca (CP-21 a CP-26)</td></tr>
+    <tr><td>R7</td><td>Cambio de umbral sin la aprobación requerida</td><td>Alta</td><td>Baja</td><td>CP-32, CP-33 y CP-40</td></tr>
+    <tr><td>R8</td><td>Acceso con un rol indebido</td><td>Media</td><td>Baja</td><td>CP-34 a CP-36, también contra el servidor real</td></tr>
+    <tr><td>R9</td><td>El panel muestra algo distinto de lo que informa la API</td><td>Media</td><td>Baja</td><td>UI-02 y UI-03</td></tr>
+    <tr><td>R10</td><td>Datos sintéticos poco representativos</td><td>Media</td><td>Alta</td><td>Se declara como limitación</td></tr>
+  </tbody>
+</table>
+
+<h2>5. Revisión de requerimientos</h2>
+<p>La revisión de requerimientos fue la primera prueba que hicimos. Cada ambigüedad quedó registrada
+como defecto de especificación (sección 11). Hasta tener respuesta, el SISTEMA implementa la decisión
+de la tabla.</p>
+<table>
+  <thead><tr><th>#</th><th>Ambigüedad</th><th>Decisión</th><th>Defecto</th></tr></thead>
+  <tbody>
+    <tr><td>A1</td><td>“Discrepa más del 2 % del rango respecto de los otros”: ¿contra qué canal o valor?</td><td>Contra la mediana de los canales con valor</td><td>ATA-1</td></tr>
+    <tr><td>A2</td><td>“2 % del rango”: ¿de qué rango?</td><td>Rango físico de RF-01 (330 °C → 6,6 °C)</td><td>ATA-1</td></tr>
+    <tr><td>A3</td><td>Al recuperarse un canal, ¿cuántas lecturas buenas hacen falta?</td><td>3 lecturas seguidas</td><td>ATA-2</td></tr>
+    <tr><td>A4</td><td>“Salvo que empeore”: ¿cambio de nivel o aumento de probabilidad?</td><td>Cambio a un nivel mayor</td><td>ATA-3</td></tr>
+    <tr><td>A5</td><td>Dos reconocimientos simultáneos de la misma alerta</td><td>Vale el primero; el segundo recibe 409</td><td>ATA-4</td></tr>
+    <tr><td>A6</td><td>Maniobra declarada que nunca se ejecuta</td><td>Expira a los 30 min</td><td>ATA-5</td></tr>
+    <tr><td>A7</td><td>Con alto en 30 %, ¿atención pasa a ser de 15 % a 30 %?</td><td>Sí</td><td>ATA-6</td></tr>
+    <tr><td>A8</td><td>El umbral crítico no tiene máximo</td><td>Máximo 100 %</td><td>ATA-7</td></tr>
+  </tbody>
+</table>
+<p>Al implementar aparecieron otras cinco preguntas que el enunciado no contesta. Las resolvimos así:</p>
+<table>
+  <thead><tr><th>Tema</th><th>Decisión</th><th>Defecto</th></tr></thead>
+  <tbody>
+    <tr><td>RF-03, regla 1: ¿“sin actualizar” mira la última lectura aceptada o la recibida?</td><td>La recibida (aceptada o descartada por rango). Si no, un canal que envía 351 °C quedaría SIN_ACTUALIZACION y nunca FUERA_DE_RANGO (CP-10). Las duplicadas y fuera de orden no cuentan</td><td>ATA-8</td></tr>
+    <tr><td>RF-07: nivel menor dentro de los 3 min</td><td>No se emite: bajar de nivel no es empeorar</td><td>ATA-9</td></tr>
+    <tr><td>RF-09: ¿puede haber más de una maniobra activa?</td><td>No. Declarar otra devuelve 409. La alerta informativa es una por maniobra y agrupa estimaciones de cualquier tipo</td><td>ATA-10</td></tr>
+    <tr><td>RF-12: la regla “alto menor que crítico”</td><td>Nunca puede fallar (alto ≤ 50 &lt; 65 ≤ crítico). Queda en el código porque la pide el requerimiento</td><td>ATA-11</td></tr>
+    <tr><td>RF-12: “aprueba el mismo usuario”</td><td>Con un rol por usuario, por la API el supervisor recibe 403 antes de llegar a esa regla. El 409 se prueba sobre el servicio</td><td>ATA-12</td></tr>
+  </tbody>
+</table>
+<p>Otras decisiones menores: una lectura se clasifica en el orden duplicada, fuera de orden, fuera de
+rango y aceptada; el valor consolidado se redondea a 2 decimales; la mediana de dos valores es su
+promedio; el nombre de la magnitud en la ruta no distingue mayúsculas; y los endpoints de QA no piden
+credenciales, para que con el perfil prod respondan 404 y no 401 (CP-36).</p>
+
+<h2>6. Plan de pruebas</h2>
+<p>El objetivo es reunir evidencia suficiente sobre la lógica de mayor riesgo para poder recomendar si se
+libera o no. Probamos lo incluido en la sección 2. La estrategia es basada en riesgos: primero
+redundancia, niveles y escalamiento, después maniobras, configuración y la interfaz.</p>
+<p>No probamos lo que quedó fuera del alcance en la sección 2, ni el modelo de IA. Sobre el modelo, el
+requerimiento pide una sensibilidad mínima del 95 %, y con pocos eventos críticos ese número es
+engañoso: 19 detecciones sobre 20 dan 95 %, pero el intervalo de confianza va aproximadamente de 75 %
+a 99,9 %. Para afirmar que la sensibilidad es de al menos 95 % con 95 % de confianza harían falta unos
+59 eventos detectados sin ninguna falla. Lo dejamos planteado como método para cuando el modelo
+esté disponible.</p>
+<p>Para empezar a ejecutar pedimos que el proyecto compile con <code>mvn verify</code>, que exista el perfil qa y que
+los casos estén revisados por otro integrante. Para terminar, que todos los casos estén ejecutados, que
+no haya defectos críticos abiertos y que la cobertura y la mutación superen lo definido en la sección 11.
+Suspendemos si el build falla o si un defecto bloquea el resto de las pruebas, y retomamos repitiendo
+los casos afectados.</p>
+<table>
+  <thead><tr><th>Entorno</th><th>Uso</th></tr></thead>
+  <tbody>
+    <tr><td>Desarrollo</td><td>Cada integrante con su IDE (IntelliJ IDEA o VS Code) y JDK 21; pruebas unitarias y TDD</td></tr>
+    <tr><td>QA</td><td>Perfil qa con reloj y estimaciones inyectables; suite completa, Postman y Selenium</td></tr>
+    <tr><td>Staging</td><td>Perfil prod; se verifica que los endpoints de QA no existan (CP-36)</td></tr>
+    <tr><td>Producción</td><td>Sala de control; fuera del alcance del trabajo</td></tr>
+  </tbody>
+</table>
+<table>
+  <thead><tr><th>Integrante</th><th>Rol</th></tr></thead>
+  <tbody>
+    <tr><td>Roman Cardozo</td><td>Líder de QA; lecturas y redundancia (CP-01 a CP-11)</td></tr>
+    <tr><td>Valentino Geronzi</td><td>Niveles y escalamiento (CP-12 a CP-22)</td></tr>
+    <tr><td>Gonzalo Ventrici</td><td>Maniobras, pairwise y umbrales (CP-23 a CP-33)</td></tr>
+    <tr><td>Nicolas Beda</td><td>Seguridad e interfaz con Selenium (CP-34 a CP-41, UI-01 a UI-03)</td></tr>
+  </tbody>
+</table>
+<p>Así distribuimos el trabajo:</p>
+<table>
+  <thead><tr><th>Fecha</th><th>Actividad</th><th>Esfuerzo</th></tr></thead>
+  <tbody>
+    <tr><td>30/10</td><td>Revisión con los docentes y cierre de alcance; revisión de requerimientos</td><td>4 h</td></tr>
+    <tr><td>31/10</td><td>Proyecto Maven, RF-01 a RF-12 con sus pruebas; TDD en ValidadorRedundancia y ServicioEscalamiento; Cucumber, Selenium y colección de Postman</td><td>24 h</td></tr>
+    <tr><td>01/11 al 08/11</td><td>Revisión de casos, análisis de mutantes, ajustes de la colección y del panel</td><td>24 h</td></tr>
+    <tr><td>09/11</td><td>Ejecución completa con evidencia, registro de defectos y planilla</td><td>12 h</td></tr>
+    <tr><td>10/11 al 12/11</td><td>Informe final y ensayo de la exposición</td><td>8 h</td></tr>
+    <tr><td>13/11</td><td>Entrega en el campus</td><td>1 h</td></tr>
+  </tbody>
+</table>
+<p>Herramientas que usamos:</p>
+<table>
+  <thead><tr><th>Herramienta</th><th>Uso</th></tr></thead>
+  <tbody>
+    <tr><td>Java 21, Spring Boot 3, Maven (wrapper incluido)</td><td>SISTEMA y ejecución de todas las pruebas</td></tr>
+    <tr><td>JUnit 5, Spring Boot Test, MockMvc, Mockito</td><td>Pruebas unitarias, de integración y de API; mocks para aislar servicios</td></tr>
+    <tr><td>Cucumber</td><td>Criterios de aceptación en Dado-Cuando-Entonces</td></tr>
+    <tr><td>Selenium (HtmlUnit y Chrome)</td><td>Pruebas de interfaz sobre el panel</td></tr>
+    <tr><td>JaCoCo y PIT</td><td>Cobertura y mutación</td></tr>
+    <tr><td>Postman y newman</td><td>Colección de la API y su ejecución por consola</td></tr>
+    <tr><td>Makefile</td><td>Un comando por tipo de prueba, evidencias y armado de la entrega</td></tr>
+    <tr><td>Planilla y docs/defectos.md</td><td>Casos, trazabilidad, resultados y registro de defectos (no usamos Jira)</td></tr>
+  </tbody>
+</table>
+<p>Los cambios de alcance o de requerimientos se registran como defecto de especificación, se revisa qué
+casos afectan en la matriz de trazabilidad y se vuelve a correr la regresión completa. Trabajamos sobre
+una rama principal y no integramos nada con el build en rojo: <code>mvn verify</code> tiene que pasar antes de cada
+commit.</p>
+
+<h2>7. Diseño de pruebas</h2>
+<p>Probamos en cinco niveles. Unitario: las clases de dominio con JUnit 5, y los servicios aislados con
+Mockito. Integración: los servicios con H2, usando Spring Boot Test. Sistema: la API con MockMvc,
+contra el servidor real y con Postman. Interfaz: el panel con Selenium. Aceptación: escenarios en
+Cucumber. Las técnicas de caja negra se aplican donde hay reglas con bordes claros, la caja gris donde
+importa lo que queda guardado en la base, y la caja blanca en las dos clases con más decisiones. No
+hacemos combinatoria completa (serían 162 casos) ni esperas en tiempo real, que son lentas y frágiles.</p>
+<h3>7.0 Casos de uso</h3>
+<p>Los casos de prueba salen de estos casos de uso. En cada uno indicamos el flujo principal y los
+alternativos que probamos.</p>
+<table>
+  <thead><tr><th>CU</th><th>Actor</th><th>Flujo principal</th><th>Flujos alternativos</th></tr></thead>
+  <tbody>
+    <tr><td>CU-01 Ingresar lecturas (RF-01 a RF-03)</td><td>Sistema de adquisición</td><td>Envía una lectura válida de un canal; el SISTEMA la guarda y recalcula el estado de los canales</td><td>Valor fuera de rango, mensaje inválido, duplicado, fuera de orden, canal que discrepa o deja de actualizarse</td></tr>
+    <tr><td>CU-02 Consultar nivel de riesgo (RF-06)</td><td>Operador de reactor</td><td>Consulta la estimación vigente y ve el nivel y, desde atención, los tres factores principales</td><td>Probabilidad inválida; umbrales ajustados</td></tr>
+    <tr><td>CU-03 Reconocer y escalar alertas (RF-07/08)</td><td>Operador, jefe de turno, supervisor de SO</td><td>Recibe la alerta en el panel y la reconoce dentro del plazo</td><td>No la reconoce y escala; la alerta empeora; se repite; dos reconocimientos a la vez; alerta inexistente</td></tr>
+    <tr><td>CU-04 Declarar una maniobra (RF-09)</td><td>Jefe de turno</td><td>Declara la maniobra con su banda; las variaciones dentro de la banda se agrupan</td><td>Desvío fuera de banda; falla de un canal; la maniobra no se ejecuta y expira; segunda maniobra</td></tr>
+    <tr><td>CU-05 Cambiar umbrales (RF-12)</td><td>Supervisor de SO y jefe de turno</td><td>El supervisor solicita, el jefe aprueba y el umbral cambia</td><td>Valor fuera de límites; falta la segunda aprobación; aprueba el mismo usuario; se aprueba dos veces</td></tr>
+    <tr><td>CU-06 Acceder al SISTEMA</td><td>Todos los roles</td><td>Se autentica y opera según su rol</td><td>Sin credenciales; rol sin permiso; endpoints de QA en producción</td></tr>
+  </tbody>
+</table>
+<p>Trazabilidad entre requerimientos y casos (la matriz completa, con resultados y defectos, está en la
+planilla):</p>
+<table>
+  <thead><tr><th class="ancho1">Requerimiento</th><th>Casos</th></tr></thead>
+  <tbody>
+    <tr><td>RF-01/02</td><td>CP-01 a CP-05</td></tr>
+    <tr><td>RF-03</td><td>CP-06 a CP-12, CP-29, CP-31, CP-37, UI-03</td></tr>
+    <tr><td>RF-06</td><td>CP-13 a CP-17, UI-02</td></tr>
+    <tr><td>RF-07/08</td><td>CP-18 a CP-26, CP-31, CP-38, UI-01</td></tr>
+    <tr><td>RF-09</td><td>CP-27 a CP-31, CP-39</td></tr>
+    <tr><td>RF-12</td><td>CP-16, CP-32, CP-33, CP-40</td></tr>
+    <tr><td>RNF seguridad</td><td>CP-34 a CP-36</td></tr>
+    <tr><td>RNF usabilidad</td><td>UI-01 a UI-03</td></tr>
+    <tr><td>Versión de software</td><td>CP-41</td></tr>
+  </tbody>
+</table>
+<h3>7.1 Tabla de decisión del estado de un canal (RF-03)</h3>
+<table>
+  <thead><tr><th>Condición</th><th>R1</th><th>R2</th><th>R3</th><th>R4</th></tr></thead>
+  <tbody>
+    <tr><td>Recibió una lectura en los últimos 10 s</td><td>S</td><td>N</td><td>S</td><td>S</td></tr>
+    <tr><td>La última lectura recibida está dentro del rango físico</td><td>S</td><td>-</td><td>N</td><td>S</td></tr>
+    <tr><td>Discrepancia con la mediana ≤ 2 % del rango</td><td>S</td><td>-</td><td>-</td><td>N</td></tr>
+    <tr><td>Estado</td><td>Confiable</td><td>No confiable (SIN_ACTUALIZACION)</td><td>No confiable (FUERA_DE_RANGO)</td><td>No confiable (DISCREPANCIA)</td></tr>
+    <tr><td>Caso</td><td>CP-06</td><td>CP-09</td><td>CP-10</td><td>CP-07</td></tr>
+  </tbody>
+</table>
+<p>Las reglas se evalúan en ese orden. Un canal no confiable vuelve a ser confiable después de 3 lecturas
+seguidas que cumplen las tres condiciones (A3, CP-12).</p>
+<h3>7.2 Estados de una alerta alta o crítica</h3>
+<table>
+  <thead><tr><th>Estado</th><th>Evento</th><th>Siguiente</th><th>Caso</th></tr></thead>
+  <tbody>
+    <tr><td>Emitida</td><td>Reconocimiento</td><td>Reconocida</td><td>CP-23</td></tr>
+    <tr><td>Emitida</td><td>Vence el plazo (45 s o 90 s)</td><td>Escalada</td><td>CP-21, CP-22</td></tr>
+    <tr><td>Escalada</td><td>Reconocimiento</td><td>Reconocida</td><td>CP-31</td></tr>
+    <tr><td>Emitida o escalada</td><td>Sube de nivel</td><td>Nueva alerta del nivel mayor</td><td>CP-20</td></tr>
+    <tr><td>Reconocida</td><td>Reconocimiento</td><td>Sin cambio (409)</td><td>CP-24</td></tr>
+  </tbody>
+</table>
+<h3>7.3 Caja blanca</h3>
+<p>Para ClasificadorNivel tomamos el código y calculamos la complejidad ciclomática: cuatro decisiones,
+V(G) = 5. Elegimos un dato por cada camino básico y agregamos p = 100,1 para cubrir la segunda
+condición de D1 (CP-17). Con ServicioEscalamiento hicimos lo mismo apuntando a cobertura de
+decisiones (CP-26). Las dos clases quedaron con 100 % de sentencias y ramas en JaCoCo.</p>
+<pre>public NivelRiesgo clasificar(BigDecimal p, Umbrales u) {
+    Objects.requireNonNull(p, "La probabilidad es obligatoria");
+    if (p.compareTo(minimo) &lt; 0 || p.compareTo(maximo) &gt; 0) {   // D1
+        throw new ProbabilidadInvalidaException(p);
+    }
+    if (p.compareTo(u.critico()) &gt;= 0) {                         // D2
+        return NivelRiesgo.CRITICO;
+    }
+    if (p.compareTo(u.alto()) &gt;= 0) {                            // D3
+        return NivelRiesgo.ALTO;
+    }
+    if (p.compareTo(inicioAtencion) &gt;= 0) {                      // D4
+        return NivelRiesgo.ATENCION;
+    }
+    return NivelRiesgo.NORMAL;
+}</pre>
+<p class="nota"><code>minimo</code>, <code>maximo</code> e <code>inicioAtencion</code> son 0, 100 y 15. Están como campos de instancia y no como constantes
+<code>static final</code> para que PIT pueda mutarlos (sección 10.2).</p>
+<table>
+  <thead><tr><th>Camino</th><th>Recorrido</th><th>Dato</th><th>Resultado</th></tr></thead>
+  <tbody>
+    <tr><td>C1</td><td>D1 verdadera</td><td>−1</td><td>Excepción</td></tr>
+    <tr><td>C2</td><td>D2 verdadera</td><td>80</td><td>CRITICO</td></tr>
+    <tr><td>C3</td><td>D3 verdadera</td><td>50</td><td>ALTO</td></tr>
+    <tr><td>C4</td><td>D4 verdadera</td><td>20</td><td>ATENCION</td></tr>
+    <tr><td>C5</td><td>Todas falsas</td><td>5</td><td>NORMAL</td></tr>
+  </tbody>
+</table>
+<h3>7.4 Caja gris</h3>
+<p>Verificamos en la base H2 que las lecturas duplicadas no se guarden dos veces (CP-04), que el
+reconocimiento quede con usuario y hora (CP-23) y que dos reconocimientos simultáneos no dejen dos
+registros (CP-25). También revisamos la estructura de las respuestas JSON y que los endpoints de QA no
+existan con el perfil de producción (CP-36).</p>
+<h3>7.5 Pairwise</h3>
+<p>En la generación y el escalamiento de alertas se cruzan cinco parámetros: maniobra (3 valores), canales
+(3), rol que reconoce (3), momento del reconocimiento (3) y nivel (2). Armamos 10 filas a mano en vez
+de 162 y comprobamos con un script que cubren los 78 pares posibles entre los cinco parámetros. Las
+filas están en <code>src/test/resources/datos/pairwise.csv</code> y las ejecuta CP-31.</p>
+<table>
+  <thead><tr><th>Fila</th><th>Maniobra</th><th>Canales</th><th>Reconoce</th><th>Cuándo</th><th>Nivel</th><th>Esperado</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>Ninguna</td><td>3 confiables</td><td>Operador</td><td>Antes</td><td>Alto</td><td>Reconocida sin escalar</td></tr>
+    <tr><td>2</td><td>Ninguna</td><td>1 no confiable</td><td>Jefe</td><td>Después</td><td>Alto</td><td>Aviso; escala a 90 s; reconocida</td></tr>
+    <tr><td>3</td><td>Ninguna</td><td>Menos de 2</td><td>Superv. SO</td><td>Nunca</td><td>Alto</td><td>Aviso; escala a 90 s; queda escalada</td></tr>
+    <tr><td>4</td><td>Expirada</td><td>3 confiables</td><td>Jefe</td><td>Nunca</td><td>Alto</td><td>Escala a 90 s; queda escalada</td></tr>
+    <tr><td>5</td><td>Expirada</td><td>1 no confiable</td><td>Superv. SO</td><td>Antes</td><td>Alto</td><td>Aviso; reconocida sin escalar</td></tr>
+    <tr><td>6</td><td>Expirada</td><td>Menos de 2</td><td>Operador</td><td>Después</td><td>Crítico</td><td>Aviso; escala a 45 s; reconocida</td></tr>
+    <tr><td>7</td><td>Activa</td><td>3 confiables</td><td>Superv. SO</td><td>Después</td><td>Alto</td><td>No se agrupa; escala a 90 s; reconocida</td></tr>
+    <tr><td>8</td><td>Activa</td><td>1 no confiable</td><td>Operador</td><td>Nunca</td><td>Crítico</td><td>Aviso aparte; escala a 45 s; queda escalada</td></tr>
+    <tr><td>9</td><td>Activa</td><td>Menos de 2</td><td>Jefe</td><td>Antes</td><td>Crítico</td><td>Aviso; no se agrupa; reconocida sin escalar</td></tr>
+    <tr><td>10</td><td>Ninguna</td><td>3 confiables</td><td>Superv. SO</td><td>Antes</td><td>Crítico</td><td>Reconocida sin escalar</td></tr>
+  </tbody>
+</table>
+<p class="nota">“Antes” es a los 30 s de emitida; “Después”, 5 s pasado el plazo de escalamiento. En maniobra activa, el valor de
+potencia queda fuera de la banda, por eso la alerta no se agrupa.</p>
+<h3>7.6 Permisos por rol</h3>
+<table>
+  <thead><tr><th>Operación</th><th>Adquisición</th><th>Operador</th><th>Jefe de turno</th><th>Superv. SO</th><th>Auditor</th></tr></thead>
+  <tbody>
+    <tr><td>Enviar lecturas</td><td>Sí</td><td>No</td><td>No</td><td>No</td><td>No</td></tr>
+    <tr><td>Consultar magnitudes, estimaciones y alertas</td><td>No</td><td>Sí</td><td>Sí</td><td>Sí</td><td>Sí</td></tr>
+    <tr><td>Reconocer alertas</td><td>No</td><td>Sí</td><td>Sí</td><td>Sí</td><td>No</td></tr>
+    <tr><td>Declarar o finalizar maniobra</td><td>No</td><td>No</td><td>Sí</td><td>No</td><td>No</td></tr>
+    <tr><td>Solicitar cambio de umbral</td><td>No</td><td>No</td><td>No</td><td>Sí</td><td>No</td></tr>
+    <tr><td>Aprobar cambio de umbral</td><td>No</td><td>No</td><td>Sí</td><td>No</td><td>No</td></tr>
+  </tbody>
+</table>
+<p>Sin credenciales, 401. Con un rol no permitido, 403. Lo que no figura en la matriz se niega;
+<code>GET /version</code> lo puede usar cualquier usuario autenticado.</p>
+
+<h2>8. Casos de prueba</h2>
+<p>Diseñamos 44 casos: los 36 originales, CP-37 a CP-41 (agregados al revisar que cada prueba
+automatizada tuviera su caso) y UI-01 a UI-03 para la interfaz. En la planilla
+Matriz_Trazabilidad_ATALAYA.xlsx cada uno tiene identificador, requerimiento, precondiciones, datos de
+prueba, pasos, resultado esperado y criterio de aprobación, más el resultado, la evidencia, el defecto,
+quién lo ejecutó y la fecha. La precondición “Base” es: SISTEMA levantado con perfil qa, base H2 limpia,
+reloj de prueba en T0, sin maniobra activa, umbrales por defecto (alto 40 %, crítico 75 %) y usuario
+autenticado con el rol indicado. Los datos son todos sintéticos.</p>
+<table class="casos">
+  <thead><tr><th>ID</th><th>Req.</th><th>Caso</th><th>Técnica</th><th>Caja</th><th>Ejecución</th></tr></thead>
+  <tbody>
+    <tr><td>CP-01</td><td>RF-01/02</td><td>Límites de temperatura del primario</td><td>Valores límite</td><td>Negra</td><td>Postman + JUnit</td></tr>
+    <tr><td>CP-02</td><td>RF-01/02</td><td>Límites de presión, presurizador, potencia y dosis</td><td>Valores límite</td><td>Negra</td><td>JUnit (parametrizado)</td></tr>
+    <tr><td>CP-03</td><td>RF-01/02</td><td>Mensajes inválidos</td><td>Partición de equivalencia</td><td>Negra</td><td>Postman + MockMvc</td></tr>
+    <tr><td>CP-04</td><td>RF-01/02</td><td>Lectura duplicada</td><td>Adivinanza de errores</td><td>Gris</td><td>JUnit + consulta a H2</td></tr>
+    <tr><td>CP-05</td><td>RF-01/02</td><td>Lectura fuera de orden</td><td>Adivinanza de errores</td><td>Negra</td><td>JUnit</td></tr>
+    <tr><td>CP-06</td><td>RF-03</td><td>Tres canales coherentes</td><td>Tabla de decisión (R1)</td><td>Negra</td><td>JUnit</td></tr>
+    <tr><td>CP-07</td><td>RF-03</td><td>Canal que discrepa 2,01 %</td><td>Tabla de decisión (R4) + valores límite</td><td>Negra</td><td>Postman + JUnit + Cucumber</td></tr>
+    <tr><td>CP-08</td><td>RF-03</td><td>Discrepancia de exactamente 2,00 %</td><td>Valores límite</td><td>Negra</td><td>JUnit + Cucumber</td></tr>
+    <tr><td>CP-09</td><td>RF-03</td><td>Canales sin actualizar 10 s y 10,1 s</td><td>Tabla de decisión (R2) + límites de tiempo</td><td>Negra</td><td>JUnit (reloj simulado)</td></tr>
+    <tr><td>CP-10</td><td>RF-03</td><td>Valor fuera de rango en un canal</td><td>Tabla de decisión (R3)</td><td>Negra</td><td>JUnit</td></tr>
+    <tr><td>CP-11</td><td>RF-03</td><td>Menos de dos canales confiables</td><td>Tabla de decisión</td><td>Negra</td><td>Postman + JUnit</td></tr>
+    <tr><td>CP-12</td><td>RF-03</td><td>Recuperación de un canal</td><td>Transición de estados</td><td>Negra</td><td>JUnit</td></tr>
+    <tr><td>CP-13</td><td>RF-06</td><td>Bordes de nivel</td><td>Valores límite</td><td>Negra</td><td>Postman + JUnit</td></tr>
+    <tr><td>CP-14</td><td>RF-06</td><td>Probabilidad inválida</td><td>Partición de equivalencia</td><td>Negra</td><td>JUnit</td></tr>
+    <tr><td>CP-15</td><td>RF-06</td><td>Tres factores desde atención</td><td>Partición de equivalencia</td><td>Negra</td><td>JUnit</td></tr>
+    <tr><td>CP-16</td><td>RF-06, RF-12</td><td>Niveles con umbrales ajustados</td><td>Valores límite</td><td>Negra</td><td>JUnit</td></tr>
+    <tr><td>CP-17</td><td>RF-06</td><td>Caminos básicos de ClasificadorNivel</td><td>Caja blanca: caminos (V(G)=5)</td><td>Blanca</td><td>JUnit + JaCoCo</td></tr>
+    <tr><td>CP-18</td><td>RF-07</td><td>Destinatarios según nivel</td><td>Partición de equivalencia</td><td>Negra</td><td>Postman + JUnit</td></tr>
+    <tr><td>CP-19</td><td>RF-07</td><td>No repetir durante 3 min</td><td>Valores límite de tiempo</td><td>Negra</td><td>JUnit (reloj simulado)</td></tr>
+    <tr><td>CP-20</td><td>RF-07</td><td>Empeora antes de los 3 min</td><td>Transición de estados</td><td>Negra</td><td>JUnit</td></tr>
+    <tr><td>CP-21</td><td>RF-08</td><td>Escalamiento de crítico a 45 s</td><td>Valores límite de tiempo</td><td>Negra</td><td>JUnit + Cucumber</td></tr>
+    <tr><td>CP-22</td><td>RF-08</td><td>Escalamiento de alto a 90 s</td><td>Valores límite de tiempo</td><td>Negra</td><td>JUnit (reloj simulado)</td></tr>
+    <tr><td>CP-23</td><td>RF-08</td><td>Reconocimiento antes del plazo</td><td>Transición de estados</td><td>Gris</td><td>Postman + JUnit + Cucumber</td></tr>
+    <tr><td>CP-24</td><td>RF-08</td><td>Reconocer una alerta ya reconocida</td><td>Transición de estados</td><td>Negra</td><td>MockMvc</td></tr>
+    <tr><td>CP-25</td><td>RF-08</td><td>Dos reconocimientos simultáneos</td><td>Adivinanza de errores</td><td>Gris</td><td>JUnit (2 hilos) + H2 + MockMvc con mock</td></tr>
+    <tr><td>CP-26</td><td>RF-08</td><td>Decisiones de ServicioEscalamiento</td><td>Caja blanca: decisiones</td><td>Blanca</td><td>JUnit + JaCoCo + PIT</td></tr>
+    <tr><td>CP-27</td><td>RF-09</td><td>Variaciones dentro de la banda</td><td>Partición de equivalencia</td><td>Negra</td><td>Postman + JUnit + Cucumber</td></tr>
+    <tr><td>CP-28</td><td>RF-09</td><td>Bordes de la banda</td><td>Valores límite</td><td>Negra</td><td>JUnit + Cucumber</td></tr>
+    <tr><td>CP-29</td><td>RF-09, RF-03</td><td>Maniobra con canal no confiable</td><td>Combinatoria</td><td>Negra</td><td>JUnit</td></tr>
+    <tr><td>CP-30</td><td>RF-09</td><td>Maniobra que nunca se ejecuta</td><td>Valores límite de tiempo</td><td>Negra</td><td>JUnit (reloj simulado)</td></tr>
+    <tr><td>CP-31</td><td>RF-03, RF-07/08, RF-09</td><td>Combinaciones pairwise</td><td>Pairwise</td><td>Negra</td><td>JUnit (CSV) + Postman</td></tr>
+    <tr><td>CP-32</td><td>RF-12</td><td>Límites de umbrales</td><td>Valores límite</td><td>Negra</td><td>Postman + JUnit + Mockito</td></tr>
+    <tr><td>CP-33</td><td>RF-12</td><td>Doble aprobación</td><td>Tabla de decisión</td><td>Negra</td><td>JUnit + Cucumber + Mockito</td></tr>
+    <tr><td>CP-34</td><td>RNF seguridad</td><td>Acceso sin autenticar</td><td>Partición de equivalencia</td><td>Negra</td><td>Postman + MockMvc + servidor real</td></tr>
+    <tr><td>CP-35</td><td>RNF seguridad</td><td>Permisos por rol</td><td>Tabla de decisión</td><td>Negra</td><td>JUnit (parametrizado)</td></tr>
+    <tr><td>CP-36</td><td>RNF seguridad</td><td>Endpoints de QA apagados en producción</td><td>Partición de equivalencia</td><td>Gris</td><td>JUnit (perfil prod)</td></tr>
+    <tr><td>CP-37</td><td>RF-03</td><td>Magnitud por nombre en la ruta</td><td>Partición de equivalencia</td><td>Negra</td><td>JUnit + MockMvc</td></tr>
+    <tr><td>CP-38</td><td>RF-08</td><td>Reconocer una alerta inexistente</td><td>Partición de equivalencia</td><td>Negra</td><td>MockMvc</td></tr>
+    <tr><td>CP-39</td><td>RF-09</td><td>Ciclo de vida de la maniobra</td><td>Transición de estados</td><td>Negra</td><td>JUnit</td></tr>
+    <tr><td>CP-40</td><td>RF-12</td><td>Aprobar una solicitud ya aplicada</td><td>Transición de estados</td><td>Negra</td><td>JUnit + Mockito</td></tr>
+    <tr><td>CP-41</td><td>Versión</td><td>Versión informada</td><td>Partición de equivalencia</td><td>Negra</td><td>MockMvc</td></tr>
+    <tr><td>UI-01</td><td>RF-07/08</td><td>Reconocer desde el panel</td><td>Caso de uso (CU-03)</td><td>Negra</td><td>Selenium</td></tr>
+    <tr><td>UI-02</td><td>RF-06</td><td>El panel muestra la estimación vigente</td><td>Caso de uso (CU-02)</td><td>Negra</td><td>Selenium</td></tr>
+    <tr><td>UI-03</td><td>RF-03</td><td>El panel muestra el aviso de canal</td><td>Caso de uso (CU-01)</td><td>Negra</td><td>Selenium</td></tr>
+  </tbody>
+</table>
+<p>Tres casos completos como ejemplo:</p>
+<table>
+  <thead><tr><th style="width:24%">Campo</th><th>CP-07 · Canal que discrepa 2,01 %</th></tr></thead>
+  <tbody>
+    <tr><td>Requerimiento</td><td>RF-03</td></tr>
+    <tr><td>Técnica y caja</td><td>Tabla de decisión (R4) + valores límite · caja negra</td></tr>
+    <tr><td>Ejecución</td><td>Postman + JUnit + Cucumber</td></tr>
+    <tr><td>Precondiciones</td><td>Base</td></tr>
+    <tr><td>Datos</td><td>A = B = 300,00; C = 306,64 °C</td></tr>
+    <tr><td>Pasos</td><td>Enviar las tres lecturas y consultar GET /api/v1/magnitudes/TEMPERATURA_PRIMARIO</td></tr>
+    <tr><td>Resultado esperado</td><td>C NO_CONFIABLE por DISCREPANCIA; el valor usa A y B; aviso CANAL_EXCLUIDO:C</td></tr>
+    <tr><td>Criterio de aprobación</td><td>Estado de C y valor consolidado</td></tr>
+    <tr><td>Resultado</td><td>Aprobado (09/11/2026)</td></tr>
+  </tbody>
+</table>
+<table>
+  <thead><tr><th style="width:24%">Campo</th><th>CP-21 · Escalamiento de crítico a 45 s</th></tr></thead>
+  <tbody>
+    <tr><td>Requerimiento</td><td>RF-08</td></tr>
+    <tr><td>Técnica y caja</td><td>Valores límite de tiempo · caja negra</td></tr>
+    <tr><td>Ejecución</td><td>JUnit + Cucumber</td></tr>
+    <tr><td>Precondiciones</td><td>Alerta CRITICO sin reconocer en T0</td></tr>
+    <tr><td>Datos</td><td>Reloj en 44, 45 y 46 s</td></tr>
+    <tr><td>Pasos</td><td>Avanzar el reloj y consultar estado y destinatarios</td></tr>
+    <tr><td>Resultado esperado</td><td>44 s sin escalar; 45 s escala al supervisor de seguridad operacional; 46 s no se duplica</td></tr>
+    <tr><td>Criterio de aprobación</td><td>Un único escalamiento a los 45 s</td></tr>
+    <tr><td>Resultado</td><td>Aprobado (09/11/2026)</td></tr>
+  </tbody>
+</table>
+<table>
+  <thead><tr><th style="width:24%">Campo</th><th>CP-33 · Doble aprobación</th></tr></thead>
+  <tbody>
+    <tr><td>Requerimiento</td><td>RF-12</td></tr>
+    <tr><td>Técnica y caja</td><td>Tabla de decisión · caja negra</td></tr>
+    <tr><td>Ejecución</td><td>JUnit + Cucumber + Mockito</td></tr>
+    <tr><td>Precondiciones</td><td>Solicitud de alto 35 % creada por el supervisor de SO</td></tr>
+    <tr><td>Datos</td><td>Sin aprobar; aprueba el mismo usuario; aprueba el jefe de turno</td></tr>
+    <tr><td>Pasos</td><td>Aplicar cada variante y consultar umbrales</td></tr>
+    <tr><td>Resultado esperado</td><td>Sin aprobar sigue en 40 %. Si aprueba el mismo usuario, 409 (por la API, 403 por rol: ATA-12). Con la aprobación del jefe de turno pasa a 35 %</td></tr>
+    <tr><td>Criterio de aprobación</td><td>Umbral vigente en cada variante</td></tr>
+    <tr><td>Resultado</td><td>Aprobado (09/11/2026)</td></tr>
+  </tbody>
+</table>
+<p>Cuando la salida es una estimación no esperamos un número exacto sino un nivel. Por eso los casos de
+RF-06 trabajan con la probabilidad inyectada y verifican el nivel y los factores, no el cálculo del modelo.</p>
+
+<h2>9. Criterios de aceptación y BDD</h2>
+<table>
+  <thead><tr><th>Criterio de aceptación</th><th>Casos</th></tr></thead>
+  <tbody>
+    <tr><td>Un canal que discrepa más del 2 % se deja de usar y se avisa; uno que discrepa exactamente el 2 % se sigue usando</td><td>CP-07, CP-08</td></tr>
+    <tr><td>Una alerta crítica sin reconocer escala al supervisor de seguridad operacional a los 45 s, y reconocerla antes lo evita</td><td>CP-21, CP-23</td></tr>
+    <tr><td>Durante una maniobra, las variaciones esperables generan una sola alerta informativa y lo que sale de la banda se alerta normal</td><td>CP-27, CP-28</td></tr>
+    <tr><td>Un umbral solo cambia con la aprobación de un segundo rol</td><td>CP-33</td></tr>
+  </tbody>
+</table>
+<p>Los criterios están escritos en cuatro features en español (<code>redundancia</code>, <code>escalamiento</code>, <code>maniobras</code> y <code>umbrales</code>),
+con 11 escenarios en total. Cada escenario lleva un comentario con el ID del caso. Los pasos usan el
+contexto de Spring con el perfil qa, así que corren contra el SISTEMA completo. Por ejemplo:</p>
+<pre># language: es
+Característica: Escalamiento de alertas críticas
+  Para que una alerta crítica no quede sin atender
+  como supervisor de seguridad operacional
+  quiero recibirla si nadie la reconoce en 45 segundos
+
+  Antecedentes:
+    Dado que el sistema está en la precondición base
+
+  # CP-21 · Valores límite de tiempo
+  Esquema del escenario: A los &lt;segundos&gt; s sin reconocer la alerta queda &lt;estado&gt;
+    Dado una alerta crítica emitida al operador de reactor
+    Cuando pasan &lt;segundos&gt; segundos sin reconocimiento
+    Entonces el estado de la alerta es &lt;estado&gt;
+    Y la alerta tiene &lt;destinatarios&gt; destinatarios
+
+    Ejemplos:
+      | segundos | estado   | destinatarios |
+      | 44       | EMITIDA  | 2             |
+      | 45       | ESCALADA | 3             |
+      | 46       | ESCALADA | 3             |</pre>
+
+<h2>10. Automatización, TDD, API e interfaz</h2>
+<p>Automatizamos todo lo que tiene un resultado verificable sin juicio humano: reglas de dominio,
+servicios, API e interfaz. Usamos JUnit 5 con pruebas parametrizadas, Spring Boot Test y MockMvc,
+Cucumber para los criterios de aceptación, Selenium para el panel, JaCoCo para la cobertura y PIT para
+la mutación. Todo corre con <code>mvn verify</code> en un clon limpio, y cada clase de prueba tiene un comentario con
+su propósito y el ID de los casos que cubre. Cada test lleva el ID en el nombre que muestra JUnit
+(CP-xx, UI-xx, o INF-xx para las dos pruebas del reloj y de los endpoints de QA, que prueban la
+infraestructura de pruebas y no el SISTEMA).</p>
+<p>El Makefile tiene un comando por tipo de prueba (<code>make unitarias</code>, <code>api</code>, <code>integracion</code>, <code>bdd</code>, <code>ui</code>), uno para
+mutación (<code>make pit</code>) y uno que corre todo y guarda la salida como evidencia (<code>make evidencias</code>).</p>
+<h3>10.1 TDD</h3>
+<p>Aplicamos TDD en ValidadorRedundancia y ServicioEscalamiento, que son reglas precisas con bordes
+numéricos y de tiempo. Hicimos tres ciclos en cada clase: primero el test que falla, después el mínimo
+código para que pase. La salida de cada ejecución en rojo y en verde está en <code>docs/evidencias/tdd/</code> (doce
+archivos). No dejamos un commit por etapa, como decía la versión anterior de este informe: la
+evidencia del ciclo es esa salida.</p>
+<h3>10.2 API y Postman</h3>
+<p>La colección de Postman tiene una carpeta por requerimiento, un entorno con <code>baseUrl</code> y usuarios por rol,
+y scripts que verifican código HTTP y cuerpo de la respuesta. Cada request que lo necesita llama antes
+a <code>/qa/reset</code>. La corremos completa con newman (<code>make postman</code>), que levanta el SISTEMA si no está
+arriba: 97 requests, 156 aserciones, 0 fallos. La salida queda en <code>docs/evidencias/postman/</code>.</p>
+<p>Las mismas reglas de la API también se prueban con MockMvc. Postman encontró algo que MockMvc no
+veía: sin credenciales, el servidor real respondía 302 al login en vez de 401 (ATA-16). MockMvc no hace
+el reenvío interno a <code>/error</code> que causaba el problema. Desde entonces hay pruebas contra el servidor real
+(<code>SeguridadServidorRealTest</code>).</p>
+<h3>10.3 Interfaz con Selenium</h3>
+<p>El panel se prueba con Selenium usando Page Objects (página de login y página del panel). Los
+elementos que usan las pruebas tienen un atributo <code>data-test</code>, y las esperas son por condición, nunca
+fijas. En <code>mvn verify</code> corre con HtmlUnit, sin navegador; con <code>make ui-chrome</code> corre en Chrome, y
+<code>make ui-demo</code> deja el navegador abierto al final de cada prueba para la exposición. Las capturas de la
+ejecución en Chrome están en <code>docs/evidencias/selenium/</code>. Al revisarlas apareció un defecto que las
+pruebas no detectaban: los estados de los tres canales salían pegados en un renglón (ATA-18).
+Agregamos el test que lo muestra, lo vimos fallar y después lo corregimos.</p>
+<h3>10.4 Mocks</h3>
+<p>La mayoría de las pruebas usan el SISTEMA real con H2 y el reloj de prueba, sin mocks. Usamos
+Mockito en dos lugares donde un mock aporta algo que la prueba real no da. En <code>ServicioUmbralesTest</code>
+el repositorio y el validador son mocks, para comprobar que, cuando una regla corta, el servicio no
+guarda ni cambia nada (CP-32, CP-33, CP-40). En <code>ConflictoConcurrenteApiTest</code> el servicio de alertas es un
+mock que lanza el choque de versión de JPA: así el 409 de CP-25 se prueba sin depender de que dos hilos
+se crucen.</p>
+<h3>10.5 Mutation testing con PIT</h3>
+<p>PIT se corre sobre el paquete de dominio con los mutadores por defecto más <code>INLINE_CONSTS</code>. Los
+mutadores por defecto no cambian constantes; sin <code>INLINE_CONSTS</code> no aparecen mutantes como “45 s pasa a
+46 s”. Por la misma razón, los límites están como literales o campos de instancia: PIT no muta los
+inicializadores <code>static final</code>. Nos interesan sobre todo los mutantes que cambian bordes, porque son los
+defectos más probables en este SISTEMA:</p>
+<table>
+  <thead><tr><th>Mutante</th><th>Dónde</th><th>Caso que lo mata</th><th>Resultado</th></tr></thead>
+  <tbody>
+    <tr><td>&gt;= pasa a &gt; en 15, 40 o 75 %</td><td>ClasificadorNivel</td><td>CP-13</td><td>Muerto</td></tr>
+    <tr><td>&gt; pasa a &gt;= en el 2 %</td><td>ValidadorRedundancia</td><td>CP-08</td><td>Muerto</td></tr>
+    <tr><td>45 s pasa a 46 s</td><td>ServicioEscalamiento</td><td>CP-21</td><td>Muerto</td></tr>
+    <tr><td>90 s pasa a 91 s</td><td>ServicioEscalamiento</td><td>CP-22</td><td>Muerto</td></tr>
+    <tr><td>180 s pasa a 181 s</td><td>PoliticaRepeticion</td><td>CP-19</td><td>Muerto</td></tr>
+    <tr><td>Se elimina la condición “ya reconocida”</td><td>ServicioEscalamiento</td><td>CP-24</td><td>Muerto</td></tr>
+    <tr><td>30 % pasa a 31 % en el límite del umbral alto</td><td>ValidadorUmbrales</td><td>CP-32</td><td>Muerto</td></tr>
+  </tbody>
+</table>
+<p><b>Resultado:</b> 162 mutantes, 159 muertos (mutation score 98 %). Sobreviven 3, y los tres son equivalentes:
+dos en la regla “alto menor que crítico” de ValidadorUmbrales, que nunca puede fallar (ATA-11), y uno en
+SenalCanal, un indicador que el validador nunca lee para un canal sin datos porque antes corta la
+regla 1. En el camino agregamos cinco casos por mutantes que sobrevivían (por ejemplo, la mediana con
+tres valores distintos y el redondeo a dos decimales). El detalle está en <code>docs/pit-analisis.md</code>.</p>
+
+<h2>11. Defectos, Definition of Done y métricas</h2>
+<p>No tuvimos Jira. Los defectos se registran en <code>docs/defectos.md</code> y en la hoja Defectos de la planilla, con
+versión, caso, pasos, resultado esperado y observado, evidencia, severidad y prioridad. La severidad es
+crítica si puede llevar al operador a una mala decisión, alta si demora o duplica una alerta, media si es
+un error sin efecto directo y baja si es cosmético. El flujo es Nuevo, Confirmado, En corrección,
+Corregido, Verificado y Cerrado. Si una prueba sigue fallando al entregar, es porque evidencia un
+defecto registrado, y lo indicamos en su nombre. Los defectos corregidos también quedan citados en
+el nombre del test que los evita (por ejemplo, “[defecto ATA-16, corregido]”).</p>
+<table>
+  <thead><tr><th>Tipo</th><th>Cantidad</th><th>Claves</th><th>Estado</th></tr></thead>
+  <tbody>
+    <tr><td>Defectos del SISTEMA</td><td>3</td><td>ATA-16 (alta), ATA-17 (media), ATA-18 (baja)</td><td>Cerrados, con prueba de regresión</td></tr>
+    <tr><td>Defectos de especificación</td><td>12</td><td>ATA-1 a ATA-12</td><td>Confirmados; se aplica la decisión de la sección 5</td></tr>
+    <tr><td>Defectos del diseño de pruebas</td><td>3</td><td>ATA-13 a ATA-15</td><td>Cerrados (planilla corregida)</td></tr>
+  </tbody>
+</table>
+<p>Ejemplo de reporte de un defecto de especificación:</p>
+<table>
+  <thead><tr><th style="width:24%">Campo</th><th>Contenido</th></tr></thead>
+  <tbody>
+    <tr><td>Clave y resumen</td><td>ATA-1 · RF-03 no define contra qué ni sobre qué rango se mide el 2 %</td></tr>
+    <tr><td>Tipo</td><td>Defecto de especificación</td></tr>
+    <tr><td>Requerimiento y caso</td><td>RF-03 · CP-07, CP-08</td></tr>
+    <tr><td>Descripción</td><td>El requerimiento dice “discrepa más del 2 % del rango respecto de los otros”. Con tres canales no queda claro si se compara contra la mediana, el promedio o cada par, ni si el rango es el físico o el del instrumento.</td></tr>
+    <tr><td>Impacto</td><td>Dos implementaciones correctas según el texto marcan canales distintos como no confiables, y eso cambia la estimación.</td></tr>
+    <tr><td>Severidad y prioridad</td><td>Alta · Alta</td></tr>
+    <tr><td>Estado</td><td>Confirmado; se pidió aclaración a la cátedra. Mientras tanto se implementa la decisión A1/A2.</td></tr>
+  </tbody>
+</table>
+<p>Ejemplo de reporte de un defecto del SISTEMA:</p>
+<table>
+  <thead><tr><th style="width:24%">Campo</th><th>Contenido</th></tr></thead>
+  <tbody>
+    <tr><td>Clave y resumen</td><td>ATA-16 · Sin credenciales, la API responde 302 al login en vez de 401</td></tr>
+    <tr><td>Tipo</td><td>Defecto del SISTEMA (seguridad)</td></tr>
+    <tr><td>Requerimiento y caso</td><td>RNF seguridad · CP-34, CP-35</td></tr>
+    <tr><td>Pasos</td><td>Levantar el SISTEMA con el perfil qa y llamar GET /api/v1/alertas sin credenciales</td></tr>
+    <tr><td>Esperado</td><td>401 con el error en JSON</td></tr>
+    <tr><td>Observado</td><td>302 con Location: /login. Con MockMvc el caso pasaba</td></tr>
+    <tr><td>Causa</td><td>La API respondía con sendError; el servidor reenviaba el error a /error, lo atendía la cadena de seguridad del panel y redirigía al login</td></tr>
+    <tr><td>Evidencia</td><td>Colección de Postman; SeguridadServidorRealTest</td></tr>
+    <tr><td>Severidad y prioridad</td><td>Alta · Alta</td></tr>
+    <tr><td>Estado</td><td>Cerrado el 31/10/2026. La regresión corre en mvn verify</td></tr>
+  </tbody>
+</table>
+<p>Consideramos terminado un caso cuando está diseñado y trazado, lo revisó otro integrante, se ejecutó
+con evidencia, sus defectos están registrados y el build está en verde.</p>
+<table>
+  <thead><tr><th>Indicador</th><th>Umbral</th><th>Resultado</th></tr></thead>
+  <tbody>
+    <tr><td>Casos ejecutados (aprobados, fallidos, bloqueados)</td><td>100 % ejecutados, 0 bloqueados</td><td>44 de 44 ejecutados; 44 aprobados</td></tr>
+    <tr><td>Defectos abiertos por severidad</td><td>0 críticos</td><td>0 críticos; ningún defecto del SISTEMA abierto</td></tr>
+    <tr><td>Cobertura de sentencias y ramas (JaCoCo) en dominio</td><td>≥ 80 % y ≥ 70 %</td><td>99,6 % y 99,0 %</td></tr>
+    <tr><td>Mutation score (PIT) en dominio</td><td>≥ 75 %</td><td>98 %</td></tr>
+    <tr><td>Requerimientos del alcance con casos ejecutados</td><td>100 %</td><td>100 %</td></tr>
+  </tbody>
+</table>
+<p>La cobertura dice qué código se ejecutó, no si las verificaciones son buenas; por eso la miramos junto
+con la mutación. Los mutantes que sobreviven se analizan y, si muestran un caso faltante, lo
+agregamos.</p>
+
+<h2>12. Informe final</h2>
+<table>
+  <thead><tr><th>Resultado</th><th>Valor</th></tr></thead>
+  <tbody>
+    <tr><td>Casos aprobados / fallidos / bloqueados</td><td>44 / 0 / 0 (ejecutados el 09/11/2026)</td></tr>
+    <tr><td>Pruebas automatizadas</td><td>307 en <code>mvn verify</code>, todas en verde, más 97 requests de Postman</td></tr>
+    <tr><td>Defectos por severidad</td><td>Del SISTEMA: 1 alta, 1 media y 1 baja, los tres cerrados. De especificación: 4 altas, 6 medias y 2 bajas, resueltas con una decisión del equipo</td></tr>
+    <tr><td>Cobertura JaCoCo (sentencias / ramas)</td><td>Dominio 99,6 % / 99,0 %. Todo el SISTEMA 98,5 % / 95,0 %</td></tr>
+    <tr><td>Mutation score PIT</td><td>98 % (159 de 162; los 3 vivos son equivalentes)</td></tr>
+  </tbody>
+</table>
+<p>Lo más importante que encontramos no estuvo en el código sino en el enunciado: doce puntos donde el
+requerimiento admite más de una lectura, cuatro de ellos con severidad alta (ATA-1, ATA-3, ATA-5,
+ATA-8). Los tres defectos del SISTEMA se encontraron con pruebas distintas de las que los “tenían”
+que encontrar: el 302 apareció con Postman y no con MockMvc, la base compartida apareció como un test
+que fallaba a veces, y el problema del panel apareció mirando las capturas, no en las aserciones. Eso
+confirma que conviene combinar niveles y herramientas.</p>
+<p>Riesgos residuales:</p>
+<ul>
+  <li>El comportamiento del modelo real, que no pudimos probar.</li>
+  <li>Los requerimientos que quedaron fuera del alcance (RF-04/05, RF-10, RF-11).</li>
+  <li>Las ambigüedades de la sección 5 que la cátedra no llegue a aclarar: si la respuesta difiere de nuestra decisión, cambian los casos que la verifican.</li>
+  <li>La concurrencia se probó con dos usuarios a la vez (CP-25), no con carga real.</li>
+</ul>
+<p>Limitaciones:</p>
+<ul>
+  <li>El SISTEMA es una implementación reducida hecha por nosotros, no el ATALAYA real.</li>
+  <li>Los datos son sintéticos.</li>
+  <li>El mismo equipo desarrolla y prueba, lo que resta independencia.</li>
+</ul>
+<p><b>Recomendación de liberación:</b> recomendamos liberar la versión 3.1.0 para el alcance probado. Se
+cumplen todos los criterios de salida de la sección 11 y no queda ningún defecto del SISTEMA abierto.
+La condición es que la cátedra confirme las decisiones de severidad alta (ATA-1, ATA-3, ATA-5 y ATA-8),
+porque cambian qué canal se usa, cuándo se repite una alerta y cuándo deja de agruparse una maniobra.</p>
+<p>Como mejora queda probar los requerimientos excluidos, sumar pruebas de carga para la concurrencia y
+evaluar el modelo real con datos de transitorios y arranques.</p>
+
+<h2>13. Uso de inteligencia artificial</h2>
+<p>El 26/10/2026 consultamos al profesor por el uso de IA. Nos respondió que puede ser una herramienta
+de apoyo, siempre que podamos explicar y justificar el código, su funcionamiento y las decisiones que
+tomamos, y que no reemplace el razonamiento. La usamos en ese sentido. Las decisiones de la sección 5,
+el diseño de los casos y el análisis de los defectos los discutimos como equipo, y todo lo que se hizo
+con ayuda de la IA lo revisamos y lo ejecutamos antes de darlo por bueno. Llevamos además un registro
+interno de cada uso.</p>
+<table>
+  <thead><tr><th>Herramienta</th><th>Para qué</th><th>Qué verificamos</th></tr></thead>
+  <tbody>
+    <tr><td>Claude Code</td><td>Apoyo en la implementación del SISTEMA reducido, a partir de nuestras decisiones de la sección 5</td><td>Que cada regla y cada valor límite coincidiera con el enunciado y con la sección 5; que <code>mvn verify</code> pasara en un clon limpio</td></tr>
+    <tr><td>Claude Code</td><td>Apoyo en la automatización de los casos (JUnit, MockMvc, Cucumber, Selenium), la colección de Postman y los comandos del Makefile</td><td>Que cada test tuviera su caso en la planilla y su ID; que los mutantes vivos fueran equivalentes; que la colección corriera completa</td></tr>
+    <tr><td>Claude Code</td><td>Revisión de consistencia entre el informe, la planilla y el registro de defectos, y de la redacción de esta versión</td><td>Que cada resultado tuviera su evidencia en <code>docs/evidencias/</code> y que los números coincidieran con los reportes</td></tr>
+  </tbody>
+</table>
+
+<h2>14. Entrega</h2>
+<p>Se entrega VV-Q2-2026-TN-GrupoE-ATALAYA.zip con el proyecto Maven (código del SISTEMA y de las
+pruebas), la colección y el entorno de Postman, los reportes de JaCoCo, PIT y Cucumber, la planilla de
+casos y trazabilidad, el registro de defectos, las evidencias y este informe. El ZIP se arma con
+<code>make entrega</code>, que antes corre la suite completa y PIT y no arma nada si algo falla.</p>
+<table>
+  <thead><tr><th style="width:42%">VV-Q2-2026-TN-GrupoE-ATALAYA/</th><th></th></tr></thead>
+  <tbody>
+    <tr><td>pom.xml, mvnw, .mvn/</td><td>Proyecto Maven con su wrapper (no hace falta tener Maven)</td></tr>
+    <tr><td>src/main/java/…</td><td>SISTEMA</td></tr>
+    <tr><td>src/test/java/…</td><td>Pruebas JUnit, MockMvc, Mockito, Cucumber y Selenium</td></tr>
+    <tr><td>src/test/resources/features/</td><td>Escenarios .feature</td></tr>
+    <tr><td>postman/</td><td>Colección y entorno exportados</td></tr>
+    <tr><td>reportes/</td><td>JaCoCo, PIT y Cucumber</td></tr>
+    <tr><td>docs/</td><td>Este informe, planilla de casos, registro de defectos, análisis de PIT y evidencias</td></tr>
+    <tr><td>Makefile, scripts/, package.json, README.md</td><td>Comandos para correr cada tipo de prueba, newman y la entrega</td></tr>
+  </tbody>
+</table>
+
+</body>
+</html>

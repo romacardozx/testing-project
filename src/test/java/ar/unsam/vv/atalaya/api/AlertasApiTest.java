@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * RF-08 · Reconocimiento por la API con MockMvc (caja negra): segundo reconocimiento (CP-24),
- * alerta inexistente y rol sin permiso.
+ * alerta inexistente (CP-38) y rol sin permiso (CP-35).
  */
 class AlertasApiTest extends PruebaApiQa {
 
@@ -27,7 +27,7 @@ class AlertasApiTest extends PruebaApiQa {
     }
 
     @Test
-    @DisplayName("RF-08 · reconocer una alerta inexistente devuelve 404")
+    @DisplayName("CP-38 · reconocer una alerta inexistente devuelve 404")
     void alertaInexistente() throws Exception {
         reconocer(999_999, "operador").andExpect(status().isNotFound());
     }

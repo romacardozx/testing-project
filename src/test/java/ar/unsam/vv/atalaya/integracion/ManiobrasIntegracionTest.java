@@ -16,6 +16,7 @@ import org.junit.jupiter.params.provider.CsvSource;
  * RF-09 · Maniobras de punta a punta con H2 y reloj de QA. Agrupación en una alerta INFORMATIVA
  * (CP-27), bordes de la banda (CP-28), aviso de canal fuera de la agrupación (CP-29) y expiración
  * (CP-30). La banda se evalúa contra el valor consolidado de la potencia térmica.
+ * Ciclo de vida de la maniobra (CP-39): finalizar, una sola activa, banda inválida y duración por defecto.
  */
 class ManiobrasIntegracionTest extends PruebaApiQa {
 
@@ -97,7 +98,7 @@ class ManiobrasIntegracionTest extends PruebaApiQa {
     }
 
     @Test
-    @DisplayName("RF-09 · DELETE pasa la maniobra a FINALIZADA y se vuelve a alertar normal")
+    @DisplayName("CP-39 · DELETE pasa la maniobra a FINALIZADA y se vuelve a alertar normal")
     void finalizarManiobra() throws Exception {
         enviarPotencia("80", "80", "80");
         long id = idManiobra("70", "90", 30);
@@ -111,7 +112,7 @@ class ManiobrasIntegracionTest extends PruebaApiQa {
     }
 
     @Test
-    @DisplayName("RF-09 · no se puede declarar una segunda maniobra mientras hay una activa (409)")
+    @DisplayName("CP-39 · no se puede declarar una segunda maniobra mientras hay una activa (409)")
     void unaSolaManiobraActiva() throws Exception {
         idManiobra("70", "90", 30);
 
@@ -121,13 +122,13 @@ class ManiobrasIntegracionTest extends PruebaApiQa {
     }
 
     @Test
-    @DisplayName("RF-09 · banda con mínimo mayor que el máximo → 400")
+    @DisplayName("CP-39 · banda con mínimo mayor que el máximo → 400")
     void bandaInvalida() throws Exception {
         declararManiobra("90", "70", 30).andExpect(status().isBadRequest());
     }
 
     @Test
-    @DisplayName("RF-09 · la duración máxima por defecto es 30 minutos")
+    @DisplayName("CP-39 · la duración máxima por defecto es 30 minutos")
     void duracionPorDefecto() throws Exception {
         mvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post("/api/v1/maniobras")
                         .with(como("jefe"))

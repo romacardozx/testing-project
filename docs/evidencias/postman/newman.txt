@@ -1,0 +1,520 @@
+ATALAYA 3.1.0 · make postman · 09/11/2026 22:56 · openjdk version "21.0.12.1" 2026-08-18
+
+Levantando el SISTEMA con el perfil qa (log en target/newman/app.log)...
+newman
+
+ATALAYA 3.1.0 · Grupo E
+
+❏ RF-01/02 · Lecturas / CP-01 · Límites de temperatura del primario
+↳ 19,9 °C → DESCARTADA_RANGO
+  POST http://localhost:8080/api/v1/qa/reset [200 OK, 366B, 30ms]
+  POST http://localhost:8080/api/v1/lecturas [200 OK, 363B, 186ms]
+  ✓  HTTP 200
+  ✓  .estado = DESCARTADA_RANGO
+
+↳ 20 °C → ACEPTADA
+  POST http://localhost:8080/api/v1/lecturas [200 OK, 355B, 59ms]
+  ✓  HTTP 200
+  ✓  .estado = ACEPTADA
+
+↳ 350 °C → ACEPTADA
+  POST http://localhost:8080/api/v1/lecturas [200 OK, 355B, 52ms]
+  ✓  HTTP 200
+  ✓  .estado = ACEPTADA
+
+↳ 350,1 °C → DESCARTADA_RANGO
+  POST http://localhost:8080/api/v1/lecturas [200 OK, 363B, 54ms]
+  ✓  HTTP 200
+  ✓  .estado = DESCARTADA_RANGO
+
+❏ RF-01/02 · Lecturas / CP-03 · Mensajes inválidos
+↳ Valor nulo → 400
+  POST http://localhost:8080/api/v1/qa/reset [200 OK, 366B, 4ms]
+  POST http://localhost:8080/api/v1/lecturas [400 Bad Request, 389B, 52ms]
+  ✓  HTTP 400
+  ✓  .campo = valor
+
+↳ Valor no numérico → 400
+  POST http://localhost:8080/api/v1/lecturas [400 Bad Request, 407B, 53ms]
+  ✓  HTTP 400
+  ✓  .campo = valor
+
+↳ Magnitud inexistente → 400
+  POST http://localhost:8080/api/v1/lecturas [400 Bad Request, 413B, 54ms]
+  ✓  HTTP 400
+  ✓  .campo = magnitud
+
+↳ Canal D → 400
+  POST http://localhost:8080/api/v1/lecturas [400 Bad Request, 407B, 49ms]
+  ✓  HTTP 400
+  ✓  .campo = canal
+
+↳ JSON malformado → 400
+  POST http://localhost:8080/api/v1/lecturas [400 Bad Request, 400B, 48ms]
+  ✓  HTTP 400
+
+↳ La magnitud no cambió
+  GET http://localhost:8080/api/v1/magnitudes/TEMPERATURA_PRIMARIO [200 OK, 718B, 55ms]
+  ✓  HTTP 200
+  ✓  .utilizable = False
+  ✓  .valorConsolidado = None
+
+❏ RF-03 · Redundancia / CP-07 · Canal que discrepa 2,01 %
+↳ A = 300,00
+  POST http://localhost:8080/api/v1/qa/reset [200 OK, 366B, 4ms]
+  POST http://localhost:8080/api/v1/lecturas [200 OK, 355B, 52ms]
+  ✓  HTTP 200
+  ✓  .estado = ACEPTADA
+
+↳ B = 300,00
+  POST http://localhost:8080/api/v1/lecturas [200 OK, 355B, 49ms]
+  ✓  HTTP 200
+  ✓  .estado = ACEPTADA
+
+↳ C = 306,64
+  POST http://localhost:8080/api/v1/lecturas [200 OK, 355B, 51ms]
+  ✓  HTTP 200
+  ✓  .estado = ACEPTADA
+
+↳ C NO_CONFIABLE por DISCREPANCIA; valor con A y B
+  GET http://localhost:8080/api/v1/magnitudes/TEMPERATURA_PRIMARIO [200 OK, 615B, 53ms]
+  ✓  HTTP 200
+  ✓  .canales[2].estado = NO_CONFIABLE
+  ✓  .canales[2].motivo = DISCREPANCIA
+  ✓  .valorConsolidado = 300
+  ✓  .avisos = ['CANAL_EXCLUIDO:C']
+
+❏ RF-03 · Redundancia / CP-11 · Menos de dos canales confiables
+↳ A = 300
+  POST http://localhost:8080/api/v1/qa/reset [200 OK, 366B, 5ms]
+  POST http://localhost:8080/api/v1/lecturas [200 OK, 355B, 53ms]
+  ✓  HTTP 200
+  ✓  .estado = ACEPTADA
+
+↳ B = 300
+  POST http://localhost:8080/api/v1/lecturas [200 OK, 355B, 50ms]
+  ✓  HTTP 200
+  ✓  .estado = ACEPTADA
+
+↳ C = 300
+  POST http://localhost:8080/api/v1/lecturas [200 OK, 355B, 53ms]
+  ✓  HTTP 200
+  ✓  .estado = ACEPTADA
+
+↳ Avanzar reloj 5 s
+  POST http://localhost:8080/api/v1/qa/reloj [200 OK, 366B, 10ms]
+  ✓  HTTP 200
+
+↳ A = 300 (5 s)
+  POST http://localhost:8080/api/v1/lecturas [200 OK, 355B, 53ms]
+  ✓  HTTP 200
+  ✓  .estado = ACEPTADA
+
+↳ Avanzar reloj 5 s
+  POST http://localhost:8080/api/v1/qa/reloj [200 OK, 366B, 5ms]
+  ✓  HTTP 200
+
+↳ A = 300 (10 s)
+  POST http://localhost:8080/api/v1/lecturas [200 OK, 355B, 52ms]
+  ✓  HTTP 200
+  ✓  .estado = ACEPTADA
+
+↳ Avanzar reloj 1 s
+  POST http://localhost:8080/api/v1/qa/reloj [200 OK, 366B, 4ms]
+  ✓  HTTP 200
+
+↳ A = 300 (11 s)
+  POST http://localhost:8080/api/v1/lecturas [200 OK, 355B, 53ms]
+  ✓  HTTP 200
+  ✓  .estado = ACEPTADA
+
+↳ No utilizable y aviso explícito
+  GET http://localhost:8080/api/v1/magnitudes/TEMPERATURA_PRIMARIO [200 OK, 681B, 50ms]
+  ✓  HTTP 200
+  ✓  .utilizable = False
+  ✓  avisos
+
+❏ RF-06 · Niveles / CP-13 · Bordes de nivel
+↳ 0 % → NORMAL
+  POST http://localhost:8080/api/v1/qa/reset [200 OK, 366B, 4ms]
+  POST http://localhost:8080/api/v1/qa/estimaciones [200 OK, 400B, 20ms]
+  ✓  HTTP 200
+  ✓  .nivel = NORMAL
+
+↳ 14,9 % → NORMAL
+  POST http://localhost:8080/api/v1/qa/estimaciones [200 OK, 403B, 7ms]
+  ✓  HTTP 200
+  ✓  .nivel = NORMAL
+
+↳ 15 % → ATENCION
+  POST http://localhost:8080/api/v1/qa/estimaciones [200 OK, 416B, 10ms]
+  ✓  HTTP 200
+  ✓  .nivel = ATENCION
+
+↳ 39,9 % → ATENCION
+  POST http://localhost:8080/api/v1/qa/estimaciones [200 OK, 405B, 9ms]
+  ✓  HTTP 200
+  ✓  .nivel = ATENCION
+
+↳ 40 % → ALTO
+  POST http://localhost:8080/api/v1/qa/estimaciones [200 OK, 412B, 7ms]
+  ✓  HTTP 200
+  ✓  .nivel = ALTO
+
+↳ 74,9 % → ALTO
+  POST http://localhost:8080/api/v1/qa/estimaciones [200 OK, 401B, 9ms]
+  ✓  HTTP 200
+  ✓  .nivel = ALTO
+
+↳ 75 % → CRITICO
+  POST http://localhost:8080/api/v1/qa/estimaciones [200 OK, 415B, 8ms]
+  ✓  HTTP 200
+  ✓  .nivel = CRITICO
+
+↳ 100 % → CRITICO
+  POST http://localhost:8080/api/v1/qa/estimaciones [200 OK, 403B, 7ms]
+  ✓  HTTP 200
+  ✓  .nivel = CRITICO
+
+❏ RF-07/08 · Alertas / CP-18 · Destinatarios según nivel
+↳ 20 % (ATENCION)
+  POST http://localhost:8080/api/v1/qa/reset [200 OK, 366B, 3ms]
+  POST http://localhost:8080/api/v1/qa/estimaciones [200 OK, 416B, 7ms]
+  ✓  HTTP 200
+  ✓  .nivel = ATENCION
+
+↳ 50 % (ALTO)
+  POST http://localhost:8080/api/v1/qa/estimaciones [200 OK, 412B, 8ms]
+  ✓  HTTP 200
+  ✓  .nivel = ALTO
+
+↳ 80 % (CRITICO)
+  POST http://localhost:8080/api/v1/qa/estimaciones [200 OK, 415B, 8ms]
+  ✓  HTTP 200
+  ✓  .nivel = CRITICO
+
+↳ Canales y destinatarios
+  GET http://localhost:8080/api/v1/alertas [200 OK, 1.01kB, 55ms]
+  ✓  HTTP 200
+  ✓  [0].canales = ['VISUAL']
+  ✓  [0].destinatarios = []
+  ✓  [0].requiereReconocimiento = False
+  ✓  [1].destinatarios = ['OPERADOR_REACTOR']
+  ✓  [1].requiereReconocimiento = True
+  ✓  [2].canales = ['VISUAL', 'SONORA']
+  ✓  [2].destinatarios = ['OPERADOR_REACTOR', 'JEFE_TURNO']
+
+❏ RF-07/08 · Alertas / CP-23 · Reconocimiento antes del plazo
+↳ Alerta CRITICO en T0
+  POST http://localhost:8080/api/v1/qa/reset [200 OK, 366B, 4ms]
+  POST http://localhost:8080/api/v1/qa/estimaciones [200 OK, 415B, 7ms]
+  ✓  HTTP 200
+  ✓  .nivel = CRITICO
+
+↳ Avanzar reloj 44 s
+  POST http://localhost:8080/api/v1/qa/reloj [200 OK, 366B, 6ms]
+  ✓  HTTP 200
+
+↳ El operador reconoce a los 44 s
+  POST http://localhost:8080/api/v1/alertas/7/reconocimiento [200 OK, 583B, 61ms]
+  ✓  HTTP 200
+  ✓  .estado = RECONOCIDA
+
+↳ Avanzar reloj 16 s
+  POST http://localhost:8080/api/v1/qa/reloj [200 OK, 366B, 5ms]
+  ✓  HTTP 200
+
+↳ A los 60 s sigue RECONOCIDA y sin escalar
+  GET http://localhost:8080/api/v1/alertas?estado=RECONOCIDA [200 OK, 585B, 50ms]
+  ✓  HTTP 200
+  ✓  una alerta reconocida
+  ✓  [0].destinatarios = ['OPERADOR_REACTOR', 'JEFE_TURNO']
+
+❏ RF-09 · Maniobras / CP-27 · Variaciones dentro de la banda
+↳ Potencia A = 80
+  POST http://localhost:8080/api/v1/qa/reset [200 OK, 366B, 3ms]
+  POST http://localhost:8080/api/v1/lecturas [200 OK, 355B, 50ms]
+  ✓  HTTP 200
+  ✓  .estado = ACEPTADA
+
+↳ Potencia B = 80
+  POST http://localhost:8080/api/v1/lecturas [200 OK, 355B, 50ms]
+  ✓  HTTP 200
+  ✓  .estado = ACEPTADA
+
+↳ Potencia C = 80
+  POST http://localhost:8080/api/v1/lecturas [200 OK, 355B, 50ms]
+  ✓  HTTP 200
+  ✓  .estado = ACEPTADA
+
+↳ El jefe declara la maniobra (banda 70 a 90)
+  POST http://localhost:8080/api/v1/maniobras [201 Created, 505B, 61ms]
+  ✓  HTTP 201
+  ✓  .estado = ACTIVA
+
+↳ Inyectar estimación ALTO dentro de la banda (×10)
+  POST http://localhost:8080/api/v1/qa/estimaciones [200 OK, 412B, 10ms]
+  ✓  HTTP 200
+  ┌
+  │ 'Using "postman.setNextRequest" is deprecated. Use "pm
+  │ .execution.setNextRequest()" instead.'
+  └
+
+Attempting to set next request to Inyectar estimación ALTO dentro de la banda (×10)
+
+↳ Inyectar estimación ALTO dentro de la banda (×10)
+  POST http://localhost:8080/api/v1/qa/estimaciones [200 OK, 412B, 7ms]
+  ✓  HTTP 200
+  ┌
+  │ 'Using "postman.setNextRequest" is deprecated. Use "pm
+  │ .execution.setNextRequest()" instead.'
+  └
+
+Attempting to set next request to Inyectar estimación ALTO dentro de la banda (×10)
+
+↳ Inyectar estimación ALTO dentro de la banda (×10)
+  POST http://localhost:8080/api/v1/qa/estimaciones [200 OK, 412B, 8ms]
+  ✓  HTTP 200
+  ┌
+  │ 'Using "postman.setNextRequest" is deprecated. Use "pm
+  │ .execution.setNextRequest()" instead.'
+  └
+
+Attempting to set next request to Inyectar estimación ALTO dentro de la banda (×10)
+
+↳ Inyectar estimación ALTO dentro de la banda (×10)
+  POST http://localhost:8080/api/v1/qa/estimaciones [200 OK, 412B, 6ms]
+  ✓  HTTP 200
+  ┌
+  │ 'Using "postman.setNextRequest" is deprecated. Use "pm
+  │ .execution.setNextRequest()" instead.'
+  └
+
+Attempting to set next request to Inyectar estimación ALTO dentro de la banda (×10)
+
+↳ Inyectar estimación ALTO dentro de la banda (×10)
+  POST http://localhost:8080/api/v1/qa/estimaciones [200 OK, 412B, 8ms]
+  ✓  HTTP 200
+  ┌
+  │ 'Using "postman.setNextRequest" is deprecated. Use "pm
+  │ .execution.setNextRequest()" instead.'
+  └
+
+Attempting to set next request to Inyectar estimación ALTO dentro de la banda (×10)
+
+↳ Inyectar estimación ALTO dentro de la banda (×10)
+  POST http://localhost:8080/api/v1/qa/estimaciones [200 OK, 412B, 7ms]
+  ✓  HTTP 200
+  ┌
+  │ 'Using "postman.setNextRequest" is deprecated. Use "pm
+  │ .execution.setNextRequest()" instead.'
+  └
+
+Attempting to set next request to Inyectar estimación ALTO dentro de la banda (×10)
+
+↳ Inyectar estimación ALTO dentro de la banda (×10)
+  POST http://localhost:8080/api/v1/qa/estimaciones [200 OK, 412B, 6ms]
+  ✓  HTTP 200
+  ┌
+  │ 'Using "postman.setNextRequest" is deprecated. Use "pm
+  │ .execution.setNextRequest()" instead.'
+  └
+
+Attempting to set next request to Inyectar estimación ALTO dentro de la banda (×10)
+
+↳ Inyectar estimación ALTO dentro de la banda (×10)
+  POST http://localhost:8080/api/v1/qa/estimaciones [200 OK, 412B, 6ms]
+  ✓  HTTP 200
+  ┌
+  │ 'Using "postman.setNextRequest" is deprecated. Use "pm
+  │ .execution.setNextRequest()" instead.'
+  └
+
+Attempting to set next request to Inyectar estimación ALTO dentro de la banda (×10)
+
+↳ Inyectar estimación ALTO dentro de la banda (×10)
+  POST http://localhost:8080/api/v1/qa/estimaciones [200 OK, 412B, 8ms]
+  ✓  HTTP 200
+  ┌
+  │ 'Using "postman.setNextRequest" is deprecated. Use "pm
+  │ .execution.setNextRequest()" instead.'
+  └
+
+Attempting to set next request to Inyectar estimación ALTO dentro de la banda (×10)
+
+↳ Inyectar estimación ALTO dentro de la banda (×10)
+  POST http://localhost:8080/api/v1/qa/estimaciones [200 OK, 412B, 8ms]
+  ✓  HTTP 200
+
+↳ Una sola alerta INFORMATIVA con 10 agrupadas
+  GET http://localhost:8080/api/v1/alertas [200 OK, 521B, 50ms]
+  ✓  HTTP 200
+  ✓  una sola alerta
+  ✓  [0].clase = INFORMATIVA
+  ✓  [0].agrupadas = 10
+
+❏ CP-31 · Pairwise (fila 2 como muestra)
+↳ Potencia A = 80
+  POST http://localhost:8080/api/v1/qa/reset [200 OK, 366B, 2ms]
+  POST http://localhost:8080/api/v1/lecturas [200 OK, 355B, 53ms]
+  ✓  HTTP 200
+  ✓  .estado = ACEPTADA
+
+↳ Potencia B = 80
+  POST http://localhost:8080/api/v1/lecturas [200 OK, 355B, 51ms]
+  ✓  HTTP 200
+  ✓  .estado = ACEPTADA
+
+↳ Potencia C = 85 (discrepa)
+  POST http://localhost:8080/api/v1/lecturas [200 OK, 355B, 51ms]
+  ✓  HTTP 200
+  ✓  .estado = ACEPTADA
+
+↳ Alerta ALTO
+  POST http://localhost:8080/api/v1/qa/estimaciones [200 OK, 412B, 7ms]
+  ✓  HTTP 200
+  ✓  .nivel = ALTO
+
+↳ Aviso de canal
+  GET http://localhost:8080/api/v1/magnitudes/POTENCIA_TERMICA [200 OK, 610B, 51ms]
+  ✓  HTTP 200
+  ✓  .avisos = ['CANAL_EXCLUIDO:C']
+
+↳ Avanzar reloj 89 s
+  POST http://localhost:8080/api/v1/qa/reloj [200 OK, 366B, 5ms]
+  ✓  HTTP 200
+
+↳ 89 s: EMITIDA
+  GET http://localhost:8080/api/v1/alertas [200 OK, 557B, 50ms]
+  ✓  HTTP 200
+  ✓  [0].estado = EMITIDA
+
+↳ Avanzar reloj 1 s
+  POST http://localhost:8080/api/v1/qa/reloj [200 OK, 366B, 6ms]
+  ✓  HTTP 200
+
+↳ 90 s: ESCALADA al jefe de turno
+  GET http://localhost:8080/api/v1/alertas [200 OK, 607B, 50ms]
+  ✓  HTTP 200
+  ✓  [0].estado = ESCALADA
+  ✓  [0].destinatarios = ['OPERADOR_REACTOR', 'JEFE_TURNO']
+
+↳ Avanzar reloj 5 s
+  POST http://localhost:8080/api/v1/qa/reloj [200 OK, 366B, 4ms]
+  ✓  HTTP 200
+
+↳ 95 s: el jefe reconoce
+  POST http://localhost:8080/api/v1/alertas/9/reconocimiento [200 OK, 607B, 51ms]
+  ✓  HTTP 200
+  ✓  .estado = RECONOCIDA
+
+❏ RF-12 · Umbrales / CP-32 · Límites de umbrales
+↳ Alto 29,9 / crítico 75 → 422
+  POST http://localhost:8080/api/v1/qa/reset [200 OK, 366B, 3ms]
+  PUT http://localhost:8080/api/v1/config/umbrales [422 Unprocessable Entity (WebDAV) (RFC 4918), 470B, 51ms]
+  ✓  HTTP 422
+
+↳ Alto 30 / crítico 75 → 201
+  PUT http://localhost:8080/api/v1/config/umbrales [201 Created, 420B, 50ms]
+  ✓  HTTP 201
+  ✓  .estado = PENDIENTE
+
+↳ Alto 50 / crítico 75 → 201
+  PUT http://localhost:8080/api/v1/config/umbrales [201 Created, 420B, 47ms]
+  ✓  HTTP 201
+  ✓  .estado = PENDIENTE
+
+↳ Alto 50,1 / crítico 75 → 422
+  PUT http://localhost:8080/api/v1/config/umbrales [422 Unprocessable Entity (WebDAV) (RFC 4918), 470B, 47ms]
+  ✓  HTTP 422
+
+↳ Alto 40 / crítico 64,9 → 422
+  PUT http://localhost:8080/api/v1/config/umbrales [422 Unprocessable Entity (WebDAV) (RFC 4918), 478B, 48ms]
+  ✓  HTTP 422
+
+↳ Alto 40 / crítico 65 → 201
+  PUT http://localhost:8080/api/v1/config/umbrales [201 Created, 420B, 48ms]
+  ✓  HTTP 201
+  ✓  .estado = PENDIENTE
+
+↳ Alto 40 / crítico 100 → 201
+  PUT http://localhost:8080/api/v1/config/umbrales [201 Created, 421B, 48ms]
+  ✓  HTTP 201
+  ✓  .estado = PENDIENTE
+
+↳ Alto 40 / crítico 100,1 → 422
+  PUT http://localhost:8080/api/v1/config/umbrales [422 Unprocessable Entity (WebDAV) (RFC 4918), 478B, 49ms]
+  ✓  HTTP 422
+
+↳ Los vigentes no cambiaron (solicitudes PENDIENTE)
+  GET http://localhost:8080/api/v1/config/umbrales [200 OK, 358B, 48ms]
+  ✓  HTTP 200
+  ✓  .alto = 40
+  ✓  .critico = 75
+
+❏ RNF · Seguridad / CP-34 · Acceso sin autenticar
+↳ POST /api/v1/lecturas → 401
+  POST http://localhost:8080/api/v1/lecturas [401 Unauthorized, 481B, 4ms]
+  ✓  HTTP 401
+
+↳ GET /api/v1/magnitudes/TEMPERATURA_PRIMARIO → 401
+  GET http://localhost:8080/api/v1/magnitudes/TEMPERATURA_PRIMARIO [401 Unauthorized, 481B, 2ms]
+  ✓  HTTP 401
+
+↳ GET /api/v1/estimaciones/actual → 401
+  GET http://localhost:8080/api/v1/estimaciones/actual [401 Unauthorized, 481B, 2ms]
+  ✓  HTTP 401
+
+↳ GET /api/v1/alertas → 401
+  GET http://localhost:8080/api/v1/alertas [401 Unauthorized, 481B, 1ms]
+  ✓  HTTP 401
+
+↳ POST /api/v1/alertas/1/reconocimiento → 401
+  POST http://localhost:8080/api/v1/alertas/1/reconocimiento [401 Unauthorized, 481B, 1ms]
+  ✓  HTTP 401
+
+↳ POST /api/v1/maniobras → 401
+  POST http://localhost:8080/api/v1/maniobras [401 Unauthorized, 481B, 1ms]
+  ✓  HTTP 401
+
+↳ DELETE /api/v1/maniobras/1 → 401
+  DELETE http://localhost:8080/api/v1/maniobras/1 [401 Unauthorized, 481B, 1ms]
+  ✓  HTTP 401
+
+↳ GET /api/v1/config/umbrales → 401
+  GET http://localhost:8080/api/v1/config/umbrales [401 Unauthorized, 481B, 1ms]
+  ✓  HTTP 401
+
+↳ PUT /api/v1/config/umbrales → 401
+  PUT http://localhost:8080/api/v1/config/umbrales [401 Unauthorized, 481B, 1ms]
+  ✓  HTTP 401
+
+↳ POST /api/v1/config/umbrales/1/aprobacion → 401
+  POST http://localhost:8080/api/v1/config/umbrales/1/aprobacion [401 Unauthorized, 481B, 1ms]
+  ✓  HTTP 401
+
+↳ GET /api/v1/version → 401
+  GET http://localhost:8080/api/v1/version [401 Unauthorized, 481B, 1ms]
+  ✓  HTTP 401
+
+┌─────────────────────────┬───────────────────┬──────────────────┐
+│                         │          executed │           failed │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│              iterations │                 1 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│                requests │                97 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│            test-scripts │                87 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│      prerequest-scripts │                10 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│              assertions │               156 │                0 │
+├─────────────────────────┴───────────────────┴──────────────────┤
+│ total run duration: 3.6s                                       │
+├────────────────────────────────────────────────────────────────┤
+│ total data received: 8.54kB (approx)                           │
+├────────────────────────────────────────────────────────────────┤
+│ average response time: 28ms [min: 1ms, max: 186ms, s.d.: 27ms] │
+└────────────────────────────────────────────────────────────────┘
+Resultado JUnit: target/newman/postman.xml
+Apagando el SISTEMA (pid 115416)...

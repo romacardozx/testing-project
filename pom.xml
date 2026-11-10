@@ -31,6 +31,7 @@
         <consola>false</consola>
         <headless>false</headless>
         <pausa>false</pausa>
+        <capturas></capturas>
     </properties>
 
     <dependencies>
@@ -139,6 +140,7 @@
                         <browser>${browser}</browser>
                         <headless>${headless}</headless>
                         <pausa>${pausa}</pausa>
+                        <capturas>${capturas}</capturas>
                         <!-- true desde el Makefile: resumen visual en consola (ResumenConsola) -->
                         <atalaya.consola>${consola}</atalaya.consola>
                     </systemPropertyVariables>

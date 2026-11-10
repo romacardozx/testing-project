@@ -41,7 +41,7 @@ newman queda instalado localmente en `node_modules/` con la versión fija de `pa
 | Comando | Qué corre |
 |---|---|
 | `make todo` | Suite completa (`mvn verify`): unitarias, API, integración, BDD y Selenium, más el resumen de cobertura JaCoCo |
-| `make unitarias` | Unitarias de dominio: caja negra, caja blanca y TDD (paquetes `dominio` y `config`). Son las que usa PIT |
+| `make unitarias` | Unitarias de dominio: caja negra, caja blanca y TDD (paquetes `dominio` y `config`; las de `dominio` son las que usa PIT), y servicios aislados con Mockito (`aplicacion`) |
 | `make api` | API con MockMvc y contra el servidor real: CP-01, CP-03, CP-13 a CP-15, CP-24, CP-34, CP-35 |
 | `make integracion` | Integración con H2 y reloj de QA: caja gris, concurrencia (CP-25) y pairwise (CP-31) |
 | `make bdd` | Escenarios Cucumber en español: CP-07, CP-08, CP-21, CP-23, CP-27, CP-28, CP-33 |
@@ -65,6 +65,9 @@ newman queda instalado localmente en `node_modules/` con la versión fija de `pa
 | `make app` | Levanta el SISTEMA con el perfil qa en http://localhost:8080 (panel en `/panel`) |
 | `make postman` | Corre la colección de Postman con newman. Si la app no está levantada, la levanta con el perfil qa, corre la colección y la apaga. Deja el resultado en `target/newman/postman.xml` |
 | `make reportes` | Copia los reportes de JaCoCo, PIT y Cucumber a `reportes/` para armar el ZIP |
+| `make evidencias` | Corre la suite, PIT, Postman y Selenium en Chrome sin ventana, y guarda la salida y las capturas en `docs/evidencias/` |
+| `make informe` | Genera `docs/TP_ATALAYA_QA_v7.pdf` desde su fuente HTML (`docs/fuentes/`) |
+| `make entrega` | Corre la suite completa y PIT; si todo pasa, arma `VV-Q2-2026-TN-GrupoE-ATALAYA.zip` con el proyecto, los reportes y `docs/`, sin archivos de trabajo internos ni configuración del IDE. Con `SIN_PRUEBAS=1` reusa los resultados de `target/` |
 | `make limpiar` | Borra `target/` y `reportes/` |
 
 ### Variables
@@ -73,6 +76,7 @@ newman queda instalado localmente en `node_modules/` con la versión fija de `pa
 |---|---|---|
 | `T` | Clase o patrón para `make clase`; en `make ui-demo`, una prueba puntual | `make clase T=ServicioEscalamientoTest` |
 | `HEADLESS` | Chrome sin ventana en `make ui-chrome` | `make ui-chrome HEADLESS=true` |
+| `SIN_PRUEBAS` | `make entrega` sin volver a correr la suite | `make entrega SIN_PRUEBAS=1` |
 | `NO_COLOR` | Salida sin colores (por ejemplo, para guardarla como evidencia) | `NO_COLOR=1 make todo > evidencia.txt` |
 
 ### Ejemplos
@@ -90,7 +94,7 @@ NO_COLOR=1 make unitarias > docs/evidencias/unitarias.txt
 ## Salida en consola
 
 Los comandos de pruebas muestran un árbol por clase (o por feature de Cucumber) con cada caso marcado
-✔ / ✘ / ↷ y su `@DisplayName`, que incluye el ID del caso (CP-xx, UI-xx). Al final, un recuadro con
+✔ / ✘ / ↷ y su `@DisplayName`, que incluye el ID del caso (CP-xx, UI-xx; INF-xx para las pruebas de la infraestructura de pruebas). Al final, un recuadro con
 los totales y la lista de fallos con su mensaje:
 
 ```
@@ -177,9 +181,10 @@ curl -u operador:operador123 localhost:8080/api/v1/alertas                     #
 
 ## Documentación
 
-- `docs/TP_ATALAYA_QA_v6.pdf`: informe (estrategia, casos, criterios).
-- `docs/Matriz_Trazabilidad_ATALAYA.xlsx`: casos de prueba y trazabilidad.
-- `docs/evidencias/tdd/`: salida de cada etapa red/green de TDD.
+- `docs/TP_ATALAYA_QA_v7.pdf`: informe (estrategia, casos, criterios y resultados).
+- `docs/Matriz_Trazabilidad_ATALAYA.xlsx`: casos de prueba, resultados, trazabilidad y defectos.
+- `docs/defectos.md`: registro de defectos (ATA-1 a ATA-18).
+- `docs/evidencias/`: salida de cada ejecución (`ejecucion/`, `postman/`), capturas de Selenium y rojo/verde de TDD y de defectos.
 - `docs/pit-analisis.md`: análisis de mutantes sobrevivientes.
 - `docs/uso-ia.md`: registro del uso de IA (condición 11.f).
 - `CLAUDE.md`: reglas de negocio, decisiones del equipo y convenciones del proyecto.

@@ -1,0 +1,12 @@
+  ✘ UI-03 · cada canal se muestra en su propio renglón [defecto ATA-18, corregido]  935 ms
+Expecting actual:
+  ["A: CONFIABLEB: CONFIABLEC: NO_CONFIABLE (DISCREPANCIA)"]
+to contain exactly (and in same order):
+  ["A: CONFIABLE", "B: CONFIABLE", "C: NO_CONFIABLE (DISCREPANCIA)"]
+but some elements were not found:
+  ["A: CONFIABLE", "B: CONFIABLE", "C: NO_CONFIABLE (DISCREPANCIA)"]
+  ["A: CONFIABLEB: CONFIABLEC: NO_CONFIABLE (DISCREPANCIA)"]
+║  Total 1     ✔ 0     ✘ 1     ↷ 0      3,3 s                  ║
+  ✘ PanelUiTest › UI-03 · cada canal se muestra en su propio renglón [defecto ATA-18, corregido]
+      AssertionFailedError:  Expecting actual: ["A: CONFIABLEB: CONFIABLEC: NO_CONFIABLE (DISCREPANCIA)"]
+Expecting actual:

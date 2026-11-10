@@ -1,0 +1,16 @@
+
+┌─ JaCoCo · cobertura por paquete ─────────────────────────────┐
+└──────────────────────────────────────────────────────────────┘
+Paquete             Líneas     Ramas
+(app)                33,3%       —
+aplicacion           99,0%     97,4%
+config               97,8%     75,0%
+dominio              99,6%     99,0%  ← umbral 80 / 70
+persistencia         98,6%       —
+web.api              98,6%     72,2%
+web.panel            91,7%    100,0%
+web.qa              100,0%    100,0%
+TOTAL                98,5%     95,0%
+
+Reporte HTML: target/site/jacoco/index.html
+
