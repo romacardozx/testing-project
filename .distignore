@@ -1,0 +1,15 @@
+^CLAUDE\.md$
+^\.claude/
+^docs/uso-ia\.md$
+^docs/fuentes/
+^postman/generar_coleccion\.py$
+^\.idea/
+^\.gitignore$
+^\.distignore$
+^node_modules/
+^target/
+(^|/)\.gitkeep$
+\.zip$
+readme:generar_coleccion.py
+readme:uso-ia.md
+readme:CLAUDE.md

@@ -1,8 +1,4 @@
 #!/usr/bin/env bash
-# Corre la colección de Postman con newman (instalado local con `make install`).
-# Si el SISTEMA no está levantado en el puerto 8080, lo levanta con el perfil qa, espera a que
-# responda, corre la colección y lo apaga al terminar (solo el proceso que lanzó este script).
-# Deja el resultado en JUnit XML en target/newman/postman.xml (evidencia).
 set -uo pipefail
 cd "$(dirname "$0")/.."
 

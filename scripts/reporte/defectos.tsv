@@ -1,0 +1,19 @@
+clave	tipo	resumen	requerimiento	caso	severidad	estado
+ATA-1	Especificación	No se define contra qué ni sobre qué rango se mide el 2 % (A1, A2)	RF-03	CP-07, CP-08	Alta	Confirmado
+ATA-2	Especificación	No se dice cuántas lecturas buenas necesita un canal para recuperarse (A3)	RF-03	CP-12	Media	Confirmado
+ATA-3	Especificación	No se define qué significa que una alerta empeore (A4)	RF-07	CP-20	Alta	Confirmado
+ATA-4	Especificación	No se dice qué pasa con dos reconocimientos simultáneos (A5)	RF-08	CP-25	Media	Confirmado
+ATA-5	Especificación	No se dice qué pasa con una maniobra que nunca se ejecuta (A6)	RF-09	CP-30	Alta	Confirmado
+ATA-6	Especificación	No se aclara dónde empieza ATENCION si baja el umbral alto (A7)	RF-06	CP-16	Media	Confirmado
+ATA-7	Especificación	El umbral crítico no tiene máximo (A8)	RF-12	CP-32	Media	Confirmado
+ATA-8	Especificación	Regla 1: no queda claro si mira la última lectura recibida o la aceptada	RF-03	CP-09, CP-10	Alta	Confirmado
+ATA-9	Especificación	No se dice qué hacer con un nivel menor dentro de los 3 min	RF-07	CP-19, CP-20	Media	Confirmado
+ATA-10	Especificación	No se dice si puede haber más de una maniobra activa	RF-09	CP-39	Media	Confirmado
+ATA-11	Especificación	La regla alto menor que crítico nunca puede fallar con los rangos de A8	RF-12	CP-32	Baja	Confirmado
+ATA-12	Especificación	Aprueba el mismo usuario no se puede dar por la API (un rol por usuario)	RF-12	CP-33	Baja	Confirmado
+ATA-13	Diseño de pruebas	CP-34 pedía 401 en todos los endpoints, pero los de QA no piden credenciales	RNF seguridad	CP-34, CP-36	Baja	Cerrado
+ATA-14	Diseño de pruebas	CP-06 usaba la ruta /magnitudes/temperatura	RF-03	CP-06	Baja	Cerrado
+ATA-15	Diseño de pruebas	El esperado de CP-09 hablaba solo del canal C	RF-03	CP-09	Baja	Cerrado
+ATA-16	SISTEMA	Sin credenciales la API respondía 302 al login en vez de 401	RNF seguridad	CP-34, CP-35	Alta	Cerrado
+ATA-17	SISTEMA	La base H2 se compartía entre contextos y CP-18 fallaba a veces	RF-07/08	CP-18	Media	Cerrado
+ATA-18	SISTEMA	El panel mostraba los estados de los tres canales pegados en un renglón	RF-03	UI-03	Baja	Cerrado

@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-# Imprime el JAVA_HOME de un JDK 21 instalado (o nada si no hay ninguno). Lo usa el Makefile para
-# correr todo con Java 21 aunque el `java` por defecto sea otra versión (por ejemplo, 26).
 shopt -s nullglob
 
 es21() { [ -x "$1/bin/java" ] && "$1/bin/java" -version 2>&1 | head -1 | grep -qE 'version "21[."]'; }

@@ -1,34 +1,23 @@
 #!/usr/bin/env bash
-# Arma VV-Q2-2026-TN-GrupoE-ATALAYA.zip para la entrega (sección 14 del informe).
-#
-# 1. Corre la suite completa (mvn clean verify) y PIT: si algo falla, no arma el ZIP.
-# 2. Copia los reportes de JaCoCo, PIT y Cucumber a reportes/.
-# 3. Copia al ZIP los archivos del repo (versionados y nuevos no ignorados), sin lo que no va en la
-#    entrega: archivos de trabajo con el asistente (CLAUDE.md, .claude/, docs/uso-ia.md), el
-#    generador de la colección (Python), la fuente HTML del informe y el informe v6 (va el v7),
-#    la configuración del IDE y los .gitkeep.
-# 4. Comprueba que el ZIP no tenga nada de eso.
-#
-# El repo no se modifica: solo se excluyen archivos del ZIP. El uso de IA (condición 11.f) se
-# declara en la sección 13 del informe.
-#
-# Uso: scripts/entrega.sh [--sin-pruebas]   (--sin-pruebas reusa target/ sin volver a correr la suite;
-#      desde el Makefile: make dist SKIP_TESTS=1)
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
 NOMBRE=VV-Q2-2026-TN-GrupoE-ATALAYA
 ZIP="$PWD/$NOMBRE.zip"
 DESTINO=target/entrega/$NOMBRE
+LISTA=.distignore
 
 if [ -z "${NO_COLOR:-}" ]; then V=$'\e[32m'; R=$'\e[31m'; A=$'\e[33m'; N=$'\e[1m'; X=$'\e[0m'; else V= R= A= N= X=; fi
 paso() { printf "\n%s%s%s\n" "$N" "$1" "$X"; }
 ok()   { printf "  %s✔%s %s\n" "$V" "$X" "$1"; }
 mal()  { printf "  %s✘ %s%s\n" "$R" "$1" "$X"; exit 1; }
 
-# Lo que nunca va en el ZIP (expresiones regulares sobre la ruta relativa).
-PROHIBIDO='^(CLAUDE\.md|\.claude/|docs/uso-ia\.md|docs/fuentes/|docs/TP_ATALAYA_QA_v6\.pdf|postman/generar_coleccion\.py|\.idea/|\.gitignore$|node_modules/|target/)|(^|/)\.gitkeep$|\.zip$'
-# Al copiar se saltea además reportes/ del repo: se copia aparte, recién generado.
+PROHIBIDO='^target/|\.zip$'
+LINEAS_README=()
+if [ -f "$LISTA" ]; then
+  PROHIBIDO=$(grep -v -e '^readme:' -e '^$' "$LISTA" | paste -sd'|')
+  mapfile -t LINEAS_README < <(sed -n 's/^readme://p' "$LISTA")
+fi
 EXCLUIR="$PROHIBIDO|^reportes/"
 
 paso "1/4 · Pruebas"
@@ -49,7 +38,7 @@ paso "2/4 · Reportes"
 rm -rf reportes && mkdir -p reportes
 for d in site/jacoco:jacoco pit-reports:pit-reports cucumber-reports:cucumber; do
   src=target/${d%%:*}; dst=reportes/${d##*:}
-  [ -d "$src" ] || mal "falta $src (correr sin --sin-pruebas)"
+  [ -d "$src" ] || mal "falta $src (correr sin SKIP_TESTS)"
   cp -r "$src" "$dst" && ok "$dst"
 done
 
@@ -57,16 +46,17 @@ paso "3/4 · Copia de archivos"
 rm -rf target/entrega && mkdir -p "$DESTINO"
 excluidos=0
 while IFS= read -r archivo; do
-  [ -f "$archivo" ] || continue                       # borrados todavía versionados
+  [ -f "$archivo" ] || continue
   if [[ "$archivo" =~ $EXCLUIR ]]; then excluidos=$((excluidos + 1)); continue; fi
   mkdir -p "$DESTINO/$(dirname "$archivo")"
   cp -p "$archivo" "$DESTINO/$archivo"
 done < <(git ls-files -co --exclude-standard)
 cp -r reportes "$DESTINO/reportes"
 mkdir -p "$DESTINO/docs/evidencias/postman" "$DESTINO/docs/evidencias/selenium"
-
-# El README del ZIP no menciona los archivos excluidos.
-sed -i -e '/generar_coleccion\.py/,+1d' -e '/uso-ia\.md/d' -e '/CLAUDE\.md/d' "$DESTINO/README.md"
+for texto in "${LINEAS_README[@]}"; do
+  grep -vF "$texto" "$DESTINO/README.md" > "$DESTINO/README.tmp" || true
+  mv "$DESTINO/README.tmp" "$DESTINO/README.md"
+done
 ok "$(find "$DESTINO" -type f | wc -l) archivos copiados · $excluidos excluidos"
 
 paso "4/4 · ZIP"
@@ -74,10 +64,10 @@ rm -f "$ZIP"
 (cd target/entrega && zip -q -r -X "$ZIP" "$NOMBRE")
 sobrantes=$(unzip -Z1 "$ZIP" | sed "s|^$NOMBRE/||" | grep -E "$PROHIBIDO" || true)
 [ -z "$sobrantes" ] || mal "el ZIP tiene archivos que no van: $sobrantes"
-if unzip -p "$ZIP" "$NOMBRE/README.md" | grep -q -E 'CLAUDE\.md|uso-ia|generar_coleccion'; then
-  mal "el README del ZIP todavía menciona archivos excluidos"
-fi
-ok "sin CLAUDE.md, .claude/, docs/uso-ia.md, informe v6 ni fuentes, generador Python, .idea/ ni .gitkeep"
+for texto in "${LINEAS_README[@]}"; do
+  ! unzip -p "$ZIP" "$NOMBRE/README.md" | grep -qF "$texto" || mal "el README del ZIP todavía menciona $texto"
+done
+ok "sin archivos de trabajo internos"
 ok "$NOMBRE.zip · $(du -h "$ZIP" | cut -f1)"
 if grep -q '\[rol\]' docs/fuentes/TP_ATALAYA_QA_v7.html 2>/dev/null; then
   printf "\n  %s↷ el informe todavía tiene [rol] en la sección 6: completarlo, correr make docs y make dist%s\n" "$A" "$X"

@@ -1,9 +1,4 @@
 #!/usr/bin/env bash
-# Arma el reporte HTML de la última corrida en target/reporte-pruebas/index.html y, con --abrir, lo abre.
-#   pruebas.js     lo escribe ResumenConsola al terminar cualquier make test*
-#   cobertura.js   desde target/site/jacoco/jacoco.csv (si existe: la deja make test)
-#   pit.js         desde target/pit-reports/mutations.xml (si existe: la deja make mutation)
-# La página es estática (scripts/reporte/index.html) y no usa nada de internet.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 DIR=target/reporte-pruebas
@@ -15,6 +10,33 @@ cp scripts/reporte/index.html "$DIR/index.html"
 fecha() { date -r "$1" '+%d/%m/%Y %H:%M'; }
 
 rm -f "$DIR/cobertura.js" "$DIR/pit.js"
+
+tsv_a_js() {
+  awk -F'\t' -v var="$1" '
+    function js(s) { gsub(/\\/, "\\\\", s); gsub(/"/, "\\\"", s); return "\"" s "\"" }
+    NR == 1 { for (i = 1; i <= NF; i++) col[i] = $i; printf "window.%s = [", var; next }
+    { printf "%s{", (NR > 2 ? ", " : ""); for (i = 1; i <= NF; i++) printf "%s%s: %s", (i > 1 ? ", " : ""), js(col[i]), js($i); printf "}" }
+    END { print "];" }' "$2" > "$3"
+}
+tsv_a_js ATALAYA_CATALOGO scripts/reporte/catalogo.tsv "$DIR/catalogo.js"
+tsv_a_js ATALAYA_DEFECTOS scripts/reporte/defectos.tsv "$DIR/defectos.js"
+
+find src/test/java -name '*Test.java' | sort | xargs awk '
+  function js(s) { gsub(/\\/, "\\\\", s); gsub(/"/, "\\\"", s); return "\"" s "\"" }
+  FNR == 1 { doc = ""; dentro = 0; listo = 0; clase = FILENAME; sub(/.*\//, "", clase); sub(/\.java$/, "", clase) }
+  listo { next }
+  /^\/\*\*/ { dentro = 1; doc = ""; sub(/^\/\*\*/, "") }
+  dentro {
+    fin = sub(/\*\/.*/, ""); linea = $0; sub(/^[ \t]*\*?[ \t]?/, "", linea); doc = doc " " linea
+    if (fin) dentro = 0
+    next
+  }
+  /^(public |abstract |final )*class / { listo = 1
+    gsub(/\{@(code|link) /, "", doc); gsub(/}/, "", doc); gsub(/<\/?[a-z]+>/, " ", doc); gsub(/@[a-z]+ .*/, "", doc)
+    gsub(/[ \t]+/, " ", doc); sub(/^ /, "", doc); sub(/ $/, "", doc)
+    if (doc != "") salida[++n] = js(clase) ": " js(doc)
+  }
+  END { printf "window.ATALAYA_CLASES = {"; for (i = 1; i <= n; i++) printf "%s%s", (i > 1 ? ", " : ""), salida[i]; print "};" }' > "$DIR/clases.js"
 if [ -f "$CSV" ]; then
   awk -F, -v fecha="$(fecha "$CSV")" '
     NR > 1 {

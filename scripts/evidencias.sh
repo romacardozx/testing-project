@@ -1,11 +1,4 @@
 #!/usr/bin/env bash
-# Corre cada tipo de prueba y guarda la salida como evidencia de ejecución en docs/evidencias/.
-#   ejecucion/suite-completa.txt   mvn verify con el árbol ✔/✘ de cada caso (CP-xx, UI-xx, INF-xx)
-#   ejecucion/cobertura.txt        resumen de JaCoCo por paquete
-#   ejecucion/pit.txt              resumen de PIT (score y mutantes vivos)
-#   postman/newman.txt, .xml       la colección de Postman corrida con newman
-#   selenium/*.png, ui-chrome.txt  UI-01 a UI-03 en Chrome sin ventana, una captura por prueba
-# Necesita Chrome (make install-chrome) y newman (make install).
 set -euo pipefail
 cd "$(dirname "$0")/.."
 export NO_COLOR=1

@@ -211,8 +211,7 @@ curl -u operador:operador123 localhost:8080/api/v1/alertas                     #
 - Desde Postman: `make run`, importar ambos archivos y correr cada carpeta con el Collection Runner.
 - CP-27 repite una request 10 veces con `postman.setNextRequest`: correrlo con el Runner o con newman,
   no enviando las requests de a una.
-- La colección se genera con `python3 postman/generar_coleccion.py postman`: regenerarla en vez de
-  editar el JSON a mano.
+- La colección se genera con `python3 postman/generar_coleccion.py postman`: regenerarla en vez de editar el JSON a mano.
 
 ## Documentación
 

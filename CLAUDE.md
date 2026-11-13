@@ -483,9 +483,9 @@ repite la inyección ×10 con `postman.setNextRequest`: correrlo con el Collecti
 
 `make dist` (scripts/entrega.sh): `mvn clean verify` + PIT; si algo falla no arma nada. Copia los
 reportes a `reportes/` y arma `VV-Q2-2026-TN-GrupoE-ATALAYA.zip` con los archivos del repo (versionados
-y nuevos no ignorados) **sin** `CLAUDE.md`, `.claude/`, `docs/uso-ia.md`, `postman/generar_coleccion.py`,
-`docs/fuentes/`, el informe v6, `.idea/`, `.gitignore` ni `.gitkeep`, y quita del README del ZIP las líneas que los nombran. Al final
-revisa que el ZIP no los tenga. El repo no cambia. El uso de IA se declara en la sección 13 del informe:
+y nuevos no ignorados) menos los que lista `.distignore` (regex sobre la ruta; las líneas `readme:` son textos
+cuyas líneas se quitan del README del ZIP). `.distignore` no va en el ZIP, así el script no nombra esos
+archivos. Al final revisa que el ZIP no los tenga. Scripts y Makefile van sin comentarios (pedido del equipo, 13/11). El repo no cambia. El uso de IA se declara en la sección 13 del informe:
 completarla con `docs/uso-ia.md` antes de entregar. Probado el 09/11: el ZIP descomprimido pasa
 `mvn verify` (305 tests).
 
@@ -514,12 +514,14 @@ completarla con `docs/uso-ia.md` antes de entregar. Probado el 09/11: el ZIP des
 
 - Informe vigente: `docs/TP_ATALAYA_QA_v7.pdf`, generado con `make docs` desde
   `docs/fuentes/TP_ATALAYA_QA_v7.html` (Chrome sin ventana, estilo del v6). Editar el HTML, no el PDF.
-  El v6 queda en el repo pero no va en el ZIP. Lo redactó Claude a pedido del equipo (09/11); el equipo
+  El v6 se borró del repo el 13/11 (queda en el historial de git). Lo redactó Claude a pedido del equipo (09/11); el equipo
   revisó la sección 13 (cita la aclaración del profesor del 26/10) y los roles de la sección 6
   (Cardozo líder de QA y CP-01 a CP-11, Geronzi CP-12 a CP-22, Ventrici CP-23 a CP-33, Beda CP-34 a UI-03).
 - Planilla: los 44 casos (CP-01 a CP-41, UI-01 a UI-03) ejecutados el 09/11, repartidos en 4 bloques de 11
   (Cardozo CP-01 a CP-11, Geronzi CP-12 a CP-22, Ventrici CP-23 a CP-33, Beda CP-34 a UI-03), con
   evidencia y defecto. Resumen y Trazabilidad tienen fórmulas (CONTAR.SI) sobre Casos y Defectos.
+- Reporte HTML (`make report`): los datos del catálogo y de los defectos salen de `scripts/reporte/catalogo.tsv` y
+  `defectos.tsv`, exportados de la planilla; si cambia la planilla, actualizarlos.
 - Evidencias: `make evidence` (scripts/evidencias.sh) regenera `docs/evidencias/ejecucion/`,
   `postman/` y `selenium/` (capturas con `-Dcapturas=<carpeta>`, solo Chrome). Si cambian los tests o
   los números, regenerar y actualizar la sección 12 del informe y la planilla.

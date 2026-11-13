@@ -1,0 +1,47 @@
+id	requerimiento	caso	tecnica	caja	esperado
+CP-01	RF-01/02	Límites de temperatura del primario	Valores límite	Negra	19,9 y 350,1 descartadas; 20 y 350 aceptadas
+CP-02	RF-01/02	Límites de presión, presurizador, potencia y dosis	Valores límite	Negra	Fuera de rango: descartada. En el límite: aceptada
+CP-03	RF-01/02	Mensajes inválidos	Partición de equivalencia	Negra	HTTP 400 y la magnitud no cambia
+CP-04	RF-01/02	Lectura duplicada	Adivinanza de errores	Gris	La segunda vuelve como DUPLICADA; un solo registro
+CP-05	RF-01/02	Lectura fuera de orden	Adivinanza de errores	Negra	1001 queda FUERA_DE_ORDEN y no pisa a 1002
+CP-06	RF-03	Tres canales coherentes	Tabla de decisión (R1)	Negra	Los tres CONFIABLE; magnitud utilizable
+CP-07	RF-03	Canal que discrepa 2,01 %	Tabla de decisión (R4) + valores límite	Negra	C NO_CONFIABLE por DISCREPANCIA; el valor usa A y B
+CP-08	RF-03	Discrepancia de exactamente 2,00 %	Valores límite	Negra	C sigue CONFIABLE (la regla dice “más del 2 %”)
+CP-09	RF-03	Canal sin actualizar 10 s y 10,1 s	Tabla de decisión (R2) + límites de tiempo	Negra	10,0 s: los tres siguen CONFIABLE. 10,1 s: los tres pasan a NO_CONFIABLE por SIN_ACTUALIZACION
+CP-10	RF-03	Valor fuera de rango en un canal	Tabla de decisión (R3)	Negra	C NO_CONFIABLE por FUERA_DE_RANGO
+CP-11	RF-03	Menos de dos canales confiables	Tabla de decisión	Negra	Magnitud no utilizable y aviso explícito
+CP-12	RF-03	Recuperación de un canal	Transición de estados	Negra	Con 2 sigue NO_CONFIABLE; con 3 vuelve a CONFIABLE
+CP-13	RF-06	Bordes de nivel	Valores límite	Negra	NORMAL, NORMAL, ATENCION, ATENCION, ALTO, ALTO, CRITICO, CRITICO
+CP-14	RF-06	Probabilidad inválida	Partición de equivalencia	Negra	Rechazo por validación; el nivel vigente no cambia
+CP-15	RF-06	Tres factores desde atención	Partición de equivalencia	Negra	Con 15 % se devuelven los 3 de mayor peso, ordenados
+CP-16	RF-06, RF-12	Niveles con umbrales ajustados	Valores límite	Negra	ATENCION, ALTO, ALTO, CRITICO
+CP-17	RF-06	Caminos básicos de ClasificadorNivel	Caja blanca: caminos (V(G)=5)	Blanca	Excepción, CRITICO, ALTO, ATENCION, NORMAL, excepción
+CP-18	RF-07	Destinatarios según nivel	Partición de equivalencia	Negra	Atención: solo visual. Alto: operador, requiere reconocimiento. Crítico: sonora a operador y jefe de turno
+CP-19	RF-07	No repetir durante 3 min	Valores límite de tiempo	Negra	179 s no se repite; 180 s sí
+CP-20	RF-07	Empeora antes de los 3 min	Transición de estados	Negra	Se emite la alerta CRITICO igual
+CP-21	RF-08	Escalamiento de crítico a 45 s	Valores límite de tiempo	Negra	44 s sin escalar; 45 s escala al supervisor de seguridad operacional; 46 s no se duplica
+CP-22	RF-08	Escalamiento de alto a 90 s	Valores límite de tiempo	Negra	Escala al jefe de turno a los 90 s, una sola vez
+CP-23	RF-08	Reconocimiento antes del plazo	Transición de estados	Gris	RECONOCIDA, sin escalamiento, con usuario y hora guardados
+CP-24	RF-08	Reconocer una alerta ya reconocida	Transición de estados	Negra	HTTP 409 y el estado no cambia
+CP-25	RF-08	Dos reconocimientos simultáneos	Adivinanza de errores	Gris	Uno efectivo (200) y el otro 409
+CP-26	RF-08	Decisiones de ServicioEscalamiento	Caja blanca: decisiones	Blanca	Cada decisión toma ambos valores
+CP-27	RF-09	Variaciones dentro de la banda	Partición de equivalencia	Negra	Una sola alerta informativa
+CP-28	RF-09	Bordes de la banda	Valores límite	Negra	70 y 90 se agrupan; 69,9 y 90,1 se alertan normal
+CP-29	RF-09, RF-03	Maniobra con canal no confiable	Combinatoria	Negra	El aviso del canal se muestra aparte, fuera de la agrupación
+CP-30	RF-09	Maniobra que nunca se ejecuta	Valores límite de tiempo	Negra	29:59 se agrupa; 30:00 la maniobra expira y se alerta normal
+CP-31	RF-03, RF-07/08, RF-09	Combinaciones pairwise	Pairwise	Negra	El esperado de cada fila
+CP-32	RF-12	Límites de umbrales	Valores límite	Negra	Fuera de límites: 422. Dentro: solicitud PENDIENTE
+CP-33	RF-12	Doble aprobación	Tabla de decisión	Negra	Sin aprobar sigue en 40 %. Si aprueba el mismo usuario: 409 (por la API el supervisor recibe 403 por rol, ver ATA-12). Con la aprobación del jefe de turno pasa a 35 %
+CP-34	RNF seguridad	Acceso sin autenticar	Partición de equivalencia	Negra	401 con el error en JSON, también contra el servidor real
+CP-35	RNF seguridad	Permisos por rol	Tabla de decisión	Negra	2xx o 403 según la matriz
+CP-36	RNF seguridad	Endpoints de QA apagados en producción	Partición de equivalencia	Gris	404
+CP-37	RF-03	Magnitud por nombre en la ruta	Partición de equivalencia	Negra	Se encuentra sin distinguir mayúsculas; caudal no existe y la API devuelve 404
+CP-38	RF-08	Reconocer una alerta inexistente	Partición de equivalencia	Negra	HTTP 404
+CP-39	RF-09	Ciclo de vida de la maniobra	Transición de estados	Negra	DELETE la deja FINALIZADA y se vuelve a alertar normal; la segunda activa da 409; la banda invertida da 400; la duración por defecto es 30 min
+CP-40	RF-12	Aprobar una solicitud ya aplicada	Transición de estados	Negra	409 y no cambia quién aprobó; la inexistente da 404
+CP-41	Versión de software	Versión informada	Partición de equivalencia	Negra	software = 3.1.0
+UI-01	RF-07/08, RNF usabilidad	Reconocer desde el panel	Caso de uso (CU-03)	Negra	El operador la reconoce en 2 interacciones o menos; el auditor la ve pero no tiene el botón
+UI-02	RF-06, RNF usabilidad	El panel muestra la estimación vigente	Caso de uso (CU-02)	Negra	Probabilidad y nivel iguales en el panel y en la API
+UI-03	RF-03, RNF usabilidad	El panel muestra el aviso de canal	Caso de uso (CU-01)	Negra	Aviso CANAL_EXCLUIDO:C y un renglón por canal, con C NO_CONFIABLE (DISCREPANCIA)
+INF-01	Infraestructura	Reloj de pruebas: arranca en T0, avanza y no retrocede	Unitaria	Blanca	El reloj de QA es determinista
+INF-02	Infraestructura	Endpoints de QA: /qa/reloj avanza y valida, /qa/reset vuelve a T0	Integración	Gris	Los endpoints de QA preparan la precondición Base

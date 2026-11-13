@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-# Genera docs/TP_ATALAYA_QA_v7.pdf a partir de docs/fuentes/TP_ATALAYA_QA_v7.html con Chrome sin ventana.
-# Usa el Chrome que baja Selenium Manager (make install-chrome) o uno instalado en el sistema.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 FUENTE=docs/fuentes/TP_ATALAYA_QA_v7.html

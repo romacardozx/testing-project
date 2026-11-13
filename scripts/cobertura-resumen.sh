@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-# Resumen de JaCoCo en consola a partir de target/site/jacoco/jacoco.csv.
-# Umbrales del informe (sección 11) para dominio: sentencias >= 80 %, ramas >= 70 %.
 set -euo pipefail
 csv="${1:-target/site/jacoco/jacoco.csv}"
 [ -f "$csv" ] || { echo "No existe $csv. Corré: make test"; exit 1; }
@@ -23,7 +21,7 @@ awk -F, -v V="$V" -v R="$R" -v C="$C" -v N="$N" -v T="$T" -v X="$X" '
   END {
     printf "\n%s%s┌─ JaCoCo · cobertura por paquete ─────────────────────────────┐%s\n", C, N, X
     printf "%s%s└──────────────────────────────────────────────────────────────┘%s\n", C, N, X
-    printf "%s%-16s %10s %9s%s\n", N, "Paquete", "Líneas", "Ramas", X  # +1: la í ocupa 2 bytes
+    printf "%s%-16s %10s %9s%s\n", N, "Paquete", "Líneas", "Ramas", X
     n = 0; for (k in lm) orden[++n] = k
     for (i = 1; i <= n; i++) for (j = i + 1; j <= n; j++) if (orden[j] < orden[i]) { t = orden[i]; orden[i] = orden[j]; orden[j] = t }
     for (i = 1; i <= n; i++) {

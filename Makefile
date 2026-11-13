@@ -1,9 +1,3 @@
-# ATALAYA 3.1.0 · comandos de pruebas (TP VyV · UNSAM · Grupo E)
-# Requiere Java 21 y bash. Maven no hace falta: se usa ./mvnw.
-# `make` sin argumentos muestra la ayuda. Sin colores: NO_COLOR=1 make <objetivo>.
-
-# Java 21 aunque el `java` por defecto sea otra versión: se busca un JDK 21 instalado (scripts/java21.sh)
-# y se exporta para ./mvnw y los scripts.
 JAVA21 := $(shell scripts/java21.sh)
 export JAVA_POR_DEFECTO := $(shell java -version 2>&1 | head -1)
 ifneq ($(JAVA21),)
@@ -12,11 +6,8 @@ ifneq ($(JAVA21),)
 endif
 
 MVN     := ./mvnw -B -q
-# Resumen de consola (ResumenConsola). Recursiva (=) para que $@ sea el objetivo que la usa.
 CONSOLA  = -Dconsola=true -Dobjetivo=$@ -Dsurefire.failIfNoSpecifiedTests=false
 
-# Corre Maven con el resumen de consola. Con OPEN=1 arma y abre el reporte HTML aunque haya fallos;
-# el código de salida es siempre el de Maven.
 REPORTE  = $(if $(OPEN),scripts/reporte.sh --abrir,true)
 correr   = $(MVN) $(1) $(CONSOLA) $(2); st=$$?; $(3) $(REPORTE); exit $$st
 

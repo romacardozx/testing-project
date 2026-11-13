@@ -1,8 +1,4 @@
 #!/usr/bin/env bash
-# Descarga todo lo necesario para correr cualquier comando del Makefile sin conexión después.
-#   Java 21 (se verifica, no se instala) · dependencias y plugins de Maven (incluye los que solo se
-#   bajan al ejecutar: proveedor JUnit de Surefire, PIT) · newman local (npm) para Postman.
-# Con --chrome además baja Chrome for Testing y chromedriver con Selenium Manager (≈150 MB).
 set -uo pipefail
 cd "$(dirname "$0")/.."
 

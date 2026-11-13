@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-# Resumen de PIT en consola a partir de target/pit-reports/mutations.xml.
-# Umbral del informe (sección 11): mutation score >= 75 % en dominio.
 set -euo pipefail
 xml="${1:-target/pit-reports/mutations.xml}"
 [ -f "$xml" ] || { echo "No existe $xml. Corré: make mutation"; exit 1; }
