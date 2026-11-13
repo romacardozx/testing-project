@@ -3,7 +3,7 @@
 # Umbrales del informe (sección 11) para dominio: sentencias >= 80 %, ramas >= 70 %.
 set -euo pipefail
 csv="${1:-target/site/jacoco/jacoco.csv}"
-[ -f "$csv" ] || { echo "No existe $csv. Corré: make cobertura"; exit 1; }
+[ -f "$csv" ] || { echo "No existe $csv. Corré: make test"; exit 1; }
 
 if [ -z "${NO_COLOR:-}" ]; then V=$'\e[32m'; R=$'\e[31m'; C=$'\e[36m'; N=$'\e[1m'; T=$'\e[2m'; X=$'\e[0m'
 else V=; R=; C=; N=; T=; X=; fi

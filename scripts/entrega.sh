@@ -12,7 +12,8 @@
 # El repo no se modifica: solo se excluyen archivos del ZIP. El uso de IA (condición 11.f) se
 # declara en la sección 13 del informe.
 #
-# Uso: scripts/entrega.sh [--sin-pruebas]   (--sin-pruebas reusa target/ sin volver a correr la suite)
+# Uso: scripts/entrega.sh [--sin-pruebas]   (--sin-pruebas reusa target/ sin volver a correr la suite;
+#      desde el Makefile: make dist SKIP_TESTS=1)
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -79,6 +80,6 @@ fi
 ok "sin CLAUDE.md, .claude/, docs/uso-ia.md, informe v6 ni fuentes, generador Python, .idea/ ni .gitkeep"
 ok "$NOMBRE.zip · $(du -h "$ZIP" | cut -f1)"
 if grep -q '\[rol\]' docs/fuentes/TP_ATALAYA_QA_v7.html 2>/dev/null; then
-  printf "\n  %s↷ el informe todavía tiene [rol] en la sección 6: completarlo, correr make informe y make entrega%s\n" "$A" "$X"
+  printf "\n  %s↷ el informe todavía tiene [rol] en la sección 6: completarlo, correr make docs y make dist%s\n" "$A" "$X"
 fi
 printf "\n"

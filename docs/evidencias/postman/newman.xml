@@ -1,306 +1,306 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="ATALAYA 3.1.0 · Grupo E" tests="87" time="3.231">
-  <testsuite name="RF-01/02 · Lecturas / CP-01 · Límites de temperatura del primario / 19,9 °C → DESCARTADA_RANGO" id="8a410dcb-02a2-453c-b075-7ab2bde9f17a" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.186">
-    <testcase name="HTTP 200" time="0.186" classname="Rf0102LecturasCp01LimitesDeTemperaturaDelPrimario199CDescartadaRango"/>
-    <testcase name=".estado = DESCARTADA_RANGO" time="0.186" classname="Rf0102LecturasCp01LimitesDeTemperaturaDelPrimario199CDescartadaRango"/>
+<testsuites name="ATALAYA 3.1.0 · Grupo E" tests="87" time="3.095">
+  <testsuite name="RF-01/02 · Lecturas / CP-01 · Límites de temperatura del primario / 19,9 °C → DESCARTADA_RANGO" id="c1cf9e36-6ce4-4803-9ac7-b395b1a8b5ef" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.198">
+    <testcase name="HTTP 200" time="0.198" classname="Rf0102LecturasCp01LimitesDeTemperaturaDelPrimario199CDescartadaRango"/>
+    <testcase name=".estado = DESCARTADA_RANGO" time="0.198" classname="Rf0102LecturasCp01LimitesDeTemperaturaDelPrimario199CDescartadaRango"/>
   </testsuite>
-  <testsuite name="RF-01/02 · Lecturas / CP-01 · Límites de temperatura del primario / 20 °C → ACEPTADA" id="94b74e2a-443d-44df-ae70-b62b17e2cd00" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.059">
-    <testcase name="HTTP 200" time="0.059" classname="Rf0102LecturasCp01LimitesDeTemperaturaDelPrimario20CAceptada"/>
-    <testcase name=".estado = ACEPTADA" time="0.059" classname="Rf0102LecturasCp01LimitesDeTemperaturaDelPrimario20CAceptada"/>
+  <testsuite name="RF-01/02 · Lecturas / CP-01 · Límites de temperatura del primario / 20 °C → ACEPTADA" id="276360a3-8db1-4684-93c9-0f33d44093e4" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.061">
+    <testcase name="HTTP 200" time="0.061" classname="Rf0102LecturasCp01LimitesDeTemperaturaDelPrimario20CAceptada"/>
+    <testcase name=".estado = ACEPTADA" time="0.061" classname="Rf0102LecturasCp01LimitesDeTemperaturaDelPrimario20CAceptada"/>
   </testsuite>
-  <testsuite name="RF-01/02 · Lecturas / CP-01 · Límites de temperatura del primario / 350 °C → ACEPTADA" id="0477a2af-0277-400e-bccd-7842028abfd5" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.052">
+  <testsuite name="RF-01/02 · Lecturas / CP-01 · Límites de temperatura del primario / 350 °C → ACEPTADA" id="2f3131d8-78a9-475b-ab2b-c83dec550d9b" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.052">
     <testcase name="HTTP 200" time="0.052" classname="Rf0102LecturasCp01LimitesDeTemperaturaDelPrimario350CAceptada"/>
     <testcase name=".estado = ACEPTADA" time="0.052" classname="Rf0102LecturasCp01LimitesDeTemperaturaDelPrimario350CAceptada"/>
   </testsuite>
-  <testsuite name="RF-01/02 · Lecturas / CP-01 · Límites de temperatura del primario / 350,1 °C → DESCARTADA_RANGO" id="a995e811-ff59-4567-a46e-8dea0e4155d5" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.054">
+  <testsuite name="RF-01/02 · Lecturas / CP-01 · Límites de temperatura del primario / 350,1 °C → DESCARTADA_RANGO" id="c67a82e0-57cd-40d2-b975-accaeb31df39" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.054">
     <testcase name="HTTP 200" time="0.054" classname="Rf0102LecturasCp01LimitesDeTemperaturaDelPrimario3501CDescartadaRango"/>
     <testcase name=".estado = DESCARTADA_RANGO" time="0.054" classname="Rf0102LecturasCp01LimitesDeTemperaturaDelPrimario3501CDescartadaRango"/>
   </testsuite>
-  <testsuite name="RF-01/02 · Lecturas / CP-03 · Mensajes inválidos / Valor nulo → 400" id="17f5116b-f5fb-40bd-93e9-4fec74c771e3" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.052">
-    <testcase name="HTTP 400" time="0.052" classname="Rf0102LecturasCp03MensajesInvalidosValorNulo400"/>
-    <testcase name=".campo = valor" time="0.052" classname="Rf0102LecturasCp03MensajesInvalidosValorNulo400"/>
+  <testsuite name="RF-01/02 · Lecturas / CP-03 · Mensajes inválidos / Valor nulo → 400" id="9e67acb2-8a2b-4ffc-ad19-9eea2bf3e8af" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.051">
+    <testcase name="HTTP 400" time="0.051" classname="Rf0102LecturasCp03MensajesInvalidosValorNulo400"/>
+    <testcase name=".campo = valor" time="0.051" classname="Rf0102LecturasCp03MensajesInvalidosValorNulo400"/>
   </testsuite>
-  <testsuite name="RF-01/02 · Lecturas / CP-03 · Mensajes inválidos / Valor no numérico → 400" id="b4fd69e4-5f16-4ff5-9e3a-08a5bb0c199e" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.053">
-    <testcase name="HTTP 400" time="0.053" classname="Rf0102LecturasCp03MensajesInvalidosValorNoNumerico400"/>
-    <testcase name=".campo = valor" time="0.053" classname="Rf0102LecturasCp03MensajesInvalidosValorNoNumerico400"/>
+  <testsuite name="RF-01/02 · Lecturas / CP-03 · Mensajes inválidos / Valor no numérico → 400" id="e439d65b-5634-4514-89d9-4c94f2e63a94" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.048">
+    <testcase name="HTTP 400" time="0.048" classname="Rf0102LecturasCp03MensajesInvalidosValorNoNumerico400"/>
+    <testcase name=".campo = valor" time="0.048" classname="Rf0102LecturasCp03MensajesInvalidosValorNoNumerico400"/>
   </testsuite>
-  <testsuite name="RF-01/02 · Lecturas / CP-03 · Mensajes inválidos / Magnitud inexistente → 400" id="abe4c8d4-e3c1-45fd-a8a0-dc36c444f47c" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.054">
-    <testcase name="HTTP 400" time="0.054" classname="Rf0102LecturasCp03MensajesInvalidosMagnitudInexistente400"/>
-    <testcase name=".campo = magnitud" time="0.054" classname="Rf0102LecturasCp03MensajesInvalidosMagnitudInexistente400"/>
+  <testsuite name="RF-01/02 · Lecturas / CP-03 · Mensajes inválidos / Magnitud inexistente → 400" id="26ff922f-c405-4807-9f9f-e3d6417cffbf" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.050">
+    <testcase name="HTTP 400" time="0.050" classname="Rf0102LecturasCp03MensajesInvalidosMagnitudInexistente400"/>
+    <testcase name=".campo = magnitud" time="0.050" classname="Rf0102LecturasCp03MensajesInvalidosMagnitudInexistente400"/>
   </testsuite>
-  <testsuite name="RF-01/02 · Lecturas / CP-03 · Mensajes inválidos / Canal D → 400" id="618aa276-9691-4e11-98ac-79ae79d1552d" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.049">
-    <testcase name="HTTP 400" time="0.049" classname="Rf0102LecturasCp03MensajesInvalidosCanalD400"/>
-    <testcase name=".campo = canal" time="0.049" classname="Rf0102LecturasCp03MensajesInvalidosCanalD400"/>
+  <testsuite name="RF-01/02 · Lecturas / CP-03 · Mensajes inválidos / Canal D → 400" id="0a6b9068-fee3-4a01-9002-40b8876b1547" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.047">
+    <testcase name="HTTP 400" time="0.047" classname="Rf0102LecturasCp03MensajesInvalidosCanalD400"/>
+    <testcase name=".campo = canal" time="0.047" classname="Rf0102LecturasCp03MensajesInvalidosCanalD400"/>
   </testsuite>
-  <testsuite name="RF-01/02 · Lecturas / CP-03 · Mensajes inválidos / JSON malformado → 400" id="b9281c6c-53ad-4c98-a48c-aeb72d2dfa63" timestamp="2026-11-10T01:56:05.443Z" tests="1" failures="0" errors="0" time="0.048">
-    <testcase name="HTTP 400" time="0.048" classname="Rf0102LecturasCp03MensajesInvalidosJsonMalformado400"/>
+  <testsuite name="RF-01/02 · Lecturas / CP-03 · Mensajes inválidos / JSON malformado → 400" id="372c6fdb-46d1-4d62-a8b9-5bbf285da643" timestamp="2026-11-13T03:37:29.289Z" tests="1" failures="0" errors="0" time="0.050">
+    <testcase name="HTTP 400" time="0.050" classname="Rf0102LecturasCp03MensajesInvalidosJsonMalformado400"/>
   </testsuite>
-  <testsuite name="RF-01/02 · Lecturas / CP-03 · Mensajes inválidos / La magnitud no cambió" id="f7e2a4a2-b076-42e2-944c-d1f4d9e0f5cd" timestamp="2026-11-10T01:56:05.443Z" tests="3" failures="0" errors="0" time="0.055">
-    <testcase name="HTTP 200" time="0.055" classname="Rf0102LecturasCp03MensajesInvalidosLaMagnitudNoCambio"/>
-    <testcase name=".utilizable = False" time="0.055" classname="Rf0102LecturasCp03MensajesInvalidosLaMagnitudNoCambio"/>
-    <testcase name=".valorConsolidado = None" time="0.055" classname="Rf0102LecturasCp03MensajesInvalidosLaMagnitudNoCambio"/>
+  <testsuite name="RF-01/02 · Lecturas / CP-03 · Mensajes inválidos / La magnitud no cambió" id="897acb44-9e79-40e8-bb7d-c34d9c18c086" timestamp="2026-11-13T03:37:29.289Z" tests="3" failures="0" errors="0" time="0.052">
+    <testcase name="HTTP 200" time="0.052" classname="Rf0102LecturasCp03MensajesInvalidosLaMagnitudNoCambio"/>
+    <testcase name=".utilizable = False" time="0.052" classname="Rf0102LecturasCp03MensajesInvalidosLaMagnitudNoCambio"/>
+    <testcase name=".valorConsolidado = None" time="0.052" classname="Rf0102LecturasCp03MensajesInvalidosLaMagnitudNoCambio"/>
   </testsuite>
-  <testsuite name="RF-03 · Redundancia / CP-07 · Canal que discrepa 2,01 % / A = 300,00" id="eca9bcc8-2714-481b-99a2-9089399b6725" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.052">
-    <testcase name="HTTP 200" time="0.052" classname="Rf03RedundanciaCp07CanalQueDiscrepa201A30000"/>
-    <testcase name=".estado = ACEPTADA" time="0.052" classname="Rf03RedundanciaCp07CanalQueDiscrepa201A30000"/>
+  <testsuite name="RF-03 · Redundancia / CP-07 · Canal que discrepa 2,01 % / A = 300,00" id="858a9dd7-5d56-498a-a377-7836e3543d99" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.050">
+    <testcase name="HTTP 200" time="0.050" classname="Rf03RedundanciaCp07CanalQueDiscrepa201A30000"/>
+    <testcase name=".estado = ACEPTADA" time="0.050" classname="Rf03RedundanciaCp07CanalQueDiscrepa201A30000"/>
   </testsuite>
-  <testsuite name="RF-03 · Redundancia / CP-07 · Canal que discrepa 2,01 % / B = 300,00" id="6d12ca54-29fe-4791-a490-7f9386775db1" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.049">
+  <testsuite name="RF-03 · Redundancia / CP-07 · Canal que discrepa 2,01 % / B = 300,00" id="2d7454fc-080b-41f3-aa3c-6e2a306cd493" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.049">
     <testcase name="HTTP 200" time="0.049" classname="Rf03RedundanciaCp07CanalQueDiscrepa201B30000"/>
     <testcase name=".estado = ACEPTADA" time="0.049" classname="Rf03RedundanciaCp07CanalQueDiscrepa201B30000"/>
   </testsuite>
-  <testsuite name="RF-03 · Redundancia / CP-07 · Canal que discrepa 2,01 % / C = 306,64" id="49f6c3f9-d55e-4d13-bed6-4e9bce226d9f" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.051">
-    <testcase name="HTTP 200" time="0.051" classname="Rf03RedundanciaCp07CanalQueDiscrepa201C30664"/>
-    <testcase name=".estado = ACEPTADA" time="0.051" classname="Rf03RedundanciaCp07CanalQueDiscrepa201C30664"/>
+  <testsuite name="RF-03 · Redundancia / CP-07 · Canal que discrepa 2,01 % / C = 306,64" id="82001516-74b9-4ac7-bc6b-06faac1799cf" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.055">
+    <testcase name="HTTP 200" time="0.055" classname="Rf03RedundanciaCp07CanalQueDiscrepa201C30664"/>
+    <testcase name=".estado = ACEPTADA" time="0.055" classname="Rf03RedundanciaCp07CanalQueDiscrepa201C30664"/>
   </testsuite>
-  <testsuite name="RF-03 · Redundancia / CP-07 · Canal que discrepa 2,01 % / C NO_CONFIABLE por DISCREPANCIA; valor con A y B" id="83f4ca70-6b16-4dd9-ac24-dc6cb86374f7" timestamp="2026-11-10T01:56:05.443Z" tests="5" failures="0" errors="0" time="0.053">
-    <testcase name="HTTP 200" time="0.053" classname="Rf03RedundanciaCp07CanalQueDiscrepa201CNoConfiablePorDiscrepanciaValorConAYB"/>
-    <testcase name=".canales[2].estado = NO_CONFIABLE" time="0.053" classname="Rf03RedundanciaCp07CanalQueDiscrepa201CNoConfiablePorDiscrepanciaValorConAYB"/>
-    <testcase name=".canales[2].motivo = DISCREPANCIA" time="0.053" classname="Rf03RedundanciaCp07CanalQueDiscrepa201CNoConfiablePorDiscrepanciaValorConAYB"/>
-    <testcase name=".valorConsolidado = 300" time="0.053" classname="Rf03RedundanciaCp07CanalQueDiscrepa201CNoConfiablePorDiscrepanciaValorConAYB"/>
-    <testcase name=".avisos = ['CANAL_EXCLUIDO:C']" time="0.053" classname="Rf03RedundanciaCp07CanalQueDiscrepa201CNoConfiablePorDiscrepanciaValorConAYB"/>
+  <testsuite name="RF-03 · Redundancia / CP-07 · Canal que discrepa 2,01 % / C NO_CONFIABLE por DISCREPANCIA; valor con A y B" id="2150d7e3-acde-45a7-92af-feaf54911896" timestamp="2026-11-13T03:37:29.289Z" tests="5" failures="0" errors="0" time="0.049">
+    <testcase name="HTTP 200" time="0.049" classname="Rf03RedundanciaCp07CanalQueDiscrepa201CNoConfiablePorDiscrepanciaValorConAYB"/>
+    <testcase name=".canales[2].estado = NO_CONFIABLE" time="0.049" classname="Rf03RedundanciaCp07CanalQueDiscrepa201CNoConfiablePorDiscrepanciaValorConAYB"/>
+    <testcase name=".canales[2].motivo = DISCREPANCIA" time="0.049" classname="Rf03RedundanciaCp07CanalQueDiscrepa201CNoConfiablePorDiscrepanciaValorConAYB"/>
+    <testcase name=".valorConsolidado = 300" time="0.049" classname="Rf03RedundanciaCp07CanalQueDiscrepa201CNoConfiablePorDiscrepanciaValorConAYB"/>
+    <testcase name=".avisos = ['CANAL_EXCLUIDO:C']" time="0.049" classname="Rf03RedundanciaCp07CanalQueDiscrepa201CNoConfiablePorDiscrepanciaValorConAYB"/>
   </testsuite>
-  <testsuite name="RF-03 · Redundancia / CP-11 · Menos de dos canales confiables / A = 300" id="b38b8fad-de51-4144-ba58-cad44992636f" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.053">
+  <testsuite name="RF-03 · Redundancia / CP-11 · Menos de dos canales confiables / A = 300" id="30b91646-cdd1-4bb8-b68c-148c4376de25" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.053">
     <testcase name="HTTP 200" time="0.053" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesA300"/>
     <testcase name=".estado = ACEPTADA" time="0.053" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesA300"/>
   </testsuite>
-  <testsuite name="RF-03 · Redundancia / CP-11 · Menos de dos canales confiables / B = 300" id="c6b3dc32-eaf2-49c6-a592-c5cfcc7f9df0" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.050">
-    <testcase name="HTTP 200" time="0.050" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesB300"/>
-    <testcase name=".estado = ACEPTADA" time="0.050" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesB300"/>
+  <testsuite name="RF-03 · Redundancia / CP-11 · Menos de dos canales confiables / B = 300" id="f6a225d8-2d11-4909-bc22-14524ba0ef49" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.053">
+    <testcase name="HTTP 200" time="0.053" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesB300"/>
+    <testcase name=".estado = ACEPTADA" time="0.053" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesB300"/>
   </testsuite>
-  <testsuite name="RF-03 · Redundancia / CP-11 · Menos de dos canales confiables / C = 300" id="8f6283b8-4317-4215-b12a-5137b70f5c7d" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.053">
-    <testcase name="HTTP 200" time="0.053" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesC300"/>
-    <testcase name=".estado = ACEPTADA" time="0.053" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesC300"/>
+  <testsuite name="RF-03 · Redundancia / CP-11 · Menos de dos canales confiables / C = 300" id="ba5afbfb-f269-4962-898c-9e7ba02d3404" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.049">
+    <testcase name="HTTP 200" time="0.049" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesC300"/>
+    <testcase name=".estado = ACEPTADA" time="0.049" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesC300"/>
   </testsuite>
-  <testsuite name="RF-03 · Redundancia / CP-11 · Menos de dos canales confiables / Avanzar reloj 5 s" id="d6d4c109-96cf-4199-a8b9-00852ac4fbca" timestamp="2026-11-10T01:56:05.443Z" tests="1" failures="0" errors="0" time="0.010">
-    <testcase name="HTTP 200" time="0.010" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesAvanzarReloj5S"/>
+  <testsuite name="RF-03 · Redundancia / CP-11 · Menos de dos canales confiables / Avanzar reloj 5 s" id="d3e7eeb3-5b7f-43d1-b6bd-847b0c48e948" timestamp="2026-11-13T03:37:29.289Z" tests="1" failures="0" errors="0" time="0.008">
+    <testcase name="HTTP 200" time="0.008" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesAvanzarReloj5S"/>
   </testsuite>
-  <testsuite name="RF-03 · Redundancia / CP-11 · Menos de dos canales confiables / A = 300 (5 s)" id="c5c8579f-ccf8-41af-9361-90f82af63db7" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.053">
-    <testcase name="HTTP 200" time="0.053" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesA3005S"/>
-    <testcase name=".estado = ACEPTADA" time="0.053" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesA3005S"/>
+  <testsuite name="RF-03 · Redundancia / CP-11 · Menos de dos canales confiables / A = 300 (5 s)" id="fbe0eef1-6be3-4bf8-9110-b60b47636440" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.054">
+    <testcase name="HTTP 200" time="0.054" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesA3005S"/>
+    <testcase name=".estado = ACEPTADA" time="0.054" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesA3005S"/>
   </testsuite>
-  <testsuite name="RF-03 · Redundancia / CP-11 · Menos de dos canales confiables / Avanzar reloj 5 s" id="1781c35e-3f4a-4e61-b1c7-1a04c6a0628a" timestamp="2026-11-10T01:56:05.443Z" tests="1" failures="0" errors="0" time="0.005">
-    <testcase name="HTTP 200" time="0.005" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesAvanzarReloj5S"/>
+  <testsuite name="RF-03 · Redundancia / CP-11 · Menos de dos canales confiables / Avanzar reloj 5 s" id="ce3ceeb0-761a-4736-962b-2b46462e8a74" timestamp="2026-11-13T03:37:29.289Z" tests="1" failures="0" errors="0" time="0.004">
+    <testcase name="HTTP 200" time="0.004" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesAvanzarReloj5S"/>
   </testsuite>
-  <testsuite name="RF-03 · Redundancia / CP-11 · Menos de dos canales confiables / A = 300 (10 s)" id="b9ffed73-d93f-4bdf-b13c-00da1368b0ad" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.052">
-    <testcase name="HTTP 200" time="0.052" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesA30010S"/>
-    <testcase name=".estado = ACEPTADA" time="0.052" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesA30010S"/>
+  <testsuite name="RF-03 · Redundancia / CP-11 · Menos de dos canales confiables / A = 300 (10 s)" id="7ed3a309-29ab-43e1-ab63-ececc51cb2f4" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.049">
+    <testcase name="HTTP 200" time="0.049" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesA30010S"/>
+    <testcase name=".estado = ACEPTADA" time="0.049" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesA30010S"/>
   </testsuite>
-  <testsuite name="RF-03 · Redundancia / CP-11 · Menos de dos canales confiables / Avanzar reloj 1 s" id="375e38e0-2568-4e8e-a9c4-3de8d1dc8ca9" timestamp="2026-11-10T01:56:05.443Z" tests="1" failures="0" errors="0" time="0.004">
-    <testcase name="HTTP 200" time="0.004" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesAvanzarReloj1S"/>
+  <testsuite name="RF-03 · Redundancia / CP-11 · Menos de dos canales confiables / Avanzar reloj 1 s" id="773cfe15-7e29-439f-9d0a-d6597adfb644" timestamp="2026-11-13T03:37:29.289Z" tests="1" failures="0" errors="0" time="0.002">
+    <testcase name="HTTP 200" time="0.002" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesAvanzarReloj1S"/>
   </testsuite>
-  <testsuite name="RF-03 · Redundancia / CP-11 · Menos de dos canales confiables / A = 300 (11 s)" id="aa7f1a09-623b-49f4-9909-d78b7a75dff5" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.053">
-    <testcase name="HTTP 200" time="0.053" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesA30011S"/>
-    <testcase name=".estado = ACEPTADA" time="0.053" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesA30011S"/>
+  <testsuite name="RF-03 · Redundancia / CP-11 · Menos de dos canales confiables / A = 300 (11 s)" id="2de9dd79-2822-4725-8139-af84839785d7" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.050">
+    <testcase name="HTTP 200" time="0.050" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesA30011S"/>
+    <testcase name=".estado = ACEPTADA" time="0.050" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesA30011S"/>
   </testsuite>
-  <testsuite name="RF-03 · Redundancia / CP-11 · Menos de dos canales confiables / No utilizable y aviso explícito" id="43c09969-de01-49c7-a172-9441b3aa4cff" timestamp="2026-11-10T01:56:05.443Z" tests="3" failures="0" errors="0" time="0.050">
-    <testcase name="HTTP 200" time="0.050" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesNoUtilizableYAvisoExplicito"/>
-    <testcase name=".utilizable = False" time="0.050" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesNoUtilizableYAvisoExplicito"/>
-    <testcase name="avisos" time="0.050" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesNoUtilizableYAvisoExplicito"/>
+  <testsuite name="RF-03 · Redundancia / CP-11 · Menos de dos canales confiables / No utilizable y aviso explícito" id="097a7ffc-9f6a-48e9-88f6-299df56853b5" timestamp="2026-11-13T03:37:29.289Z" tests="3" failures="0" errors="0" time="0.047">
+    <testcase name="HTTP 200" time="0.047" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesNoUtilizableYAvisoExplicito"/>
+    <testcase name=".utilizable = False" time="0.047" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesNoUtilizableYAvisoExplicito"/>
+    <testcase name="avisos" time="0.047" classname="Rf03RedundanciaCp11MenosDeDosCanalesConfiablesNoUtilizableYAvisoExplicito"/>
   </testsuite>
-  <testsuite name="RF-06 · Niveles / CP-13 · Bordes de nivel / 0 % → NORMAL" id="662dd02e-8849-4d1a-90f8-dcc1d8153d50" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.020">
-    <testcase name="HTTP 200" time="0.020" classname="Rf06NivelesCp13BordesDeNivel0Normal"/>
-    <testcase name=".nivel = NORMAL" time="0.020" classname="Rf06NivelesCp13BordesDeNivel0Normal"/>
+  <testsuite name="RF-06 · Niveles / CP-13 · Bordes de nivel / 0 % → NORMAL" id="0b6620ab-068b-4910-b299-f3b149025ec6" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.018">
+    <testcase name="HTTP 200" time="0.018" classname="Rf06NivelesCp13BordesDeNivel0Normal"/>
+    <testcase name=".nivel = NORMAL" time="0.018" classname="Rf06NivelesCp13BordesDeNivel0Normal"/>
   </testsuite>
-  <testsuite name="RF-06 · Niveles / CP-13 · Bordes de nivel / 14,9 % → NORMAL" id="69404e41-2215-431c-9dbb-b298bbfed465" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.007">
-    <testcase name="HTTP 200" time="0.007" classname="Rf06NivelesCp13BordesDeNivel149Normal"/>
-    <testcase name=".nivel = NORMAL" time="0.007" classname="Rf06NivelesCp13BordesDeNivel149Normal"/>
+  <testsuite name="RF-06 · Niveles / CP-13 · Bordes de nivel / 14,9 % → NORMAL" id="b96d7ecd-7837-4524-b262-e3ec5651ef6a" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.004">
+    <testcase name="HTTP 200" time="0.004" classname="Rf06NivelesCp13BordesDeNivel149Normal"/>
+    <testcase name=".nivel = NORMAL" time="0.004" classname="Rf06NivelesCp13BordesDeNivel149Normal"/>
   </testsuite>
-  <testsuite name="RF-06 · Niveles / CP-13 · Bordes de nivel / 15 % → ATENCION" id="7718e397-a645-440f-82bd-de1fdd6154c1" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.010">
-    <testcase name="HTTP 200" time="0.010" classname="Rf06NivelesCp13BordesDeNivel15Atencion"/>
-    <testcase name=".nivel = ATENCION" time="0.010" classname="Rf06NivelesCp13BordesDeNivel15Atencion"/>
+  <testsuite name="RF-06 · Niveles / CP-13 · Bordes de nivel / 15 % → ATENCION" id="bc8d8773-4cf1-4a4e-bd42-f8d365cf5537" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.007">
+    <testcase name="HTTP 200" time="0.007" classname="Rf06NivelesCp13BordesDeNivel15Atencion"/>
+    <testcase name=".nivel = ATENCION" time="0.007" classname="Rf06NivelesCp13BordesDeNivel15Atencion"/>
   </testsuite>
-  <testsuite name="RF-06 · Niveles / CP-13 · Bordes de nivel / 39,9 % → ATENCION" id="e0fe90bb-0965-4acc-949d-b8354c1bba21" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.009">
-    <testcase name="HTTP 200" time="0.009" classname="Rf06NivelesCp13BordesDeNivel399Atencion"/>
-    <testcase name=".nivel = ATENCION" time="0.009" classname="Rf06NivelesCp13BordesDeNivel399Atencion"/>
+  <testsuite name="RF-06 · Niveles / CP-13 · Bordes de nivel / 39,9 % → ATENCION" id="c592e558-8ab4-488d-a2bf-01614b89ba37" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.006">
+    <testcase name="HTTP 200" time="0.006" classname="Rf06NivelesCp13BordesDeNivel399Atencion"/>
+    <testcase name=".nivel = ATENCION" time="0.006" classname="Rf06NivelesCp13BordesDeNivel399Atencion"/>
   </testsuite>
-  <testsuite name="RF-06 · Niveles / CP-13 · Bordes de nivel / 40 % → ALTO" id="cdf90eca-3fb2-4755-9ee7-fd4c04655515" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.007">
-    <testcase name="HTTP 200" time="0.007" classname="Rf06NivelesCp13BordesDeNivel40Alto"/>
-    <testcase name=".nivel = ALTO" time="0.007" classname="Rf06NivelesCp13BordesDeNivel40Alto"/>
+  <testsuite name="RF-06 · Niveles / CP-13 · Bordes de nivel / 40 % → ALTO" id="a51fd45c-7c54-4537-b834-dc3dac595429" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.004">
+    <testcase name="HTTP 200" time="0.004" classname="Rf06NivelesCp13BordesDeNivel40Alto"/>
+    <testcase name=".nivel = ALTO" time="0.004" classname="Rf06NivelesCp13BordesDeNivel40Alto"/>
   </testsuite>
-  <testsuite name="RF-06 · Niveles / CP-13 · Bordes de nivel / 74,9 % → ALTO" id="a88c28ec-13a8-4012-bb03-4ec93df4bb25" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.009">
-    <testcase name="HTTP 200" time="0.009" classname="Rf06NivelesCp13BordesDeNivel749Alto"/>
-    <testcase name=".nivel = ALTO" time="0.009" classname="Rf06NivelesCp13BordesDeNivel749Alto"/>
+  <testsuite name="RF-06 · Niveles / CP-13 · Bordes de nivel / 74,9 % → ALTO" id="3e6e1b73-4895-4360-8061-9411812e4271" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.004">
+    <testcase name="HTTP 200" time="0.004" classname="Rf06NivelesCp13BordesDeNivel749Alto"/>
+    <testcase name=".nivel = ALTO" time="0.004" classname="Rf06NivelesCp13BordesDeNivel749Alto"/>
   </testsuite>
-  <testsuite name="RF-06 · Niveles / CP-13 · Bordes de nivel / 75 % → CRITICO" id="b32c74b5-f1a6-409e-8585-81133ef99020" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.008">
-    <testcase name="HTTP 200" time="0.008" classname="Rf06NivelesCp13BordesDeNivel75Critico"/>
-    <testcase name=".nivel = CRITICO" time="0.008" classname="Rf06NivelesCp13BordesDeNivel75Critico"/>
+  <testsuite name="RF-06 · Niveles / CP-13 · Bordes de nivel / 75 % → CRITICO" id="2c0fc3e0-685a-404c-bc62-ebd9caf732e7" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.004">
+    <testcase name="HTTP 200" time="0.004" classname="Rf06NivelesCp13BordesDeNivel75Critico"/>
+    <testcase name=".nivel = CRITICO" time="0.004" classname="Rf06NivelesCp13BordesDeNivel75Critico"/>
   </testsuite>
-  <testsuite name="RF-06 · Niveles / CP-13 · Bordes de nivel / 100 % → CRITICO" id="e4d4fbbd-80de-4a89-a2f8-d96022f1839f" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.007">
-    <testcase name="HTTP 200" time="0.007" classname="Rf06NivelesCp13BordesDeNivel100Critico"/>
-    <testcase name=".nivel = CRITICO" time="0.007" classname="Rf06NivelesCp13BordesDeNivel100Critico"/>
+  <testsuite name="RF-06 · Niveles / CP-13 · Bordes de nivel / 100 % → CRITICO" id="5f3bdb1a-7ef8-4b7f-9fa6-93f933eb31c3" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.006">
+    <testcase name="HTTP 200" time="0.006" classname="Rf06NivelesCp13BordesDeNivel100Critico"/>
+    <testcase name=".nivel = CRITICO" time="0.006" classname="Rf06NivelesCp13BordesDeNivel100Critico"/>
   </testsuite>
-  <testsuite name="RF-07/08 · Alertas / CP-18 · Destinatarios según nivel / 20 % (ATENCION)" id="2cc38180-0fdf-4479-880d-86caae2c9378" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.007">
-    <testcase name="HTTP 200" time="0.007" classname="Rf0708AlertasCp18DestinatariosSegunNivel20Atencion"/>
-    <testcase name=".nivel = ATENCION" time="0.007" classname="Rf0708AlertasCp18DestinatariosSegunNivel20Atencion"/>
+  <testsuite name="RF-07/08 · Alertas / CP-18 · Destinatarios según nivel / 20 % (ATENCION)" id="080106ec-9992-425d-b2a3-89a7975d3a5f" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.004">
+    <testcase name="HTTP 200" time="0.004" classname="Rf0708AlertasCp18DestinatariosSegunNivel20Atencion"/>
+    <testcase name=".nivel = ATENCION" time="0.004" classname="Rf0708AlertasCp18DestinatariosSegunNivel20Atencion"/>
   </testsuite>
-  <testsuite name="RF-07/08 · Alertas / CP-18 · Destinatarios según nivel / 50 % (ALTO)" id="4babf792-0c36-4000-8525-1811822d4c57" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.008">
-    <testcase name="HTTP 200" time="0.008" classname="Rf0708AlertasCp18DestinatariosSegunNivel50Alto"/>
-    <testcase name=".nivel = ALTO" time="0.008" classname="Rf0708AlertasCp18DestinatariosSegunNivel50Alto"/>
+  <testsuite name="RF-07/08 · Alertas / CP-18 · Destinatarios según nivel / 50 % (ALTO)" id="298d170c-95fa-4b26-b1fb-755eaec8db4b" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.004">
+    <testcase name="HTTP 200" time="0.004" classname="Rf0708AlertasCp18DestinatariosSegunNivel50Alto"/>
+    <testcase name=".nivel = ALTO" time="0.004" classname="Rf0708AlertasCp18DestinatariosSegunNivel50Alto"/>
   </testsuite>
-  <testsuite name="RF-07/08 · Alertas / CP-18 · Destinatarios según nivel / 80 % (CRITICO)" id="53d28cae-121e-4fdb-9823-5abb8b85994a" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.008">
-    <testcase name="HTTP 200" time="0.008" classname="Rf0708AlertasCp18DestinatariosSegunNivel80Critico"/>
-    <testcase name=".nivel = CRITICO" time="0.008" classname="Rf0708AlertasCp18DestinatariosSegunNivel80Critico"/>
+  <testsuite name="RF-07/08 · Alertas / CP-18 · Destinatarios según nivel / 80 % (CRITICO)" id="006ae7bd-86af-4512-972a-bf8104cc97cc" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.005">
+    <testcase name="HTTP 200" time="0.005" classname="Rf0708AlertasCp18DestinatariosSegunNivel80Critico"/>
+    <testcase name=".nivel = CRITICO" time="0.005" classname="Rf0708AlertasCp18DestinatariosSegunNivel80Critico"/>
   </testsuite>
-  <testsuite name="RF-07/08 · Alertas / CP-18 · Destinatarios según nivel / Canales y destinatarios" id="bf41f589-d732-4117-b8e5-4147c4a5c588" timestamp="2026-11-10T01:56:05.443Z" tests="8" failures="0" errors="0" time="0.055">
-    <testcase name="HTTP 200" time="0.055" classname="Rf0708AlertasCp18DestinatariosSegunNivelCanalesYDestinatarios"/>
-    <testcase name="[0].canales = ['VISUAL']" time="0.055" classname="Rf0708AlertasCp18DestinatariosSegunNivelCanalesYDestinatarios"/>
-    <testcase name="[0].destinatarios = []" time="0.055" classname="Rf0708AlertasCp18DestinatariosSegunNivelCanalesYDestinatarios"/>
-    <testcase name="[0].requiereReconocimiento = False" time="0.055" classname="Rf0708AlertasCp18DestinatariosSegunNivelCanalesYDestinatarios"/>
-    <testcase name="[1].destinatarios = ['OPERADOR_REACTOR']" time="0.055" classname="Rf0708AlertasCp18DestinatariosSegunNivelCanalesYDestinatarios"/>
-    <testcase name="[1].requiereReconocimiento = True" time="0.055" classname="Rf0708AlertasCp18DestinatariosSegunNivelCanalesYDestinatarios"/>
-    <testcase name="[2].canales = ['VISUAL', 'SONORA']" time="0.055" classname="Rf0708AlertasCp18DestinatariosSegunNivelCanalesYDestinatarios"/>
-    <testcase name="[2].destinatarios = ['OPERADOR_REACTOR', 'JEFE_TURNO']" time="0.055" classname="Rf0708AlertasCp18DestinatariosSegunNivelCanalesYDestinatarios"/>
+  <testsuite name="RF-07/08 · Alertas / CP-18 · Destinatarios según nivel / Canales y destinatarios" id="28b84874-a008-4b43-b577-92e0f7ca208f" timestamp="2026-11-13T03:37:29.289Z" tests="8" failures="0" errors="0" time="0.050">
+    <testcase name="HTTP 200" time="0.050" classname="Rf0708AlertasCp18DestinatariosSegunNivelCanalesYDestinatarios"/>
+    <testcase name="[0].canales = ['VISUAL']" time="0.050" classname="Rf0708AlertasCp18DestinatariosSegunNivelCanalesYDestinatarios"/>
+    <testcase name="[0].destinatarios = []" time="0.050" classname="Rf0708AlertasCp18DestinatariosSegunNivelCanalesYDestinatarios"/>
+    <testcase name="[0].requiereReconocimiento = False" time="0.050" classname="Rf0708AlertasCp18DestinatariosSegunNivelCanalesYDestinatarios"/>
+    <testcase name="[1].destinatarios = ['OPERADOR_REACTOR']" time="0.050" classname="Rf0708AlertasCp18DestinatariosSegunNivelCanalesYDestinatarios"/>
+    <testcase name="[1].requiereReconocimiento = True" time="0.050" classname="Rf0708AlertasCp18DestinatariosSegunNivelCanalesYDestinatarios"/>
+    <testcase name="[2].canales = ['VISUAL', 'SONORA']" time="0.050" classname="Rf0708AlertasCp18DestinatariosSegunNivelCanalesYDestinatarios"/>
+    <testcase name="[2].destinatarios = ['OPERADOR_REACTOR', 'JEFE_TURNO']" time="0.050" classname="Rf0708AlertasCp18DestinatariosSegunNivelCanalesYDestinatarios"/>
   </testsuite>
-  <testsuite name="RF-07/08 · Alertas / CP-23 · Reconocimiento antes del plazo / Alerta CRITICO en T0" id="b20c1b0e-b0b0-43b5-9525-97100df6df07" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.007">
-    <testcase name="HTTP 200" time="0.007" classname="Rf0708AlertasCp23ReconocimientoAntesDelPlazoAlertaCriticoEnT0"/>
-    <testcase name=".nivel = CRITICO" time="0.007" classname="Rf0708AlertasCp23ReconocimientoAntesDelPlazoAlertaCriticoEnT0"/>
+  <testsuite name="RF-07/08 · Alertas / CP-23 · Reconocimiento antes del plazo / Alerta CRITICO en T0" id="d31c4644-8ce2-4745-891b-5726574b885d" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.004">
+    <testcase name="HTTP 200" time="0.004" classname="Rf0708AlertasCp23ReconocimientoAntesDelPlazoAlertaCriticoEnT0"/>
+    <testcase name=".nivel = CRITICO" time="0.004" classname="Rf0708AlertasCp23ReconocimientoAntesDelPlazoAlertaCriticoEnT0"/>
   </testsuite>
-  <testsuite name="RF-07/08 · Alertas / CP-23 · Reconocimiento antes del plazo / Avanzar reloj 44 s" id="d5b2dcfc-c0d6-455e-bf57-388e995ef495" timestamp="2026-11-10T01:56:05.443Z" tests="1" failures="0" errors="0" time="0.006">
-    <testcase name="HTTP 200" time="0.006" classname="Rf0708AlertasCp23ReconocimientoAntesDelPlazoAvanzarReloj44S"/>
+  <testsuite name="RF-07/08 · Alertas / CP-23 · Reconocimiento antes del plazo / Avanzar reloj 44 s" id="58fbd599-d559-47cb-928e-e4145ebcbdea" timestamp="2026-11-13T03:37:29.289Z" tests="1" failures="0" errors="0" time="0.003">
+    <testcase name="HTTP 200" time="0.003" classname="Rf0708AlertasCp23ReconocimientoAntesDelPlazoAvanzarReloj44S"/>
   </testsuite>
-  <testsuite name="RF-07/08 · Alertas / CP-23 · Reconocimiento antes del plazo / El operador reconoce a los 44 s" id="67e3a122-f609-4554-86fa-1668f1b6a06e" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.061">
-    <testcase name="HTTP 200" time="0.061" classname="Rf0708AlertasCp23ReconocimientoAntesDelPlazoElOperadorReconoceALos44S"/>
-    <testcase name=".estado = RECONOCIDA" time="0.061" classname="Rf0708AlertasCp23ReconocimientoAntesDelPlazoElOperadorReconoceALos44S"/>
+  <testsuite name="RF-07/08 · Alertas / CP-23 · Reconocimiento antes del plazo / El operador reconoce a los 44 s" id="303ca245-286b-4120-a8a0-aec44c7395b2" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.054">
+    <testcase name="HTTP 200" time="0.054" classname="Rf0708AlertasCp23ReconocimientoAntesDelPlazoElOperadorReconoceALos44S"/>
+    <testcase name=".estado = RECONOCIDA" time="0.054" classname="Rf0708AlertasCp23ReconocimientoAntesDelPlazoElOperadorReconoceALos44S"/>
   </testsuite>
-  <testsuite name="RF-07/08 · Alertas / CP-23 · Reconocimiento antes del plazo / Avanzar reloj 16 s" id="3e628466-074d-4865-9ebd-4dbec42b8ea6" timestamp="2026-11-10T01:56:05.443Z" tests="1" failures="0" errors="0" time="0.005">
-    <testcase name="HTTP 200" time="0.005" classname="Rf0708AlertasCp23ReconocimientoAntesDelPlazoAvanzarReloj16S"/>
+  <testsuite name="RF-07/08 · Alertas / CP-23 · Reconocimiento antes del plazo / Avanzar reloj 16 s" id="301de327-e069-4e4b-9753-a1cd6312b1d0" timestamp="2026-11-13T03:37:29.289Z" tests="1" failures="0" errors="0" time="0.004">
+    <testcase name="HTTP 200" time="0.004" classname="Rf0708AlertasCp23ReconocimientoAntesDelPlazoAvanzarReloj16S"/>
   </testsuite>
-  <testsuite name="RF-07/08 · Alertas / CP-23 · Reconocimiento antes del plazo / A los 60 s sigue RECONOCIDA y sin escalar" id="2cc5cfbd-aeaa-4268-85b8-39a7d07eb7d5" timestamp="2026-11-10T01:56:05.443Z" tests="3" failures="0" errors="0" time="0.050">
-    <testcase name="HTTP 200" time="0.050" classname="Rf0708AlertasCp23ReconocimientoAntesDelPlazoALos60SSigueReconocidaYSinEscalar"/>
-    <testcase name="una alerta reconocida" time="0.050" classname="Rf0708AlertasCp23ReconocimientoAntesDelPlazoALos60SSigueReconocidaYSinEscalar"/>
-    <testcase name="[0].destinatarios = ['OPERADOR_REACTOR', 'JEFE_TURNO']" time="0.050" classname="Rf0708AlertasCp23ReconocimientoAntesDelPlazoALos60SSigueReconocidaYSinEscalar"/>
+  <testsuite name="RF-07/08 · Alertas / CP-23 · Reconocimiento antes del plazo / A los 60 s sigue RECONOCIDA y sin escalar" id="1ad31580-b6db-415e-9058-3819ea5f36c6" timestamp="2026-11-13T03:37:29.289Z" tests="3" failures="0" errors="0" time="0.048">
+    <testcase name="HTTP 200" time="0.048" classname="Rf0708AlertasCp23ReconocimientoAntesDelPlazoALos60SSigueReconocidaYSinEscalar"/>
+    <testcase name="una alerta reconocida" time="0.048" classname="Rf0708AlertasCp23ReconocimientoAntesDelPlazoALos60SSigueReconocidaYSinEscalar"/>
+    <testcase name="[0].destinatarios = ['OPERADOR_REACTOR', 'JEFE_TURNO']" time="0.048" classname="Rf0708AlertasCp23ReconocimientoAntesDelPlazoALos60SSigueReconocidaYSinEscalar"/>
   </testsuite>
-  <testsuite name="RF-09 · Maniobras / CP-27 · Variaciones dentro de la banda / Potencia A = 80" id="3856537d-b5b3-476d-b632-06fba57430f9" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.050">
+  <testsuite name="RF-09 · Maniobras / CP-27 · Variaciones dentro de la banda / Potencia A = 80" id="37753582-8725-4536-81fb-963fec50ff3e" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.050">
     <testcase name="HTTP 200" time="0.050" classname="Rf09ManiobrasCp27VariacionesDentroDeLaBandaPotenciaA80"/>
     <testcase name=".estado = ACEPTADA" time="0.050" classname="Rf09ManiobrasCp27VariacionesDentroDeLaBandaPotenciaA80"/>
   </testsuite>
-  <testsuite name="RF-09 · Maniobras / CP-27 · Variaciones dentro de la banda / Potencia B = 80" id="459cbcee-c805-435e-9298-401c4e6c3c7d" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.050">
-    <testcase name="HTTP 200" time="0.050" classname="Rf09ManiobrasCp27VariacionesDentroDeLaBandaPotenciaB80"/>
-    <testcase name=".estado = ACEPTADA" time="0.050" classname="Rf09ManiobrasCp27VariacionesDentroDeLaBandaPotenciaB80"/>
+  <testsuite name="RF-09 · Maniobras / CP-27 · Variaciones dentro de la banda / Potencia B = 80" id="6abbb0e9-29fb-46cb-8531-170b39d60c0e" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.048">
+    <testcase name="HTTP 200" time="0.048" classname="Rf09ManiobrasCp27VariacionesDentroDeLaBandaPotenciaB80"/>
+    <testcase name=".estado = ACEPTADA" time="0.048" classname="Rf09ManiobrasCp27VariacionesDentroDeLaBandaPotenciaB80"/>
   </testsuite>
-  <testsuite name="RF-09 · Maniobras / CP-27 · Variaciones dentro de la banda / Potencia C = 80" id="b7435fa2-5d8f-4410-95a9-f8332c0e3e41" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.050">
-    <testcase name="HTTP 200" time="0.050" classname="Rf09ManiobrasCp27VariacionesDentroDeLaBandaPotenciaC80"/>
-    <testcase name=".estado = ACEPTADA" time="0.050" classname="Rf09ManiobrasCp27VariacionesDentroDeLaBandaPotenciaC80"/>
+  <testsuite name="RF-09 · Maniobras / CP-27 · Variaciones dentro de la banda / Potencia C = 80" id="6446cc5e-4060-4d0a-9d30-4143a35d2922" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.051">
+    <testcase name="HTTP 200" time="0.051" classname="Rf09ManiobrasCp27VariacionesDentroDeLaBandaPotenciaC80"/>
+    <testcase name=".estado = ACEPTADA" time="0.051" classname="Rf09ManiobrasCp27VariacionesDentroDeLaBandaPotenciaC80"/>
   </testsuite>
-  <testsuite name="RF-09 · Maniobras / CP-27 · Variaciones dentro de la banda / El jefe declara la maniobra (banda 70 a 90)" id="416dfff8-c825-41d6-8660-8f908683387a" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.061">
-    <testcase name="HTTP 201" time="0.061" classname="Rf09ManiobrasCp27VariacionesDentroDeLaBandaElJefeDeclaraLaManiobraBanda70A90"/>
-    <testcase name=".estado = ACTIVA" time="0.061" classname="Rf09ManiobrasCp27VariacionesDentroDeLaBandaElJefeDeclaraLaManiobraBanda70A90"/>
+  <testsuite name="RF-09 · Maniobras / CP-27 · Variaciones dentro de la banda / El jefe declara la maniobra (banda 70 a 90)" id="95c0d1ff-6ddd-4efc-8031-87081caba3d3" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.060">
+    <testcase name="HTTP 201" time="0.060" classname="Rf09ManiobrasCp27VariacionesDentroDeLaBandaElJefeDeclaraLaManiobraBanda70A90"/>
+    <testcase name=".estado = ACTIVA" time="0.060" classname="Rf09ManiobrasCp27VariacionesDentroDeLaBandaElJefeDeclaraLaManiobraBanda70A90"/>
   </testsuite>
-  <testsuite name="RF-09 · Maniobras / CP-27 · Variaciones dentro de la banda / Inyectar estimación ALTO dentro de la banda (×10)" id="9e637ac2-947d-4d45-83d0-ebd0e14a6d22" timestamp="2026-11-10T01:56:05.443Z" tests="1" failures="0" errors="0" time="0.007">
-    <testcase name="HTTP 200" time="0.008" classname="Rf09ManiobrasCp27VariacionesDentroDeLaBandaInyectarEstimacionAltoDentroDeLaBanda10"/>
+  <testsuite name="RF-09 · Maniobras / CP-27 · Variaciones dentro de la banda / Inyectar estimación ALTO dentro de la banda (×10)" id="3a3b0eb9-67c4-4107-a4ad-3efba9340622" timestamp="2026-11-13T03:37:29.289Z" tests="1" failures="0" errors="0" time="0.005">
+    <testcase name="HTTP 200" time="0.005" classname="Rf09ManiobrasCp27VariacionesDentroDeLaBandaInyectarEstimacionAltoDentroDeLaBanda10"/>
   </testsuite>
-  <testsuite name="RF-09 · Maniobras / CP-27 · Variaciones dentro de la banda / Una sola alerta INFORMATIVA con 10 agrupadas" id="9e69a364-b583-45fd-98f2-059a8419c0e7" timestamp="2026-11-10T01:56:05.443Z" tests="4" failures="0" errors="0" time="0.050">
-    <testcase name="HTTP 200" time="0.050" classname="Rf09ManiobrasCp27VariacionesDentroDeLaBandaUnaSolaAlertaInformativaCon10Agrupadas"/>
-    <testcase name="una sola alerta" time="0.050" classname="Rf09ManiobrasCp27VariacionesDentroDeLaBandaUnaSolaAlertaInformativaCon10Agrupadas"/>
-    <testcase name="[0].clase = INFORMATIVA" time="0.050" classname="Rf09ManiobrasCp27VariacionesDentroDeLaBandaUnaSolaAlertaInformativaCon10Agrupadas"/>
-    <testcase name="[0].agrupadas = 10" time="0.050" classname="Rf09ManiobrasCp27VariacionesDentroDeLaBandaUnaSolaAlertaInformativaCon10Agrupadas"/>
+  <testsuite name="RF-09 · Maniobras / CP-27 · Variaciones dentro de la banda / Una sola alerta INFORMATIVA con 10 agrupadas" id="6507ef98-7a18-4507-9df0-00c54106a7f8" timestamp="2026-11-13T03:37:29.289Z" tests="4" failures="0" errors="0" time="0.049">
+    <testcase name="HTTP 200" time="0.049" classname="Rf09ManiobrasCp27VariacionesDentroDeLaBandaUnaSolaAlertaInformativaCon10Agrupadas"/>
+    <testcase name="una sola alerta" time="0.049" classname="Rf09ManiobrasCp27VariacionesDentroDeLaBandaUnaSolaAlertaInformativaCon10Agrupadas"/>
+    <testcase name="[0].clase = INFORMATIVA" time="0.049" classname="Rf09ManiobrasCp27VariacionesDentroDeLaBandaUnaSolaAlertaInformativaCon10Agrupadas"/>
+    <testcase name="[0].agrupadas = 10" time="0.049" classname="Rf09ManiobrasCp27VariacionesDentroDeLaBandaUnaSolaAlertaInformativaCon10Agrupadas"/>
   </testsuite>
-  <testsuite name="CP-31 · Pairwise (fila 2 como muestra) / Potencia A = 80" id="009a51c8-1420-41c8-9baf-6dc4d5160e00" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.053">
-    <testcase name="HTTP 200" time="0.053" classname="Cp31PairwiseFila2ComoMuestraPotenciaA80"/>
-    <testcase name=".estado = ACEPTADA" time="0.053" classname="Cp31PairwiseFila2ComoMuestraPotenciaA80"/>
+  <testsuite name="CP-31 · Pairwise (fila 2 como muestra) / Potencia A = 80" id="4ecc348a-233d-498d-a6f2-443652fc47ee" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.048">
+    <testcase name="HTTP 200" time="0.048" classname="Cp31PairwiseFila2ComoMuestraPotenciaA80"/>
+    <testcase name=".estado = ACEPTADA" time="0.048" classname="Cp31PairwiseFila2ComoMuestraPotenciaA80"/>
   </testsuite>
-  <testsuite name="CP-31 · Pairwise (fila 2 como muestra) / Potencia B = 80" id="fd38f8af-3ccf-4ffa-bf26-6bdfe5e1c3e3" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.051">
-    <testcase name="HTTP 200" time="0.051" classname="Cp31PairwiseFila2ComoMuestraPotenciaB80"/>
-    <testcase name=".estado = ACEPTADA" time="0.051" classname="Cp31PairwiseFila2ComoMuestraPotenciaB80"/>
+  <testsuite name="CP-31 · Pairwise (fila 2 como muestra) / Potencia B = 80" id="9d9442da-ad0d-4b69-a252-93d522df71e8" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.052">
+    <testcase name="HTTP 200" time="0.052" classname="Cp31PairwiseFila2ComoMuestraPotenciaB80"/>
+    <testcase name=".estado = ACEPTADA" time="0.052" classname="Cp31PairwiseFila2ComoMuestraPotenciaB80"/>
   </testsuite>
-  <testsuite name="CP-31 · Pairwise (fila 2 como muestra) / Potencia C = 85 (discrepa)" id="e00d2a2a-3183-4415-906c-8754e78f9d5f" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.051">
-    <testcase name="HTTP 200" time="0.051" classname="Cp31PairwiseFila2ComoMuestraPotenciaC85Discrepa"/>
-    <testcase name=".estado = ACEPTADA" time="0.051" classname="Cp31PairwiseFila2ComoMuestraPotenciaC85Discrepa"/>
+  <testsuite name="CP-31 · Pairwise (fila 2 como muestra) / Potencia C = 85 (discrepa)" id="72bb881c-f0f5-465e-be61-78dec1824d37" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.048">
+    <testcase name="HTTP 200" time="0.048" classname="Cp31PairwiseFila2ComoMuestraPotenciaC85Discrepa"/>
+    <testcase name=".estado = ACEPTADA" time="0.048" classname="Cp31PairwiseFila2ComoMuestraPotenciaC85Discrepa"/>
   </testsuite>
-  <testsuite name="CP-31 · Pairwise (fila 2 como muestra) / Alerta ALTO" id="37dc5d72-5bb1-4ae6-9099-5c6a38ca7e30" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.007">
+  <testsuite name="CP-31 · Pairwise (fila 2 como muestra) / Alerta ALTO" id="2843cecd-3226-410e-ad2c-2b9b4b7acace" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.007">
     <testcase name="HTTP 200" time="0.007" classname="Cp31PairwiseFila2ComoMuestraAlertaAlto"/>
     <testcase name=".nivel = ALTO" time="0.007" classname="Cp31PairwiseFila2ComoMuestraAlertaAlto"/>
   </testsuite>
-  <testsuite name="CP-31 · Pairwise (fila 2 como muestra) / Aviso de canal" id="c6368da9-696e-4bea-a0ff-ac0ca89f838b" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.051">
-    <testcase name="HTTP 200" time="0.051" classname="Cp31PairwiseFila2ComoMuestraAvisoDeCanal"/>
-    <testcase name=".avisos = ['CANAL_EXCLUIDO:C']" time="0.051" classname="Cp31PairwiseFila2ComoMuestraAvisoDeCanal"/>
+  <testsuite name="CP-31 · Pairwise (fila 2 como muestra) / Aviso de canal" id="9be08409-f5d7-4543-b2e9-e0d4a815ed8a" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.047">
+    <testcase name="HTTP 200" time="0.047" classname="Cp31PairwiseFila2ComoMuestraAvisoDeCanal"/>
+    <testcase name=".avisos = ['CANAL_EXCLUIDO:C']" time="0.047" classname="Cp31PairwiseFila2ComoMuestraAvisoDeCanal"/>
   </testsuite>
-  <testsuite name="CP-31 · Pairwise (fila 2 como muestra) / Avanzar reloj 89 s" id="8e52a32e-74fd-40a4-a3f0-40de74f15f1e" timestamp="2026-11-10T01:56:05.443Z" tests="1" failures="0" errors="0" time="0.005">
-    <testcase name="HTTP 200" time="0.005" classname="Cp31PairwiseFila2ComoMuestraAvanzarReloj89S"/>
+  <testsuite name="CP-31 · Pairwise (fila 2 como muestra) / Avanzar reloj 89 s" id="a4f778a4-603c-4cde-a555-7b52106c7ae7" timestamp="2026-11-13T03:37:29.289Z" tests="1" failures="0" errors="0" time="0.003">
+    <testcase name="HTTP 200" time="0.003" classname="Cp31PairwiseFila2ComoMuestraAvanzarReloj89S"/>
   </testsuite>
-  <testsuite name="CP-31 · Pairwise (fila 2 como muestra) / 89 s: EMITIDA" id="d6e46f34-98b7-4944-a4aa-609dd4616c96" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.050">
-    <testcase name="HTTP 200" time="0.050" classname="Cp31PairwiseFila2ComoMuestra89SEmitida"/>
-    <testcase name="[0].estado = EMITIDA" time="0.050" classname="Cp31PairwiseFila2ComoMuestra89SEmitida"/>
+  <testsuite name="CP-31 · Pairwise (fila 2 como muestra) / 89 s: EMITIDA" id="02e2dacf-94ed-428f-a359-74eba01445a5" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.047">
+    <testcase name="HTTP 200" time="0.047" classname="Cp31PairwiseFila2ComoMuestra89SEmitida"/>
+    <testcase name="[0].estado = EMITIDA" time="0.047" classname="Cp31PairwiseFila2ComoMuestra89SEmitida"/>
   </testsuite>
-  <testsuite name="CP-31 · Pairwise (fila 2 como muestra) / Avanzar reloj 1 s" id="20a7a3c8-5da8-4c1f-ad49-04aa763f98da" timestamp="2026-11-10T01:56:05.443Z" tests="1" failures="0" errors="0" time="0.006">
+  <testsuite name="CP-31 · Pairwise (fila 2 como muestra) / Avanzar reloj 1 s" id="b7bf2359-18b7-40dd-9a2e-206cb6a6e419" timestamp="2026-11-13T03:37:29.289Z" tests="1" failures="0" errors="0" time="0.006">
     <testcase name="HTTP 200" time="0.006" classname="Cp31PairwiseFila2ComoMuestraAvanzarReloj1S"/>
   </testsuite>
-  <testsuite name="CP-31 · Pairwise (fila 2 como muestra) / 90 s: ESCALADA al jefe de turno" id="0edfacab-f9e0-4dc5-89ba-0705a594f1e6" timestamp="2026-11-10T01:56:05.443Z" tests="3" failures="0" errors="0" time="0.050">
-    <testcase name="HTTP 200" time="0.050" classname="Cp31PairwiseFila2ComoMuestra90SEscaladaAlJefeDeTurno"/>
-    <testcase name="[0].estado = ESCALADA" time="0.050" classname="Cp31PairwiseFila2ComoMuestra90SEscaladaAlJefeDeTurno"/>
-    <testcase name="[0].destinatarios = ['OPERADOR_REACTOR', 'JEFE_TURNO']" time="0.050" classname="Cp31PairwiseFila2ComoMuestra90SEscaladaAlJefeDeTurno"/>
+  <testsuite name="CP-31 · Pairwise (fila 2 como muestra) / 90 s: ESCALADA al jefe de turno" id="3f5a0510-0a63-4c18-81b3-a45abccdee2d" timestamp="2026-11-13T03:37:29.289Z" tests="3" failures="0" errors="0" time="0.046">
+    <testcase name="HTTP 200" time="0.046" classname="Cp31PairwiseFila2ComoMuestra90SEscaladaAlJefeDeTurno"/>
+    <testcase name="[0].estado = ESCALADA" time="0.046" classname="Cp31PairwiseFila2ComoMuestra90SEscaladaAlJefeDeTurno"/>
+    <testcase name="[0].destinatarios = ['OPERADOR_REACTOR', 'JEFE_TURNO']" time="0.046" classname="Cp31PairwiseFila2ComoMuestra90SEscaladaAlJefeDeTurno"/>
   </testsuite>
-  <testsuite name="CP-31 · Pairwise (fila 2 como muestra) / Avanzar reloj 5 s" id="aa9e6326-8cbb-488d-8151-f3a31d5d9721" timestamp="2026-11-10T01:56:05.443Z" tests="1" failures="0" errors="0" time="0.004">
+  <testsuite name="CP-31 · Pairwise (fila 2 como muestra) / Avanzar reloj 5 s" id="9fcd8406-9d43-4728-9f49-794ccc0a6e85" timestamp="2026-11-13T03:37:29.289Z" tests="1" failures="0" errors="0" time="0.004">
     <testcase name="HTTP 200" time="0.004" classname="Cp31PairwiseFila2ComoMuestraAvanzarReloj5S"/>
   </testsuite>
-  <testsuite name="CP-31 · Pairwise (fila 2 como muestra) / 95 s: el jefe reconoce" id="b7e0acc5-add7-41a4-9062-04e9996c358f" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.051">
-    <testcase name="HTTP 200" time="0.051" classname="Cp31PairwiseFila2ComoMuestra95SElJefeReconoce"/>
-    <testcase name=".estado = RECONOCIDA" time="0.051" classname="Cp31PairwiseFila2ComoMuestra95SElJefeReconoce"/>
+  <testsuite name="CP-31 · Pairwise (fila 2 como muestra) / 95 s: el jefe reconoce" id="15570f94-0ddd-43d1-a4cd-b9d2ebe1b659" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.050">
+    <testcase name="HTTP 200" time="0.050" classname="Cp31PairwiseFila2ComoMuestra95SElJefeReconoce"/>
+    <testcase name=".estado = RECONOCIDA" time="0.050" classname="Cp31PairwiseFila2ComoMuestra95SElJefeReconoce"/>
   </testsuite>
-  <testsuite name="RF-12 · Umbrales / CP-32 · Límites de umbrales / Alto 29,9 / crítico 75 → 422" id="7a3cce40-bb46-475d-889a-a0976ace52fa" timestamp="2026-11-10T01:56:05.443Z" tests="1" failures="0" errors="0" time="0.051">
-    <testcase name="HTTP 422" time="0.051" classname="Rf12UmbralesCp32LimitesDeUmbralesAlto299Critico75422"/>
+  <testsuite name="RF-12 · Umbrales / CP-32 · Límites de umbrales / Alto 29,9 / crítico 75 → 422" id="6246f4e2-a1a0-4316-a8c9-66ace89042fd" timestamp="2026-11-13T03:37:29.289Z" tests="1" failures="0" errors="0" time="0.049">
+    <testcase name="HTTP 422" time="0.049" classname="Rf12UmbralesCp32LimitesDeUmbralesAlto299Critico75422"/>
   </testsuite>
-  <testsuite name="RF-12 · Umbrales / CP-32 · Límites de umbrales / Alto 30 / crítico 75 → 201" id="176f72a0-ad9b-46aa-bb91-f667d162a900" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.050">
-    <testcase name="HTTP 201" time="0.050" classname="Rf12UmbralesCp32LimitesDeUmbralesAlto30Critico75201"/>
-    <testcase name=".estado = PENDIENTE" time="0.050" classname="Rf12UmbralesCp32LimitesDeUmbralesAlto30Critico75201"/>
+  <testsuite name="RF-12 · Umbrales / CP-32 · Límites de umbrales / Alto 30 / crítico 75 → 201" id="5bf86697-640d-4a84-9f49-d42b7d7545c3" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.049">
+    <testcase name="HTTP 201" time="0.049" classname="Rf12UmbralesCp32LimitesDeUmbralesAlto30Critico75201"/>
+    <testcase name=".estado = PENDIENTE" time="0.049" classname="Rf12UmbralesCp32LimitesDeUmbralesAlto30Critico75201"/>
   </testsuite>
-  <testsuite name="RF-12 · Umbrales / CP-32 · Límites de umbrales / Alto 50 / crítico 75 → 201" id="0d23d222-ce7c-4454-ac17-14c4dd1e019f" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.047">
-    <testcase name="HTTP 201" time="0.047" classname="Rf12UmbralesCp32LimitesDeUmbralesAlto50Critico75201"/>
-    <testcase name=".estado = PENDIENTE" time="0.047" classname="Rf12UmbralesCp32LimitesDeUmbralesAlto50Critico75201"/>
+  <testsuite name="RF-12 · Umbrales / CP-32 · Límites de umbrales / Alto 50 / crítico 75 → 201" id="09701f5d-8b3c-4e61-ae21-45b13ef86946" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.046">
+    <testcase name="HTTP 201" time="0.046" classname="Rf12UmbralesCp32LimitesDeUmbralesAlto50Critico75201"/>
+    <testcase name=".estado = PENDIENTE" time="0.046" classname="Rf12UmbralesCp32LimitesDeUmbralesAlto50Critico75201"/>
   </testsuite>
-  <testsuite name="RF-12 · Umbrales / CP-32 · Límites de umbrales / Alto 50,1 / crítico 75 → 422" id="b4ac7e7a-e99e-4a0e-9652-a0ec3da5f75a" timestamp="2026-11-10T01:56:05.443Z" tests="1" failures="0" errors="0" time="0.047">
-    <testcase name="HTTP 422" time="0.047" classname="Rf12UmbralesCp32LimitesDeUmbralesAlto501Critico75422"/>
+  <testsuite name="RF-12 · Umbrales / CP-32 · Límites de umbrales / Alto 50,1 / crítico 75 → 422" id="b35fe89c-4386-4c73-899b-7a75cf81dc7d" timestamp="2026-11-13T03:37:29.289Z" tests="1" failures="0" errors="0" time="0.049">
+    <testcase name="HTTP 422" time="0.049" classname="Rf12UmbralesCp32LimitesDeUmbralesAlto501Critico75422"/>
   </testsuite>
-  <testsuite name="RF-12 · Umbrales / CP-32 · Límites de umbrales / Alto 40 / crítico 64,9 → 422" id="b62323ff-fa1f-403e-bc01-269f4498a2b5" timestamp="2026-11-10T01:56:05.443Z" tests="1" failures="0" errors="0" time="0.048">
-    <testcase name="HTTP 422" time="0.048" classname="Rf12UmbralesCp32LimitesDeUmbralesAlto40Critico649422"/>
+  <testsuite name="RF-12 · Umbrales / CP-32 · Límites de umbrales / Alto 40 / crítico 64,9 → 422" id="e816b9b3-fdce-43ef-aa23-74b115ba600a" timestamp="2026-11-13T03:37:29.289Z" tests="1" failures="0" errors="0" time="0.046">
+    <testcase name="HTTP 422" time="0.046" classname="Rf12UmbralesCp32LimitesDeUmbralesAlto40Critico649422"/>
   </testsuite>
-  <testsuite name="RF-12 · Umbrales / CP-32 · Límites de umbrales / Alto 40 / crítico 65 → 201" id="2a369dbb-575f-4b8c-b916-91a9c406939d" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.048">
-    <testcase name="HTTP 201" time="0.048" classname="Rf12UmbralesCp32LimitesDeUmbralesAlto40Critico65201"/>
-    <testcase name=".estado = PENDIENTE" time="0.048" classname="Rf12UmbralesCp32LimitesDeUmbralesAlto40Critico65201"/>
+  <testsuite name="RF-12 · Umbrales / CP-32 · Límites de umbrales / Alto 40 / crítico 65 → 201" id="386dbaaf-3240-4d50-9796-8f454be92ad8" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.047">
+    <testcase name="HTTP 201" time="0.047" classname="Rf12UmbralesCp32LimitesDeUmbralesAlto40Critico65201"/>
+    <testcase name=".estado = PENDIENTE" time="0.047" classname="Rf12UmbralesCp32LimitesDeUmbralesAlto40Critico65201"/>
   </testsuite>
-  <testsuite name="RF-12 · Umbrales / CP-32 · Límites de umbrales / Alto 40 / crítico 100 → 201" id="85b1e13e-fad4-4890-9a35-96b9f750cb33" timestamp="2026-11-10T01:56:05.443Z" tests="2" failures="0" errors="0" time="0.048">
-    <testcase name="HTTP 201" time="0.048" classname="Rf12UmbralesCp32LimitesDeUmbralesAlto40Critico100201"/>
-    <testcase name=".estado = PENDIENTE" time="0.048" classname="Rf12UmbralesCp32LimitesDeUmbralesAlto40Critico100201"/>
+  <testsuite name="RF-12 · Umbrales / CP-32 · Límites de umbrales / Alto 40 / crítico 100 → 201" id="20f8505f-d454-426e-9912-fd48b0d8329d" timestamp="2026-11-13T03:37:29.289Z" tests="2" failures="0" errors="0" time="0.046">
+    <testcase name="HTTP 201" time="0.046" classname="Rf12UmbralesCp32LimitesDeUmbralesAlto40Critico100201"/>
+    <testcase name=".estado = PENDIENTE" time="0.046" classname="Rf12UmbralesCp32LimitesDeUmbralesAlto40Critico100201"/>
   </testsuite>
-  <testsuite name="RF-12 · Umbrales / CP-32 · Límites de umbrales / Alto 40 / crítico 100,1 → 422" id="aa78e22d-ca01-4d66-a9a7-2444ebfa2485" timestamp="2026-11-10T01:56:05.443Z" tests="1" failures="0" errors="0" time="0.049">
-    <testcase name="HTTP 422" time="0.049" classname="Rf12UmbralesCp32LimitesDeUmbralesAlto40Critico1001422"/>
+  <testsuite name="RF-12 · Umbrales / CP-32 · Límites de umbrales / Alto 40 / crítico 100,1 → 422" id="1af7e240-1cdb-400e-ab88-1b75df86d960" timestamp="2026-11-13T03:37:29.289Z" tests="1" failures="0" errors="0" time="0.047">
+    <testcase name="HTTP 422" time="0.047" classname="Rf12UmbralesCp32LimitesDeUmbralesAlto40Critico1001422"/>
   </testsuite>
-  <testsuite name="RF-12 · Umbrales / CP-32 · Límites de umbrales / Los vigentes no cambiaron (solicitudes PENDIENTE)" id="a647b2e6-41b5-4614-86a6-ea931c2af914" timestamp="2026-11-10T01:56:05.443Z" tests="3" failures="0" errors="0" time="0.048">
-    <testcase name="HTTP 200" time="0.048" classname="Rf12UmbralesCp32LimitesDeUmbralesLosVigentesNoCambiaronSolicitudesPendiente"/>
-    <testcase name=".alto = 40" time="0.048" classname="Rf12UmbralesCp32LimitesDeUmbralesLosVigentesNoCambiaronSolicitudesPendiente"/>
-    <testcase name=".critico = 75" time="0.048" classname="Rf12UmbralesCp32LimitesDeUmbralesLosVigentesNoCambiaronSolicitudesPendiente"/>
+  <testsuite name="RF-12 · Umbrales / CP-32 · Límites de umbrales / Los vigentes no cambiaron (solicitudes PENDIENTE)" id="13b4af90-38fb-45ac-b66b-c6a9b2eabc30" timestamp="2026-11-13T03:37:29.289Z" tests="3" failures="0" errors="0" time="0.047">
+    <testcase name="HTTP 200" time="0.047" classname="Rf12UmbralesCp32LimitesDeUmbralesLosVigentesNoCambiaronSolicitudesPendiente"/>
+    <testcase name=".alto = 40" time="0.047" classname="Rf12UmbralesCp32LimitesDeUmbralesLosVigentesNoCambiaronSolicitudesPendiente"/>
+    <testcase name=".critico = 75" time="0.047" classname="Rf12UmbralesCp32LimitesDeUmbralesLosVigentesNoCambiaronSolicitudesPendiente"/>
   </testsuite>
-  <testsuite name="RNF · Seguridad / CP-34 · Acceso sin autenticar / POST /api/v1/lecturas → 401" id="9affce2a-d12b-4861-a6ae-6cd875ec879e" timestamp="2026-11-10T01:56:05.443Z" tests="1" failures="0" errors="0" time="0.004">
-    <testcase name="HTTP 401" time="0.004" classname="RnfSeguridadCp34AccesoSinAutenticarPostApiV1Lecturas401"/>
+  <testsuite name="RNF · Seguridad / CP-34 · Acceso sin autenticar / POST /api/v1/lecturas → 401" id="dd449f95-2cb5-48d0-bfa8-90ccedd37cb3" timestamp="2026-11-13T03:37:29.289Z" tests="1" failures="0" errors="0" time="0.003">
+    <testcase name="HTTP 401" time="0.003" classname="RnfSeguridadCp34AccesoSinAutenticarPostApiV1Lecturas401"/>
   </testsuite>
-  <testsuite name="RNF · Seguridad / CP-34 · Acceso sin autenticar / GET /api/v1/magnitudes/TEMPERATURA_PRIMARIO → 401" id="ff313ce0-fcc7-421e-b0bc-b7c6006f198d" timestamp="2026-11-10T01:56:05.443Z" tests="1" failures="0" errors="0" time="0.002">
-    <testcase name="HTTP 401" time="0.002" classname="RnfSeguridadCp34AccesoSinAutenticarGetApiV1MagnitudesTemperaturaPrimario401"/>
+  <testsuite name="RNF · Seguridad / CP-34 · Acceso sin autenticar / GET /api/v1/magnitudes/TEMPERATURA_PRIMARIO → 401" id="28a2330b-3191-40d2-ba5c-b97104eb9f75" timestamp="2026-11-13T03:37:29.289Z" tests="1" failures="0" errors="0" time="0.001">
+    <testcase name="HTTP 401" time="0.001" classname="RnfSeguridadCp34AccesoSinAutenticarGetApiV1MagnitudesTemperaturaPrimario401"/>
   </testsuite>
-  <testsuite name="RNF · Seguridad / CP-34 · Acceso sin autenticar / GET /api/v1/estimaciones/actual → 401" id="e44b8b57-9264-4f63-8988-14a173d63b53" timestamp="2026-11-10T01:56:05.443Z" tests="1" failures="0" errors="0" time="0.002">
-    <testcase name="HTTP 401" time="0.002" classname="RnfSeguridadCp34AccesoSinAutenticarGetApiV1EstimacionesActual401"/>
+  <testsuite name="RNF · Seguridad / CP-34 · Acceso sin autenticar / GET /api/v1/estimaciones/actual → 401" id="8c23c3c2-98b2-4d67-9fbc-5190b6aa7093" timestamp="2026-11-13T03:37:29.289Z" tests="1" failures="0" errors="0" time="0.001">
+    <testcase name="HTTP 401" time="0.001" classname="RnfSeguridadCp34AccesoSinAutenticarGetApiV1EstimacionesActual401"/>
   </testsuite>
-  <testsuite name="RNF · Seguridad / CP-34 · Acceso sin autenticar / GET /api/v1/alertas → 401" id="667d383e-1fb2-4ec1-b02f-69ac50faf485" timestamp="2026-11-10T01:56:05.443Z" tests="1" failures="0" errors="0" time="0.001">
+  <testsuite name="RNF · Seguridad / CP-34 · Acceso sin autenticar / GET /api/v1/alertas → 401" id="bcc9749c-3c56-4f7d-92fd-c197f72f93cf" timestamp="2026-11-13T03:37:29.289Z" tests="1" failures="0" errors="0" time="0.001">
     <testcase name="HTTP 401" time="0.001" classname="RnfSeguridadCp34AccesoSinAutenticarGetApiV1Alertas401"/>
   </testsuite>
-  <testsuite name="RNF · Seguridad / CP-34 · Acceso sin autenticar / POST /api/v1/alertas/1/reconocimiento → 401" id="df060282-3127-4e89-a43e-c2a8d870ce15" timestamp="2026-11-10T01:56:05.443Z" tests="1" failures="0" errors="0" time="0.001">
+  <testsuite name="RNF · Seguridad / CP-34 · Acceso sin autenticar / POST /api/v1/alertas/1/reconocimiento → 401" id="b633e13f-b04d-4fc7-99f6-08f9bbfe06e7" timestamp="2026-11-13T03:37:29.289Z" tests="1" failures="0" errors="0" time="0.001">
     <testcase name="HTTP 401" time="0.001" classname="RnfSeguridadCp34AccesoSinAutenticarPostApiV1Alertas1Reconocimiento401"/>
   </testsuite>
-  <testsuite name="RNF · Seguridad / CP-34 · Acceso sin autenticar / POST /api/v1/maniobras → 401" id="1a3b0148-2a69-4772-91a6-c0cc8ec836c7" timestamp="2026-11-10T01:56:05.443Z" tests="1" failures="0" errors="0" time="0.001">
+  <testsuite name="RNF · Seguridad / CP-34 · Acceso sin autenticar / POST /api/v1/maniobras → 401" id="9cc4556d-2912-4c0e-b9ac-c1b7d96d7aaf" timestamp="2026-11-13T03:37:29.289Z" tests="1" failures="0" errors="0" time="0.001">
     <testcase name="HTTP 401" time="0.001" classname="RnfSeguridadCp34AccesoSinAutenticarPostApiV1Maniobras401"/>
   </testsuite>
-  <testsuite name="RNF · Seguridad / CP-34 · Acceso sin autenticar / DELETE /api/v1/maniobras/1 → 401" id="c47f31d3-5507-424f-b313-e00eb028f94b" timestamp="2026-11-10T01:56:05.443Z" tests="1" failures="0" errors="0" time="0.001">
+  <testsuite name="RNF · Seguridad / CP-34 · Acceso sin autenticar / DELETE /api/v1/maniobras/1 → 401" id="acfdbba3-ea96-4574-803b-8449fe8e444e" timestamp="2026-11-13T03:37:29.289Z" tests="1" failures="0" errors="0" time="0.001">
     <testcase name="HTTP 401" time="0.001" classname="RnfSeguridadCp34AccesoSinAutenticarDeleteApiV1Maniobras1401"/>
   </testsuite>
-  <testsuite name="RNF · Seguridad / CP-34 · Acceso sin autenticar / GET /api/v1/config/umbrales → 401" id="9545e0b6-2c60-458c-a734-a24cae7eb83b" timestamp="2026-11-10T01:56:05.443Z" tests="1" failures="0" errors="0" time="0.001">
+  <testsuite name="RNF · Seguridad / CP-34 · Acceso sin autenticar / GET /api/v1/config/umbrales → 401" id="cbc2c703-9140-4b1c-8296-dde854969769" timestamp="2026-11-13T03:37:29.289Z" tests="1" failures="0" errors="0" time="0.001">
     <testcase name="HTTP 401" time="0.001" classname="RnfSeguridadCp34AccesoSinAutenticarGetApiV1ConfigUmbrales401"/>
   </testsuite>
-  <testsuite name="RNF · Seguridad / CP-34 · Acceso sin autenticar / PUT /api/v1/config/umbrales → 401" id="a5cc5a98-76fc-443d-a86b-1dfada516f69" timestamp="2026-11-10T01:56:05.443Z" tests="1" failures="0" errors="0" time="0.001">
+  <testsuite name="RNF · Seguridad / CP-34 · Acceso sin autenticar / PUT /api/v1/config/umbrales → 401" id="fd6e024f-469d-4c95-a75c-5ce6615cc6ef" timestamp="2026-11-13T03:37:29.289Z" tests="1" failures="0" errors="0" time="0.001">
     <testcase name="HTTP 401" time="0.001" classname="RnfSeguridadCp34AccesoSinAutenticarPutApiV1ConfigUmbrales401"/>
   </testsuite>
-  <testsuite name="RNF · Seguridad / CP-34 · Acceso sin autenticar / POST /api/v1/config/umbrales/1/aprobacion → 401" id="56748682-1f57-455f-ab74-382588723a2f" timestamp="2026-11-10T01:56:05.443Z" tests="1" failures="0" errors="0" time="0.001">
+  <testsuite name="RNF · Seguridad / CP-34 · Acceso sin autenticar / POST /api/v1/config/umbrales/1/aprobacion → 401" id="7c6667a3-85d0-4230-99ed-5b88d0db8a12" timestamp="2026-11-13T03:37:29.289Z" tests="1" failures="0" errors="0" time="0.001">
     <testcase name="HTTP 401" time="0.001" classname="RnfSeguridadCp34AccesoSinAutenticarPostApiV1ConfigUmbrales1Aprobacion401"/>
   </testsuite>
-  <testsuite name="RNF · Seguridad / CP-34 · Acceso sin autenticar / GET /api/v1/version → 401" id="23ee7bba-9914-472b-b5e4-a42c601463d9" timestamp="2026-11-10T01:56:05.443Z" tests="1" failures="0" errors="0" time="0.001">
+  <testsuite name="RNF · Seguridad / CP-34 · Acceso sin autenticar / GET /api/v1/version → 401" id="9ee6b5d9-860f-4164-8022-6087a8d4e744" timestamp="2026-11-13T03:37:29.289Z" tests="1" failures="0" errors="0" time="0.001">
     <testcase name="HTTP 401" time="0.001" classname="RnfSeguridadCp34AccesoSinAutenticarGetApiV1Version401"/>
   </testsuite>
 </testsuites>

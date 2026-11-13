@@ -581,8 +581,10 @@ la mutación. Todo corre con <code>mvn verify</code> en un clon limpio, y cada c
 su propósito y el ID de los casos que cubre. Cada test lleva el ID en el nombre que muestra JUnit
 (CP-xx, UI-xx, o INF-xx para las dos pruebas del reloj y de los endpoints de QA, que prueban la
 infraestructura de pruebas y no el SISTEMA).</p>
-<p>El Makefile tiene un comando por tipo de prueba (<code>make unitarias</code>, <code>api</code>, <code>integracion</code>, <code>bdd</code>, <code>ui</code>), uno para
-mutación (<code>make pit</code>) y uno que corre todo y guarda la salida como evidencia (<code>make evidencias</code>).</p>
+<p>El Makefile tiene un comando por tipo de prueba (<code>make test-unit</code>, <code>test-api</code>, <code>test-integration</code>, <code>test-bdd</code>, <code>test-ui</code>), uno para
+mutación (<code>make mutation</code>) y uno que corre todo y guarda la salida como evidencia (<code>make evidence</code>).
+Con <code>OPEN=1</code> cualquiera de ellos abre al terminar un reporte HTML con los totales, los casos por tipo, los IDs del
+catálogo ejecutados, la cobertura y el mutation score.</p>
 <h3>10.1 TDD</h3>
 <p>Aplicamos TDD en ValidadorRedundancia y ServicioEscalamiento, que son reglas precisas con bordes
 numéricos y de tiempo. Hicimos tres ciclos en cada clase: primero el test que falla, después el mínimo
@@ -592,7 +594,7 @@ evidencia del ciclo es esa salida.</p>
 <h3>10.2 API y Postman</h3>
 <p>La colección de Postman tiene una carpeta por requerimiento, un entorno con <code>baseUrl</code> y usuarios por rol,
 y scripts que verifican código HTTP y cuerpo de la respuesta. Cada request que lo necesita llama antes
-a <code>/qa/reset</code>. La corremos completa con newman (<code>make postman</code>), que levanta el SISTEMA si no está
+a <code>/qa/reset</code>. La corremos completa con newman (<code>make test-postman</code>), que levanta el SISTEMA si no está
 arriba: 97 requests, 156 aserciones, 0 fallos. La salida queda en <code>docs/evidencias/postman/</code>.</p>
 <p>Las mismas reglas de la API también se prueban con MockMvc. Postman encontró algo que MockMvc no
 veía: sin credenciales, el servidor real respondía 302 al login en vez de 401 (ATA-16). MockMvc no hace
@@ -601,8 +603,8 @@ el reenvío interno a <code>/error</code> que causaba el problema. Desde entonce
 <h3>10.3 Interfaz con Selenium</h3>
 <p>El panel se prueba con Selenium usando Page Objects (página de login y página del panel). Los
 elementos que usan las pruebas tienen un atributo <code>data-test</code>, y las esperas son por condición, nunca
-fijas. En <code>mvn verify</code> corre con HtmlUnit, sin navegador; con <code>make ui-chrome</code> corre en Chrome, y
-<code>make ui-demo</code> deja el navegador abierto al final de cada prueba para la exposición. Las capturas de la
+fijas. En <code>mvn verify</code> corre con HtmlUnit, sin navegador; con <code>make test-ui-chrome</code> corre en Chrome, y
+<code>make test-ui-demo</code> deja el navegador abierto al final de cada prueba para la exposición. Las capturas de la
 ejecución en Chrome están en <code>docs/evidencias/selenium/</code>. Al revisarlas apareció un defecto que las
 pruebas no detectaban: los estados de los tres canales salían pegados en un renglón (ATA-18).
 Agregamos el test que lo muestra, lo vimos fallar y después lo corregimos.</p>
@@ -755,7 +757,7 @@ interno de cada uso.</p>
 <p>Se entrega VV-Q2-2026-TN-GrupoE-ATALAYA.zip con el proyecto Maven (código del SISTEMA y de las
 pruebas), la colección y el entorno de Postman, los reportes de JaCoCo, PIT y Cucumber, la planilla de
 casos y trazabilidad, el registro de defectos, las evidencias y este informe. El ZIP se arma con
-<code>make entrega</code>, que antes corre la suite completa y PIT y no arma nada si algo falla.</p>
+<code>make dist</code>, que antes corre la suite completa y PIT y no arma nada si algo falla.</p>
 <table>
   <thead><tr><th style="width:42%">VV-Q2-2026-TN-GrupoE-ATALAYA/</th><th></th></tr></thead>
   <tbody>

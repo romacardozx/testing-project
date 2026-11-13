@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Corre la colección de Postman con newman (instalado local con `make instalar`).
+# Corre la colección de Postman con newman (instalado local con `make install`).
 # Si el SISTEMA no está levantado en el puerto 8080, lo levanta con el perfil qa, espera a que
 # responda, corre la colección y lo apaga al terminar (solo el proceso que lanzó este script).
 # Deja el resultado en JUnit XML en target/newman/postman.xml (evidencia).
@@ -12,7 +12,7 @@ LOG="target/newman/app.log"
 mkdir -p target/newman
 
 if [ ! -x "$NEWMAN" ]; then
-  echo "Falta newman. Corré: make instalar"
+  echo "Falta newman. Corré: make install"
   exit 1
 fi
 
@@ -27,8 +27,13 @@ apagar() {
 }
 trap apagar EXIT
 
-if curl -sf -o /dev/null "$URL/actuator/health"; then
+codigo=$(curl -s -o /dev/null -w '%{http_code}' "$URL/actuator/health" || true)
+if [ "$codigo" = "200" ]; then
   echo "Uso el SISTEMA que ya está levantado en $URL (tiene que tener el perfil qa)."
+elif [ "$codigo" != "000" ]; then
+  echo "El puerto 8080 está ocupado por otro proceso que no es ATALAYA (/actuator/health respondió $codigo)."
+  echo "Liberarlo y repetir. Proceso: $(command -v ss >/dev/null && ss -ltnpH 'sport = :8080' | grep -o 'users:.*' || echo '?')"
+  exit 1
 else
   echo "Levantando el SISTEMA con el perfil qa (log en $LOG)..."
   ./mvnw -B -q spring-boot:run -Dspring-boot.run.profiles=qa > "$LOG" 2>&1 &

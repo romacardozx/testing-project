@@ -8,6 +8,7 @@ Característica: Escalamiento de alertas críticas
     Dado que el sistema está en la precondición base
 
   # CP-21 · Valores límite de tiempo
+  @CP-21
   Esquema del escenario: A los <segundos> s sin reconocer la alerta queda <estado>
     Dado una alerta crítica emitida al operador de reactor
     Cuando pasan <segundos> segundos sin reconocimiento
@@ -21,6 +22,7 @@ Característica: Escalamiento de alertas críticas
       | 46       | ESCALADA | 3             |
 
   # CP-23 · Transición de estados: reconocer antes del plazo
+  @CP-23
   Escenario: Reconocer antes del plazo evita el escalamiento
     Dado una alerta crítica emitida al operador de reactor
     Y pasan 44 segundos sin reconocimiento

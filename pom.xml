@@ -29,6 +29,8 @@
         <!-- Driver de Selenium: htmlunit (por defecto, sin navegador) o chrome (demo) -->
         <browser>htmlunit</browser>
         <consola>false</consola>
+        <!-- Objetivo del Makefile que lanzó la corrida (se muestra en el reporte HTML) -->
+        <objetivo></objetivo>
         <headless>false</headless>
         <pausa>false</pausa>
         <capturas></capturas>
@@ -143,6 +145,7 @@
                         <capturas>${capturas}</capturas>
                         <!-- true desde el Makefile: resumen visual en consola (ResumenConsola) -->
                         <atalaya.consola>${consola}</atalaya.consola>
+                        <atalaya.objetivo>${objetivo}</atalaya.objetivo>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>

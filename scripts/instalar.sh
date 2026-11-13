@@ -23,7 +23,7 @@ if [ -z "$jdk21" ]; then
       Ubuntu/Debian: sudo apt install openjdk-21-jdk
       macOS:         brew install openjdk@21
       SDKMAN:        sdk install java 21-tem
-    o apuntar JAVA_HOME a un JDK 21 y repetir make instalar."
+    o apuntar JAVA_HOME a un JDK 21 y repetir make install."
 fi
 export JAVA_HOME="$jdk21" PATH="$jdk21/bin:$PATH"
 ok "$(java -version 2>&1 | head -1) · $jdk21"
@@ -45,7 +45,7 @@ if command -v npm >/dev/null; then
   npm ci --no-audit --no-fund --loglevel=error > target/instalar.log 2>&1 || { tail -20 target/instalar.log; falla "falló npm ci"; }
   ok "newman $(node_modules/.bin/newman --version) en node_modules/ (versión fija en package-lock.json)"
 else
-  aviso "No hay Node.js/npm: make postman no va a andar. Instalar Node 18 o más nuevo y repetir make instalar."
+  aviso "No hay Node.js/npm: make test-postman no va a andar. Instalar Node 18 o más nuevo y repetir make install."
 fi
 
 paso "4/4 · Chrome para Selenium"
@@ -53,7 +53,7 @@ if [ "${1:-}" = "--chrome" ]; then
   mvn test -Dtest=PanelUiTest -Dbrowser=chrome -Dheadless=true
   ok "Chrome for Testing y chromedriver en ~/.cache/selenium (Selenium Manager)"
 else
-  printf "  ${D}↷ se baja solo la primera vez que se corre make ui-chrome / ui-demo (o: make instalar-chrome)${X}\n"
+  printf "  ${D}↷ se baja solo la primera vez que se corre make test-ui-chrome / test-ui-demo (o: make install-chrome)${X}\n"
 fi
 
-printf "\n${V}${N}Listo.${X} Probá: ${N}make todo${X}\n\n"
+printf "\n${V}${N}Listo.${X} Probá: ${N}make test${X}\n\n"

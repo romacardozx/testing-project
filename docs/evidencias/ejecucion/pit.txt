@@ -1,4 +1,4 @@
-ATALAYA 3.1.0 · make pit · 09/11/2026 22:55 · openjdk version "21.0.12.1" 2026-08-18
+ATALAYA 3.1.0 · make mutation · 13/11/2026 00:37 · openjdk version "21.0.13.0.3" 2026-10-24
 
 Compilando y corriendo PIT (salida completa en target/pit.log)...
 

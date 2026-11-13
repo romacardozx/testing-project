@@ -8,6 +8,7 @@ Característica: Redundancia de los canales de temperatura del primario
     Dado que el sistema está en la precondición base
 
   # CP-07 · Tabla de decisión R4 + valores límite
+  @CP-07
   Escenario: Un canal que discrepa más del 2 % se deja de usar y se avisa
     Dado que los canales A y B de TEMPERATURA_PRIMARIO informan 300,00
     Cuando el canal C de TEMPERATURA_PRIMARIO informa 306,64
@@ -16,6 +17,7 @@ Característica: Redundancia de los canales de temperatura del primario
     Y TEMPERATURA_PRIMARIO avisa "CANAL_EXCLUIDO:C"
 
   # CP-08 · Valor límite: exactamente 2,00 % no supera "más del 2 %"
+  @CP-08
   Escenario: Una discrepancia de exactamente el 2 % no excluye al canal
     Dado que los canales A y B de TEMPERATURA_PRIMARIO informan 300,00
     Cuando el canal C de TEMPERATURA_PRIMARIO informa 306,60

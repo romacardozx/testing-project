@@ -1,0 +1,268 @@
+<!doctype html>
+<!--
+  Reporte de pruebas de ATALAYA 3.1.0. Plantilla estática: scripts/reporte.sh la copia a
+  target/reporte-pruebas/ junto con pruebas.js (ResumenConsola), cobertura.js (JaCoCo) y pit.js (PIT).
+  Sin dependencias externas: se abre con file:// y sin internet.
+-->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ATALAYA · Reporte de pruebas</title>
+<script src="pruebas.js"></script>
+<script src="cobertura.js" onerror="void 0"></script>
+<script src="pit.js" onerror="void 0"></script>
+<style>
+  :root {
+    --fondo: #f5f6f8; --tarjeta: #ffffff; --texto: #1d2330; --tenue: #667085; --borde: #e3e6ec;
+    --acento: #1f5fbf; --ok: #1a7f4b; --ok-suave: #e3f4ea; --mal: #c0362c; --mal-suave: #fbe6e4;
+    --omit: #a36a00; --omit-suave: #fdf1d8; --gris: #c9ced8; --gris-suave: #eef0f4;
+    --sombra: 0 1px 2px rgba(16, 24, 40, .06), 0 1px 3px rgba(16, 24, 40, .08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fondo: #0f1218; --tarjeta: #171b24; --texto: #e6e9ef; --tenue: #98a2b3; --borde: #2a303d;
+      --acento: #6ea8fe; --ok: #4cc38a; --ok-suave: #15301f; --mal: #ff7b72; --mal-suave: #3a1a18;
+      --omit: #e3b341; --omit-suave: #33290f; --gris: #3a4150; --gris-suave: #20252f;
+      --sombra: none;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fondo); color: var(--texto);
+         font: 14px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, sans-serif; }
+  main { max-width: 1120px; margin: 0 auto; padding: 24px 16px 48px; }
+  header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 8px 24px; margin-bottom: 16px; }
+  h1 { font-size: 22px; margin: 0; letter-spacing: -.01em; }
+  h1 small { font-weight: 400; color: var(--tenue); font-size: 14px; margin-left: 6px; }
+  h2 { font-size: 15px; margin: 0 0 12px; }
+  .meta { color: var(--tenue); font-size: 13px; }
+  .meta b { color: var(--texto); font-weight: 600; }
+  .estado { border-radius: 10px; padding: 14px 18px; font-weight: 600; font-size: 16px; margin-bottom: 16px;
+            display: flex; align-items: center; gap: 10px; }
+  .estado.ok { background: var(--ok-suave); color: var(--ok); }
+  .estado.mal { background: var(--mal-suave); color: var(--mal); }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .kpi, .tarjeta { background: var(--tarjeta); border: 1px solid var(--borde); border-radius: 10px; box-shadow: var(--sombra); }
+  .kpi { padding: 12px 14px; }
+  .kpi .rotulo { color: var(--tenue); font-size: 12px; }
+  .kpi .valor { font-size: 24px; font-weight: 650; font-variant-numeric: tabular-nums; }
+  .kpi .nota { color: var(--tenue); font-size: 12px; }
+  .barra { height: 6px; border-radius: 3px; background: var(--gris-suave); overflow: hidden; margin-top: 6px; position: relative; }
+  .barra > span { display: block; height: 100%; }
+  .barra .umbral { position: absolute; top: -2px; bottom: -2px; width: 2px; background: var(--texto); opacity: .5; }
+  .tarjeta { padding: 16px 18px; margin-bottom: 16px; }
+  .columnas { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+  .columnas .tarjeta { margin-bottom: 0; }
+  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--borde); vertical-align: top; }
+  th { color: var(--tenue); font-weight: 500; font-size: 12px; }
+  td.num, th.num { text-align: right; white-space: nowrap; }
+  tr:last-child td { border-bottom: 0; }
+  .apilada { display: flex; height: 8px; border-radius: 4px; overflow: hidden; background: var(--gris-suave); min-width: 80px; }
+  .apilada span:nth-child(1) { background: var(--ok); } .apilada span:nth-child(2) { background: var(--mal); }
+  .apilada span:nth-child(3) { background: var(--omit); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { font-size: 12px; font-weight: 600; padding: 3px 8px; border-radius: 6px; font-variant-numeric: tabular-nums; cursor: default; }
+  .chip.ok { background: var(--ok-suave); color: var(--ok); }
+  .chip.mal { background: var(--mal-suave); color: var(--mal); }
+  .chip.no { background: var(--gris-suave); color: var(--tenue); }
+  .leyenda { color: var(--tenue); font-size: 12px; margin-top: 10px; }
+  .fallo { border-left: 3px solid var(--mal); padding: 6px 10px; margin: 8px 0; background: var(--mal-suave); border-radius: 0 6px 6px 0; }
+  .fallo code { display: block; color: var(--tenue); white-space: pre-wrap; word-break: break-word; font-size: 12px; margin-top: 2px; }
+  .filtros { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; margin-bottom: 12px; }
+  input[type=search] { flex: 1 1 240px; padding: 7px 10px; border-radius: 8px; border: 1px solid var(--borde);
+                       background: var(--fondo); color: var(--texto); font: inherit; }
+  label { color: var(--tenue); user-select: none; }
+  details { border: 1px solid var(--borde); border-radius: 8px; margin-bottom: 6px; }
+  summary { cursor: pointer; padding: 8px 12px; display: flex; gap: 10px; align-items: center; list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: "▸"; color: var(--tenue); transition: transform .15s; }
+  details[open] > summary::before { transform: rotate(90deg); }
+  summary .nombre { flex: 1; font-weight: 600; min-width: 0; overflow-wrap: anywhere; }
+  summary .cuenta { color: var(--tenue); font-size: 12px; white-space: nowrap; }
+  .tipo { font-size: 11px; color: var(--acento); border: 1px solid var(--borde); border-radius: 999px; padding: 0 8px; white-space: nowrap; }
+  ul.casos { list-style: none; margin: 0; padding: 0 12px 8px 34px; }
+  ul.casos li { display: flex; gap: 8px; padding: 3px 0; border-top: 1px dashed var(--borde); }
+  ul.casos li .n { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+  ul.casos li .ms { color: var(--tenue); font-size: 12px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .i-ok { color: var(--ok); } .i-mal { color: var(--mal); font-weight: 700; } .i-omit { color: var(--omit); }
+  .vacio { color: var(--tenue); font-style: italic; }
+  a { color: var(--acento); }
+  footer { color: var(--tenue); font-size: 12px; margin-top: 24px; }
+  footer a { margin-right: 14px; }
+  @media (max-width: 560px) {
+    .kpi .valor { font-size: 20px; } td, th { padding: 5px 4px; }
+    summary .tipo, .apilada { display: none; } summary .nombre { overflow-wrap: normal; word-break: normal; }
+  }
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+(function () {
+  const P = window.ATALAYA_PRUEBAS, COB = window.ATALAYA_COBERTURA, PIT = window.ATALAYA_PIT;
+  const app = document.getElementById("app");
+  // Casos del catálogo (planilla): CP-01 a CP-41, UI-01 a UI-03 y pruebas de infraestructura INF-01 e INF-02.
+  const CATALOGO = { CP: 41, UI: 3, INF: 2 };
+
+  function el(tag, props, ...hijos) {
+    const e = document.createElement(tag);
+    for (const [k, v] of Object.entries(props || {})) {
+      if (k === "class") e.className = v; else if (k === "style") e.style.cssText = v;
+      else if (k.startsWith("on")) e.addEventListener(k.slice(2), v); else e.setAttribute(k, v);
+    }
+    for (const h of hijos.flat()) if (h != null && h !== false) e.append(h instanceof Node ? h : String(h));
+    return e;
+  }
+  const pct = (a, b) => b ? 100 * a / b : 0;
+  const fmt = (n, d = 1) => n.toLocaleString("es-AR", { minimumFractionDigits: d, maximumFractionDigits: d });
+  const seg = ms => fmt(ms / 1000) + " s";
+  const icono = e => e === "OK" ? el("span", { class: "i-ok" }, "✔") : e === "FALLO" ? el("span", { class: "i-mal" }, "✘") : el("span", { class: "i-omit" }, "↷");
+
+  if (!P) { app.append(el("p", {}, "No hay resultados: correr make test.")); return; }
+  const total = P.aprobados + P.fallidos + P.omitidos;
+
+  // Encabezado y estado general
+  app.append(el("header", {},
+    el("h1", {}, "ATALAYA 3.1.0", el("small", {}, "Reporte de pruebas · TP VyV · Grupo E")),
+    el("div", { class: "meta" }, el("b", {}, P.fecha), P.objetivo ? " · make " + P.objetivo : "", " · Java " + P.java)));
+  app.append(el("div", { class: "estado " + (P.fallidos ? "mal" : "ok") },
+    P.fallidos ? "✘ Hay " + P.fallidos + " prueba(s) con fallos" : "✔ Todo en verde"));
+
+  // Indicadores
+  function kpi(rotulo, valor, nota, barra) {
+    return el("div", { class: "kpi" }, el("div", { class: "rotulo" }, rotulo), el("div", { class: "valor" }, valor),
+      nota ? el("div", { class: "nota" }, nota) : null, barra || null);
+  }
+  function barra(valor, umbral) {
+    const color = umbral == null ? "var(--acento)" : valor >= umbral ? "var(--ok)" : "var(--mal)";
+    return el("div", { class: "barra" }, el("span", { style: `width:${valor}%;background:${color}` }),
+      umbral != null ? el("span", { class: "umbral", style: `left:${umbral}%`, title: "umbral " + umbral + " %" }) : null);
+  }
+  const kpis = el("div", { class: "kpis" },
+    kpi("Pruebas", total, P.omitidos ? P.omitidos + " omitidas" : "ninguna omitida"),
+    kpi("Aprobadas", P.aprobados, fmt(pct(P.aprobados, total)) + " %", barra(pct(P.aprobados, total), null)),
+    kpi("Fallidas", P.fallidos, P.fallidos ? "ver detalle abajo" : "sin fallos"),
+    kpi("Duración", seg(P.ms), Object.keys(P.msPorGrupo).length + " clases o suites"));
+  const dominio = COB && COB.paquetes.find(p => p.nombre === "dominio");
+  if (dominio) {
+    const l = pct(...dominio.lineas), r = pct(...dominio.ramas);
+    kpis.append(kpi("Cobertura dominio", fmt(l) + " %", "líneas · ramas " + fmt(r) + " % · umbral 80 / 70", barra(l, 80)));
+  }
+  if (PIT) {
+    const m = PIT.clases.reduce((a, c) => a + c.muertos, 0), t = PIT.clases.reduce((a, c) => a + c.total, 0);
+    kpis.append(kpi("Mutation score", fmt(pct(m, t)) + " %", m + "/" + t + " mutantes · umbral 75 %", barra(pct(m, t), 75)));
+  }
+  app.append(kpis);
+
+  // Por tipo de prueba y casos del catálogo
+  const porTipo = {};
+  for (const c of P.casos) {
+    const t = porTipo[c.tipo] ||= { ok: 0, mal: 0, omit: 0, ms: 0, grupos: new Set() };
+    t[c.estado === "OK" ? "ok" : c.estado === "FALLO" ? "mal" : "omit"]++;
+    if (!t.grupos.has(c.grupo)) { t.grupos.add(c.grupo); t.ms += P.msPorGrupo[c.grupo] || 0; }
+  }
+  const orden = Object.keys(P.tipos);
+  const posicion = t => orden.includes(t) ? orden.indexOf(t) : orden.length;
+  const filasTipo = Object.entries(porTipo).sort(([a], [b]) => posicion(a) - posicion(b))
+    .map(([tipo, t]) => {
+      const n = t.ok + t.mal + t.omit;
+      return el("tr", {}, el("td", {}, P.tipos[tipo] || tipo), el("td", { class: "num" }, n),
+        el("td", { class: "num" }, t.mal ? el("span", { class: "i-mal" }, t.mal) : "0"),
+        el("td", { class: "num" }, seg(t.ms)),
+        el("td", {}, el("div", { class: "apilada", title: `${t.ok} ✔ · ${t.mal} ✘ · ${t.omit} ↷` },
+          el("span", { style: `width:${pct(t.ok, n)}%` }), el("span", { style: `width:${pct(t.mal, n)}%` }),
+          el("span", { style: `width:${pct(t.omit, n)}%` }))));
+    });
+
+  const estadoId = {};
+  for (const c of P.casos) for (const id of c.ids) {
+    const s = estadoId[id] ||= { n: 0, mal: 0 };
+    s.n++; if (c.estado === "FALLO") s.mal++;
+  }
+  const chips = [];
+  for (const [prefijo, cantidad] of Object.entries(CATALOGO))
+    for (let i = 1; i <= cantidad; i++) {
+      const id = prefijo + "-" + String(i).padStart(2, "0"), s = estadoId[id];
+      chips.push(el("span", {
+        class: "chip " + (!s ? "no" : s.mal ? "mal" : "ok"),
+        title: !s ? id + ": no se ejecutó en esta corrida" : `${id}: ${s.n} prueba(s)${s.mal ? ", " + s.mal + " con fallos" : ""}`
+      }, id));
+    }
+  const ejecutados = Object.keys(estadoId).length;
+  app.append(el("div", { class: "columnas" },
+    el("section", { class: "tarjeta" }, el("h2", {}, "Por tipo de prueba"),
+      el("table", {}, el("thead", {}, el("tr", {}, el("th", {}, "Tipo"), el("th", { class: "num" }, "Casos"),
+        el("th", { class: "num" }, "Fallos"), el("th", { class: "num" }, "Tiempo"), el("th", {}, ""))), el("tbody", {}, filasTipo))),
+    el("section", { class: "tarjeta" }, el("h2", {}, `Casos del catálogo · ${ejecutados} ejecutados`),
+      el("div", { class: "chips" }, chips),
+      el("div", { class: "leyenda" }, "Verde: todas sus pruebas pasaron · rojo: alguna falló · gris: no se ejecutó en esta corrida. Pasar el mouse para ver cuántas pruebas tiene."))));
+  app.lastChild.style.marginBottom = "16px";
+
+  // Fallos
+  const fallos = P.casos.filter(c => c.estado === "FALLO");
+  if (fallos.length) {
+    app.append(el("section", { class: "tarjeta" }, el("h2", {}, "Fallos"),
+      fallos.map(c => el("div", { class: "fallo" }, el("b", {}, c.grupo), " › " + c.nombre, el("code", {}, c.mensaje || "")))));
+  }
+
+  // Detalle con filtro
+  const grupos = new Map();
+  for (const c of P.casos) { if (!grupos.has(c.grupo)) grupos.set(c.grupo, []); grupos.get(c.grupo).push(c); }
+  const lista = el("div", {});
+  const buscar = el("input", { type: "search", placeholder: "Filtrar por ID, clase o descripción (ej.: CP-21, escala, ATA-16)" });
+  const soloFallos = el("input", { type: "checkbox" });
+  function pintar() {
+    const q = buscar.value.trim().toLowerCase();
+    lista.replaceChildren();
+    for (const [grupo, casos] of grupos) {
+      const visibles = casos.filter(c => (!soloFallos.checked || c.estado === "FALLO") &&
+        (!q || (grupo + " " + c.nombre + " " + c.ids.join(" ")).toLowerCase().includes(q)));
+      if (!visibles.length) continue;
+      const mal = casos.filter(c => c.estado === "FALLO").length;
+      const d = el("details", {}, el("summary", {},
+        mal ? el("span", { class: "i-mal" }, "✘") : el("span", { class: "i-ok" }, "✔"),
+        el("span", { class: "nombre" }, grupo), el("span", { class: "tipo" }, P.tipos[casos[0].tipo] || casos[0].tipo),
+        el("span", { class: "cuenta" }, `${casos.length} · ${seg(P.msPorGrupo[grupo] || 0)}`)),
+        el("ul", { class: "casos" }, visibles.map(c => el("li", {}, icono(c.estado), el("span", { class: "n" }, c.nombre),
+          el("span", { class: "ms" }, c.ms + " ms")))));
+      d.open = !!q || soloFallos.checked || mal > 0;
+      lista.append(d);
+    }
+    if (!lista.childNodes.length) lista.append(el("p", { class: "vacio" }, "Ninguna prueba coincide con el filtro."));
+  }
+  buscar.addEventListener("input", pintar);
+  soloFallos.addEventListener("change", pintar);
+  app.append(el("section", { class: "tarjeta" }, el("h2", {}, "Detalle por clase o feature"),
+    el("div", { class: "filtros" }, buscar, el("label", {}, soloFallos, " solo fallos")), lista));
+  pintar();
+
+  // Cobertura y PIT
+  const extra = el("div", { class: "columnas" });
+  if (COB) {
+    extra.append(el("section", { class: "tarjeta" }, el("h2", {}, "Cobertura JaCoCo por paquete"),
+      el("table", {}, el("thead", {}, el("tr", {}, el("th", {}, "Paquete"), el("th", { class: "num" }, "Líneas"), el("th", { class: "num" }, "Ramas"))),
+        el("tbody", {}, COB.paquetes.map(p => el("tr", {}, el("td", {}, p.nombre === "dominio" ? el("b", {}, p.nombre) : p.nombre),
+          el("td", { class: "num" }, fmt(pct(...p.lineas)) + " %"),
+          el("td", { class: "num" }, p.ramas[1] ? fmt(pct(...p.ramas)) + " %" : "—"))))),
+      el("div", { class: "leyenda" }, "De la corrida del " + COB.fecha + " (make test).")));
+  }
+  if (PIT) {
+    extra.append(el("section", { class: "tarjeta" }, el("h2", {}, "PIT por clase (dominio)"),
+      el("table", {}, el("thead", {}, el("tr", {}, el("th", {}, "Clase"), el("th", { class: "num" }, "Muertos"), el("th", { class: "num" }, "Score"))),
+        el("tbody", {}, PIT.clases.map(c => el("tr", {}, el("td", {}, c.nombre), el("td", { class: "num" }, c.muertos + "/" + c.total),
+          el("td", { class: "num" }, fmt(pct(c.muertos, c.total)) + " %"))))),
+      PIT.vivos.length ? el("div", { class: "leyenda" }, el("b", {}, "No muertos (analizados en docs/pit-analisis.md):"),
+        el("ul", {}, PIT.vivos.map(v => el("li", {}, `${v.clase}:${v.linea} · ${v.estado} · ${v.descripcion}`)))) : null,
+      el("div", { class: "leyenda" }, "De la corrida del " + PIT.fecha + " (make mutation).")));
+  }
+  if (extra.childNodes.length) app.append(extra);
+
+  app.append(el("footer", {}, "Reportes completos: ",
+    el("a", { href: "../site/jacoco/index.html" }, "JaCoCo"), el("a", { href: "../pit-reports/index.html" }, "PIT"),
+    el("a", { href: "../cucumber-reports/cucumber.html" }, "Cucumber"),
+    el("div", {}, "Generado por make report desde target/. Los enlaces funcionan si esos reportes existen (make test, make mutation).")));
+})();
+</script>
+</body>
+</html>

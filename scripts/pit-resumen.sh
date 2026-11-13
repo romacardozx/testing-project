@@ -3,7 +3,7 @@
 # Umbral del informe (sección 11): mutation score >= 75 % en dominio.
 set -euo pipefail
 xml="${1:-target/pit-reports/mutations.xml}"
-[ -f "$xml" ] || { echo "No existe $xml. Corré: make pit"; exit 1; }
+[ -f "$xml" ] || { echo "No existe $xml. Corré: make mutation"; exit 1; }
 
 if [ -z "${NO_COLOR:-}" ]; then V=$'\e[32m'; R=$'\e[31m'; A=$'\e[33m'; C=$'\e[36m'; N=$'\e[1m'; T=$'\e[2m'; X=$'\e[0m'
 else V=; R=; A=; C=; N=; T=; X=; fi
